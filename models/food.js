@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//note that energy and potassium amounts are based on 100mg of the food
+//note that energy and potassium amounts are based on 100g of the food
 const foodSchema = new Schema({
   foodName: { type: String, required: true },
   foodGroup: { type: String, required: true },
