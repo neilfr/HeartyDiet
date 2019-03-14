@@ -10,6 +10,7 @@ const FoodSchema = new Schema({
   // note that potassium is measured in g
   potassium: { type: Number, required: true },
   // userName that created this food.  Master represents the original db.
+  // userId: [{ type: Schema.Types.ObjectId, ref: "User" }]
   userName: { type: String, required: true }
 });
 

@@ -17,12 +17,11 @@ const userSeed = userData.map(x => {
   return x;
 });
 
-console.log(foodSeed.length, foodSeed[0]);
-
 db.Food.remove({})
   .then(() => db.Food.collection.insertMany(foodSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
+
     process.exit(0);
   })
   .catch(err => {

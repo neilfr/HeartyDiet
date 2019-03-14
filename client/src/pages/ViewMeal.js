@@ -8,38 +8,30 @@ import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 
-class Food extends Component {
+class Meal extends Component {
   state = {
-    foodList: [],
-    foodName: "",
-    foodGroup: "",
-    energy: "",
-    potassium: ""
+    mealList: []
   };
 
   componentDidMount() {
-    this.loadFood();
+    this.loadMeal();
   }
 
-  loadFood = () => {
-    API.getFood()
+  loadMeal = () => {
+    API.getMeal()
       .then(res =>
         this.setState({
-          foodList: res.data,
-          foodName: "",
-          foodGroup: "",
-          energy: "",
-          potassium: ""
+          mealList: res.data
         })
       )
       .catch(err => console.log(err));
   };
 
-  deleteFood = id => {
-    API.deleteFood(id)
-      .then(res => this.loadFood())
-      .catch(err => console.log(err));
-  };
+  // deleteFood = id => {
+  //   API.deleteFood(id)
+  //     .then(res => this.loadFood())
+  //     .catch(err => console.log(err));
+  // };
 
   render() {
     return (
@@ -47,20 +39,18 @@ class Food extends Component {
         <Row>
           <Col size="md-12 sm-12">
             <Jumbotron>
-              <h1>View Food</h1>
+              <h1>View Meal</h1>
             </Jumbotron>
 
-            {this.state.foodList.length ? (
+            {this.state.mealList.length ? (
               <List>
-                {this.state.foodList.map(foodList => (
-                  <Card key={foodList._id}>
+                {this.state.mealList.map(mealList => (
+                  <Card key={mealList._id}>
                     {/* <Link to={"/food/" + food._id}></Link> */}
                     <strong>
-                      Food Name: {foodList.foodName} <br />
-                      Food Group: {foodList.foodGroup} <br />
-                      Energy: {foodList.energy} <br />
-                      Potassium: {foodList.potassium} <br />
-                      Username: {foodList.userName} <br />
+                      Meal Name: {mealList.mealName} <br />
+                      Food: {mealList.foods} <br />
+                      Username: {mealList.userName} <br />
                     </strong>
 
                     {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
@@ -77,4 +67,4 @@ class Food extends Component {
   }
 }
 
-export default Food;
+export default Meal;
