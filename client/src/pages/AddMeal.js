@@ -1,33 +1,37 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../components/DeleteBtn";
+import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-// import { List, ListItem } from "../components/List";
+import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 
-class Food extends Component {
+class Meal extends Component {
   state = {
-    foodName: "",
-    foodGroup: "",
-    energy: "",
-    potassium: "",
-    foodGroup: "",
-    foodGroupList: []
+    mealName: "",
+    foods: 0,
+    // foods: [
+    //   {
+    //     foodId: "",
+    //     servingSize: ""
+    //   }
+    // ],
+    foodList: []
   };
 
   componentDidMount() {
-    this.loadFoodGroup();
+    this.loadFood();
   }
 
-  loadFoodGroup = () => {
-    API.getFoodGroup()
+  loadFood = () => {
+    API.getFoodByFoodGroup("Sweets")
       .then(res =>
         this.setState({
-           foodGroupList: res.data
+          foodList: res.data,
+          mealName: "",
+          foods: 0
         })
-       
       )
       .catch(err => console.log(err));
   };
@@ -43,24 +47,21 @@ class Food extends Component {
     this.setState({
       [name]: value
     });
+    console.log([name], value);
+    console.log(this.state.foods);
   };
 
   handleFormSubmit = event => {
+    alert(this.state.foods);
     event.preventDefault();
-    if (
-      this.state.foodName &&
-      this.state.foodGroup &&
-      this.state.energy &&
-      this.state.potassium
-    ) {
-      API.saveFood({
-        foodName: this.state.foodName,
-        foodGroup: this.state.foodGroup,
-        energy: this.state.energy,
-        potassium: this.state.potassium,
+    if (this.state.mealName) {
+      API.saveMeal({
+        mealName: this.state.mealName,
+        foods: this.state.foods,
         userName: "JohnSmith"
       })
-        .then(res => this.loadFood())
+        .then()
+        //.then(res => this.loadMeal())
         .catch(err => console.log(err));
     }
   };
@@ -71,14 +72,14 @@ class Food extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Add Custom Food</h1>
+              <h1>Add Custom Meal</h1>
             </Jumbotron>
             <form>
               <Input
-                value={this.state.foodName}
+                value={this.state.mealName}
                 onChange={this.handleInputChange}
-                name="foodName"
-                placeholder="Food Name (required)"
+                name="mealName"
+                placeholder="Meal Name (required)"
               />
               {/* <Input
                 value={this.state.foodGroup}
@@ -86,30 +87,25 @@ class Food extends Component {
                 name="foodGroup"
                 placeholder="Food Group (required)"
               /> */}
-              
-              <Dropdown
-                name="foodGroup"
-                onChange={this.handleInputChange}
-                label="Food Group"
-              >
-                {this.state.foodGroupList.map(foodGroupList => (
-                  <option value={foodGroupList.foodGroup}>{foodGroupList.foodGroup}</option>
-                ))}
-                {console.log(this.state.foodGroupList)}
 
+              <Dropdown
+                name="foods"
+                onChange={this.handleInputChange}
+                label="Foods"
+                // value={this.state.foods[0].foodId}
+              >
+                {this.state.foodList.map(foodList => (
+                  <option value={foodList._id}>{foodList.foodName}</option>
+                ))}
+                {console.log(this.state.foodList)}
               </Dropdown>
-              <Input
-                value={this.state.energy}
+              {/* <Input
+                value={this.state.foods[0].servingSize}
                 onChange={this.handleInputChange}
-                name="energy"
-                placeholder="Energy (required)"
-              />
-              <Input
-                value={this.state.potassium}
-                onChange={this.handleInputChange}
-                name="potassium"
-                placeholder="Potassium (required)"
-              />
+                name="servingsize"
+                placeholder="Serving Size (optional)"
+              /> */}
+
               {/* <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}
@@ -118,16 +114,15 @@ class Food extends Component {
               /> */}
               <FormBtn
                 disabled={
-                  !(
-                    this.state.foodName &&
-                    this.state.foodGroup &&
-                    this.state.energy &&
-                    this.state.potassium
-                  )
+                  !this.state.mealName
+
+                  // && this.state.foodGroup &&
+                  // this.state.energy &&
+                  // this.state.potassium
                 }
                 onClick={this.handleFormSubmit}
               >
-                Submit Food
+                Submit Meal
               </FormBtn>
             </form>
           </Col>
@@ -137,4 +132,4 @@ class Food extends Component {
   }
 }
 
-export default Food;
+export default Meal;

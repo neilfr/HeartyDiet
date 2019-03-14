@@ -4,18 +4,21 @@ const db = require("../models");
 module.exports = {
   findAll: function(req, res) {
     db.Food.find(req.query)
-      .sort({ foodName: 1 })
+      .sort({ foodName: -1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findDistinct: function(req, res) {
+    // db.Food.distinct("foodGroup")
+    //db.Food.distinct(req.query)
+    //db.runCommand({ distinct: "heartydiet.Food", key: "foodGroup" })
+    db.Food.find(req.query)
+      .sort({ foodGroup: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Food.findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  findByFoodGroup: function(req, res) {
-    db.Food.find({ foodGroup: req.params.foodGroup })
-      .sort({ foodName: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

@@ -14,12 +14,13 @@ export function Dropdown(props) {
   return (
     <div className="form-group">
       <label>
-        Food Group
+      {props.label}
         <select {...props} className="form-control">
-          <option value="grapefruit">Grapefruit</option>
+         {props.children}
+          {/* <option value="grapefruit">Grapefruit</option>
           <option value="lime">Lime</option>
           <option value="coconut">Coconut</option>
-          <option value="mango">Mango</option>
+          <option value="mango">Mango</option> */}
         </select>
       </label>
     </div>

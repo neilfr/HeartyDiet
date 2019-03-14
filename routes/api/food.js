@@ -14,4 +14,9 @@ router
   .put(foodController.update)
   .delete(foodController.remove);
 
+router
+  .route("/foodByFoodGroup/:foodGroup")
+  .get(foodController.findByFoodGroup)
+  .post(foodController.create);
+
 module.exports = router;

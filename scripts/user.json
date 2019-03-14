@@ -1,1 +1,5 @@
-[{ "userName": "JohnSmith", "favoriteFoods": [] }]
+[
+  { "userName": "master", "favoriteFoods": [] },
+  { "userName": "JohnSmith", "favoriteFoods": [] },
+  { "userName": "JaneDoe", "favoriteFoods": [] }
+]
