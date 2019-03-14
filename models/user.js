@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   userName: { type: String, required: true },
   favoriteFoods: [
-    { type: Schema.Types.ObjectId, ref: "Food", quantity: Number }
+    {
+      foodName: { type: String, required: true },
+      foodGroup: { type: String, required: true },
+      energy: { type: String, required: true },
+      potassium: { type: String, required: true }
+    }
   ]
 });
 
