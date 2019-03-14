@@ -26,7 +26,8 @@ class Food extends Component {
           foodName: "",
           foodGroup: "",
           energy: "",
-          potassium: ""
+          potassium: "",
+          userName: ""
         })
       )
       .catch(err => console.log(err));
@@ -57,7 +58,8 @@ class Food extends Component {
         foodName: this.state.foodName,
         foodGroup: this.state.foodGroup,
         energy: this.state.energy,
-        potassium: this.state.potassium
+        potassium: this.state.potassium,
+        userName: "JoeBlow"
       })
         .then(res => this.loadFood())
         .catch(err => console.log(err));
@@ -79,11 +81,11 @@ class Food extends Component {
                 name="foodName"
                 placeholder="Food Name (required)"
               />
-              <Dropdown
-               // value={this.state.foodGroup}
-                //onChange={this.handleInputChange}
+              <Input
+                value={this.state.foodGroup}
+                onChange={this.handleInputChange}
                 name="foodGroup"
-                //placeholder="Food Group (required)"
+                placeholder="Food Group (required)"
               />
               <Input
                 value={this.state.energy}

@@ -13,8 +13,8 @@ export function Input(props) {
 export function Dropdown(props) {
   return (
     <div className="form-group">
-      <div className="dropdown" {...props}>
-        <button className="btn btn-secondary dropdown-toggle" >
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" {...props}>
           Food Group
         </button>
         <div className="dropdown-menu">
@@ -23,9 +23,6 @@ export function Dropdown(props) {
           </a>
           <a className="dropdown-item" href="#">
             Another action
-          </a>
-          <a className="dropdown-item" href="#">
-            Something else here
           </a>
         </div>
       </div>
