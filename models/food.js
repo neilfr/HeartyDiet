@@ -8,7 +8,9 @@ const foodSchema = new Schema({
   // note energy is measured in kCal
   energy: { type: Number, required: true },
   // note that potassium is measured in g
-  potassium: { type: Number, required: true }
+  potassium: { type: Number, required: true },
+  // userName that created this food.  Master represents the original db.
+  userName: { type: Number, required: true }
 });
 
 const Food = mongoose.model("Food", foodSchema);
