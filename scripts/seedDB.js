@@ -5,9 +5,7 @@ const userData = require("./user.json");
 
 // This file empties the Books collection and inserts the books below
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist"
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/heartydiet");
 
 const foodSeed = foodData.map(x => {
   delete x._id;

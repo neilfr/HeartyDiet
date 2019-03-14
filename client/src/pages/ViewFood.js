@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
+import Card from "../components/Card";
 
 class Food extends Component {
   state = {
@@ -48,10 +49,11 @@ class Food extends Component {
             <Jumbotron>
               <h1>View Food</h1>
             </Jumbotron>
+
             {this.state.foods.length ? (
               <List>
                 {this.state.foods.map(foods => (
-                  <ListItem key={foods._id}>
+                  <Card key={foods._id}>
                     {/* <Link to={"/food/" + food._id}></Link> */}
                     <strong>
                       Food Name: {foods.foodName} <br />
@@ -62,7 +64,7 @@ class Food extends Component {
                     </strong>
 
                     {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                  </ListItem>
+                  </Card>
                 ))}
               </List>
             ) : (

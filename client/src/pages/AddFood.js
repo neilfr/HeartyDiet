@@ -81,11 +81,16 @@ class Food extends Component {
                 name="foodName"
                 placeholder="Food Name (required)"
               />
-              <Input
+              {/* <Input
                 value={this.state.foodGroup}
                 onChange={this.handleInputChange}
                 name="foodGroup"
                 placeholder="Food Group (required)"
+              /> */}
+              <Dropdown
+                name="foodGroup"
+                value={this.state.foodGroup}
+                // onChange={this.handleInputChange}
               />
               <Input
                 value={this.state.energy}
