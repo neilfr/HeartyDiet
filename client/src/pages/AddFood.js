@@ -5,7 +5,7 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 
 class Food extends Component {
   state = {
@@ -70,7 +70,7 @@ class Food extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Add Food</h1>
+              <h1>Add Custom Food</h1>
             </Jumbotron>
             <form>
               <Input
@@ -79,11 +79,11 @@ class Food extends Component {
                 name="foodName"
                 placeholder="Food Name (required)"
               />
-              <Input
-                value={this.state.foodGroup}
-                onChange={this.handleInputChange}
+              <Dropdown
+               // value={this.state.foodGroup}
+                //onChange={this.handleInputChange}
                 name="foodGroup"
-                placeholder="Food Group (required)"
+                //placeholder="Food Group (required)"
               />
               <Input
                 value={this.state.energy}
@@ -118,27 +118,6 @@ class Food extends Component {
               </FormBtn>
             </form>
           </Col>
-          {/* <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron>
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col> */}
         </Row>
       </Container>
     );

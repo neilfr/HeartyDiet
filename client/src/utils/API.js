@@ -20,7 +20,7 @@ export default {
   getUser: function() {
     return axios.get("/api/user");
   },
-  getUserByID: function() {
+  getUserByID: function(id) {
     return axios.get("/api/user/" + id);
   }
 };
