@@ -10,7 +10,8 @@ const DailyPlanSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Meal"
     }
-  ]
+  ],
+  userId: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 const DailyPlan = mongoose.model("DailyPlan", DailyPlanSchema);
