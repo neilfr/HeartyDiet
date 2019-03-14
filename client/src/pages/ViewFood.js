@@ -46,7 +46,7 @@ class Food extends Component {
         <Row>
           <Col size="md-12 sm-12">
             <Jumbotron>
-              <h1>Existing Food</h1>
+              <h1>View Food</h1>
             </Jumbotron>
             {this.state.foods.length ? (
               <List>
@@ -54,8 +54,11 @@ class Food extends Component {
                   <ListItem key={foods._id}>
                     {/* <Link to={"/food/" + food._id}></Link> */}
                     <strong>
-                      {foods.foodName} <br />
-                      {foods.foodGroup}
+                      Food Name: {foods.foodName} <br />
+                      Food Group: {foods.foodGroup} <br />
+                      Energy: {foods.energy} <br />
+                      Potassium: {foods.potassium} <br />
+                      Username: {foods.userName} <br />
                     </strong>
 
                     {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
