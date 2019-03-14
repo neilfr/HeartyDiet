@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Login from "./pages/Login";
 import AddFood from "./pages/AddFood";
 import ViewFood from "./pages/ViewFood";
 import AddMeal from "./pages/AddMeal";
@@ -13,7 +14,7 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/" component={AddFood} />
+          <Route exact path="/" component={Login} />
           <Route exact path="/AddFood" component={AddFood} />
           <Route exact path="/ViewFood" component={ViewFood} />
           <Route exact path="/AddMeal" component={AddMeal} />
