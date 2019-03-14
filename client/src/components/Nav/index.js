@@ -51,6 +51,9 @@ function Nav() {
           </li> */}
         </ul>
       </div>
+      <span className="navbar-text" align="right">
+        Signed in as: <a href="/">Username To Go Here</a>
+      </span>
     </nav>
   );
 }
