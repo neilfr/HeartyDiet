@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+  //To get the picture from recipes API
+  getRecipes: function (query) {
+    return axios.get("https://cors.io/?http://www.recipepuppy.com/api/?q=" + query /*{ params: { q: query } }*/);
+  },
   // Gets all foods
   getFood: function() {
     return axios.get("/api/food");
