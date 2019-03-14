@@ -3,9 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   userName: { type: String, required: true },
-  favoriteFoods: [
-    { type: Schema.Types.ObjectId, ref: "Food", quantity: Number }
-  ]
+  favoriteFoods: [{ type: Schema.Types.ObjectId, ref: "Food" }]
 });
 
 const User = mongoose.model("User", UserSchema);
