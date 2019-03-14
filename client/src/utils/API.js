@@ -20,7 +20,14 @@ export default {
   getUser: function() {
     return axios.get("/api/user");
   },
-  getUserByID: function() {
+  getUserByID: function(id) {
     return axios.get("/api/user/" + id);
+  },
+  getFoodGroup: function() {
+    return axios.get("/api/foodgroup");
+  },
+  // Gets the food with the given id
+  getFoodGroupByID: function(id) {
+    return axios.get("/api/foodgroup/" + id);
   }
 };
