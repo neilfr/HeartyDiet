@@ -15,7 +15,7 @@ router
   .delete(foodGroupController.remove);
 
 router
-  .route("/foodGroupNameByMasterAndUser/:userName")
+  .route("/foodGroupByMasterAndUser/:userName")
   .get(foodGroupController.findByMasterAndUser)
   .put(foodGroupController.update)
   .delete(foodGroupController.remove);
