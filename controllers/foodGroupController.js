@@ -16,7 +16,6 @@ module.exports = {
   },
 
   findByMasterAndUser: function(req, res) {
-    console.log(req);
     db.FoodGroup.find({
       $or: [{ userName: "master" }, { userName: req.params.userName }]
     })

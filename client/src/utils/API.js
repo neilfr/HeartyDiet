@@ -20,7 +20,7 @@ export default {
     return axios.get("/api/food/foodByUser/" + userName);
   },
   getFoodGroupByMasterAndUser: function(userName) {
-    return axios.get("/api/foodgroup/foodGroupNameByMasterAndUser/" + userName);
+    return axios.get("/api/foodgroup/foodGroupByMasterAndUser/" + userName);
   },
   // Gets the food with the given id
   getFoodByID: function(id) {
