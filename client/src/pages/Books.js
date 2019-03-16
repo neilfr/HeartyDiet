@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
+// import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -17,34 +17,33 @@ class FoodItem extends Component {
     pics: null
   };
 
-
-
   handleInputChange = event => {
     this.setState({ foodSearch: event.target.value });
   };
 
-  findPic = (name) => {
+  findPic = name => {
     API.getRecipes(name)
       .then(res => {
-        const ImgRec = res.data.results.filter(recipe => Boolean(recipe.thumbnail))
-        this.setState({ pics: ImgRec.length > 0 ? ImgRec[0].thumbnail : null })
+        const ImgRec = res.data.results.filter(recipe =>
+          Boolean(recipe.thumbnail)
+        );
+        this.setState({ pics: ImgRec.length > 0 ? ImgRec[0].thumbnail : null });
       })
       .catch(err => console.log(err));
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log(foods)
+    console.log(foods);
     foods.map(item => {
-      let key = item.id
-      if (item.foodID === (this.state.foodSearch)) {
-        console.log(item.foodName)
-        this.setState({ results: item })
-        this.findPic(item.foodName)
+      let key = item.id;
+      if (item.foodID === this.state.foodSearch) {
+        console.log(item.foodName);
+        this.setState({ results: item });
+        this.findPic(item.foodName);
       }
-    })
+    });
   };
-
 
   render() {
     return (
@@ -59,11 +58,7 @@ class FoodItem extends Component {
                 name="foodSearch"
                 placeholder="Enter Food Name"
               />
-              <FormBtn
-                onClick={this.handleFormSubmit}
-              >
-                Search Food
-              </FormBtn>
+              <FormBtn onClick={this.handleFormSubmit}>Search Food</FormBtn>
             </form>
           </Col>
         </Row>
@@ -75,12 +70,8 @@ class FoodItem extends Component {
         <FoodContainer>
           {console.log(this.state.pics)}
 
-          {this.state.pics && <FoodPic
-            thumbnail={this.state.pics} />}
-
-
+          {this.state.pics && <FoodPic thumbnail={this.state.pics} />}
         </FoodContainer>
-
       </Container>
     );
   }
