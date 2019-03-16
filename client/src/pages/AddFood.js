@@ -1,43 +1,39 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
+// import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 
 class Food extends Component {
   state = {
     foodName: "",
-    foodGroup: "",
+    foodGroupName: "",
     energy: "",
-    potassium: ""
+    potassium: "",
+    foodGroupList: []
   };
 
   componentDidMount() {
-    this.loadFood();
+    this.loadFoodGroupByMasterAndUser("JohnSmith");
   }
 
-  loadFood = () => {
-    API.getFood()
+  loadFoodGroupByMasterAndUser = userName => {
+    API.getFoodGroupByMasterAndUser(userName)
       .then(res =>
         this.setState({
-          foodName: "",
-          foodGroup: "",
-          energy: "",
-          potassium: "",
-          userName: ""
+          foodGroupList: res.data
         })
       )
       .catch(err => console.log(err));
   };
 
-  deleteFood = id => {
-    API.deleteFood(id)
-      .then(res => this.loadFood())
-      .catch(err => console.log(err));
-  };
+  // deleteFood = id => {
+  //   API.deleteFood(id)
+  //     .then(res => this.loadFood())
+  //     .catch(err => console.log(err));
+  // };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -50,18 +46,25 @@ class Food extends Component {
     event.preventDefault();
     if (
       this.state.foodName &&
-      this.state.foodGroup &&
+      this.state.foodGroupName &&
       this.state.energy &&
       this.state.potassium
     ) {
       API.saveFood({
         foodName: this.state.foodName,
-        foodGroup: this.state.foodGroup,
+        foodGroupName: this.state.foodGroupName,
         energy: this.state.energy,
         potassium: this.state.potassium,
-        userName: "JoeBlow"
+        userName: "JohnSmith"
       })
-        .then(res => this.loadFood())
+        .then(
+          this.setState({
+            foodName: "",
+            foodGroupName: "",
+            energy: "",
+            potassium: ""
+          })
+        )
         .catch(err => console.log(err));
     }
   };
@@ -81,12 +84,19 @@ class Food extends Component {
                 name="foodName"
                 placeholder="Food Name (required)"
               />
-              <Input
-                value={this.state.foodGroup}
+
+              <Dropdown
+                name="foodGroupName"
                 onChange={this.handleInputChange}
-                name="foodGroup"
-                placeholder="Food Group (required)"
-              />
+                label="Food Group"
+                value={this.state.foodGroupName}
+              >
+                {this.state.foodGroupList.map(foodGroupList => (
+                  <option value={foodGroupList.foodGroupName}>
+                    {foodGroupList.foodGroupName}
+                  </option>
+                ))}
+              </Dropdown>
               <Input
                 value={this.state.energy}
                 onChange={this.handleInputChange}
@@ -109,7 +119,7 @@ class Food extends Component {
                 disabled={
                   !(
                     this.state.foodName &&
-                    this.state.foodGroup &&
+                    this.state.foodGroupName &&
                     this.state.energy &&
                     this.state.potassium
                   )

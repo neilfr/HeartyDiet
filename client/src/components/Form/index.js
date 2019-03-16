@@ -13,19 +13,16 @@ export function Input(props) {
 export function Dropdown(props) {
   return (
     <div className="form-group">
-      <div className="dropdown">
-        <button className="btn btn-secondary dropdown-toggle" {...props}>
-          Food Group
-        </button>
-        <div className="dropdown-menu">
-          <a className="dropdown-item" href="#">
-            Action
-          </a>
-          <a className="dropdown-item" href="#">
-            Another action
-          </a>
-        </div>
-      </div>
+      <label>
+      {props.label}
+        <select {...props} className="form-control">
+         {props.children}
+          {/* <option value="grapefruit">Grapefruit</option>
+          <option value="lime">Lime</option>
+          <option value="coconut">Coconut</option>
+          <option value="mango">Mango</option> */}
+        </select>
+      </label>
     </div>
   );
 }
