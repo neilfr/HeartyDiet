@@ -12,13 +12,23 @@ export default {
   getMeal: function() {
     return axios.get("/api/meal");
   },
-  getFoodByFoodGroup: function(foodGroup) {
-    return axios.get("/api/food/foodByFoodGroup/" + foodGroup);
+  getFoodByFoodGroupName: function(foodGroupName) {
+    return axios.get("/api/food/foodByFoodGroupName/" + foodGroupName);
   },
-
+  getFoodByFoodGroupNameAndUser: function(foodGroupName, userName) {
+    return axios.get(
+      "/api/food/foodByFoodGroupNameAndUser/" + foodGroupName + "/" + userName
+    );
+  },
+  getFoodByUser: function(userName) {
+    return axios.get("/api/food/foodByUser/" + userName);
+  },
+  getFoodGroupByMasterAndUser: function(userName) {
+    return axios.get("/api/foodgroup/foodGroupByMasterAndUser/" + userName);
+  },
   // Gets the food with the given id
   getFoodByID: function(id) {
-    return axios.get("/api/food/foodByID" + id);
+    return axios.get("/api/food/foodByID/" + id);
   },
   // Deletes the food with the given id
   deleteFood: function(id) {
@@ -28,6 +38,9 @@ export default {
   saveFood: function(foodData) {
     return axios.post("/api/food", foodData);
   },
+  saveFoodGroup: function(foodGroupData) {
+    return axios.post("/api/foodGroup", foodGroupData);
+  },
   saveMeal: function(mealData) {
     return axios.post("/api/meal", mealData);
   },
@@ -35,13 +48,13 @@ export default {
     return axios.get("/api/user");
   },
   getUserByID: function(id) {
-    return axios.get("/api/user/userByID" + id);
+    return axios.get("/api/user/userByID/" + id);
   },
   getFoodGroup: function() {
     return axios.get("/api/foodgroup");
   },
   // Gets the food with the given id
   getFoodGroupByID: function(id) {
-    return axios.get("/api/foodgroup/foodGroupByID" + id);
+    return axios.get("/api/foodgroup/foodGroupByID/" + id);
   }
 };

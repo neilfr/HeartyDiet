@@ -14,4 +14,10 @@ router
   .put(foodGroupController.update)
   .delete(foodGroupController.remove);
 
+router
+  .route("/foodGroupByMasterAndUser/:userName")
+  .get(foodGroupController.findByMasterAndUser)
+  .put(foodGroupController.update)
+  .delete(foodGroupController.remove);
+
 module.exports = router;
