@@ -1,0 +1,10 @@
+.btn {
+  float: left;
+  padding: 14px 28px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.food-btn {
+  float: none;
+}

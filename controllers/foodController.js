@@ -13,12 +13,31 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findByFoodGroup: function(req, res) {
-    db.Food.find({ foodGroup: req.params.foodGroup })
+  findByFoodGroupName: function(req, res) {
+    db.Food.find({ foodGroupName: req.params.foodGroupName })
       .sort({ foodName: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findByFoodGroupNameAndUser: function(req, res) {
+    db.Food.find({
+      foodGroupName: req.params.foodGroupName,
+      userName: req.params.userName
+    })
+      .sort({ foodName: 1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  findByUser: function(req, res) {
+    db.Food.find({
+      userName: req.params.userName
+    })
+      .sort({ foodName: 1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
   create: function(req, res) {
     db.Food.create(req.body)
       .then(dbModel => res.json(dbModel))
