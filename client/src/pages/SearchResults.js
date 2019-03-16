@@ -5,7 +5,8 @@ function SearchResults(props) {
     return (
         <div>
             <h2>Your Search ends here</h2>
-            <p>{props.results}</p>
+            <p>{props.foodName}</p>
+            <p>Potassium Content:{props.potassium}gm</p>
         </div>
 
     );
