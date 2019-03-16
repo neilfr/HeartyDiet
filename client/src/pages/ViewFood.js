@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
+import Button from "../components/Button";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -11,14 +11,15 @@ import Card from "../components/Card";
 class Food extends Component {
   state = {
     foodList: [],
+    foodGroupList: [],
     foodName: "",
-    foodGroup: "",
+    foodGroupName: "",
     energy: "",
     potassium: ""
   };
 
   componentDidMount() {
-    this.loadFood();
+    this.loadFoodGroupMasterAndUser("JohnSmith");
   }
 
   loadFood = () => {
@@ -27,7 +28,37 @@ class Food extends Component {
         this.setState({
           foodList: res.data,
           foodName: "",
-          foodGroup: "",
+          foodGroupName: "",
+          energy: "",
+          potassium: ""
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadFoodGroupMasterAndUser = userName => {
+    API.getFoodGroupByMasterAndUser(userName)
+      .then(res =>
+        this.setState({
+          foodList: [],
+          foodGroupList: res.data,
+          foodName: "",
+          foodGroupName: "",
+          energy: "",
+          potassium: ""
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
+  loadFoodByFoodGroupName = foodGroupName => {
+    API.getFoodByFoodGroupName(foodGroupName)
+      .then(res =>
+        this.setState({
+          foodList: res.data,
+
+          foodName: "",
+          foodGroupName: "",
           energy: "",
           potassium: ""
         })
@@ -41,37 +72,83 @@ class Food extends Component {
       .catch(err => console.log(err));
   };
 
+  saveFoodByUser = id => {
+    API.getFoodByID(id)
+      // .then(res => this.loadFood())
+      .then(res =>
+        API.saveFood({
+          foodName: res.data.foodName,
+          foodGroupName: res.data.foodGroupName,
+          energy: res.data.energy,
+          potassium: res.data.potassium,
+          userName: "JohnSmith"
+        })
+          .then(alert(res.data.foodName + " saved as favorite food"))
+          .catch(err => console.log(err))
+      )
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12 sm-12">
-            <Jumbotron>
+          <Col size="md-12">
+            {/* <Jumbotron>
               <h1>View Food</h1>
-            </Jumbotron>
+            </Jumbotron> */}
+          </Col>
+        </Row>
 
-            {this.state.foodList.length ? (
-              <List>
-                {this.state.foodList.map(foodList => (
-                  <Card key={foodList._id}>
-                    {/* <Link to={"/food/" + food._id}></Link> */}
-                    <strong>
-                      Food Name: {foodList.foodName} <br />
-                      Food Group: {foodList.foodGroup} <br />
-                      Energy: {foodList.energy} <br />
-                      Potassium: {foodList.potassium} <br />
-                      Username: {foodList.userName} <br />
-                    </strong>
+        <Row>
+          <Col size="md-12">
+            {console.log(this.state.foodGroupList)}
+            {this.state.foodGroupList.length ? (
+              this.state.foodGroupList.map(foodGroupList => (
+                <Button
+                  key={foodGroupList.foodGroupName}
+                  onClick={() =>
+                    this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                  }
+                  className="btn btn-primary"
+                >
+                  {/* <Link to={"/food/" + food._id}></Link> */}
+                  <strong>
+                    {foodGroupList.foodGroupName} <br />
+                  </strong>
 
-                    {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                  </Card>
-                ))}
-              </List>
+                  {/* <DeleteBtn  /> */}
+                </Button>
+              ))
             ) : (
               <h3>No Results to Display</h3>
             )}
           </Col>
         </Row>
+
+        {this.state.foodList.length ? (
+          this.state.foodList.map(foodList => (
+            <Row>
+              <Col size="md-12">
+                <Button
+                  key={foodList._id}
+                  onClick={() => this.saveFoodByUser(foodList._id, "")}
+                  className="btn btn-light btn-lg btn-block"
+                >
+                  <strong>
+                    Food Name: {foodList.foodName} <br />
+                    Food Group: {foodList.foodGroupName} <br />
+                    Energy: {foodList.energy} <br />
+                    Potassium: {foodList.potassium} <br />
+                    Username: {foodList.userName} <br />
+                  </strong>
+                </Button>
+              </Col>
+            </Row>
+          ))
+        ) : (
+          <h3>No Results to Display</h3>
+        )}
       </Container>
     );
   }

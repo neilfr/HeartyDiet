@@ -7,6 +7,9 @@ import AddFood from "./pages/AddFood";
 import ViewFood from "./pages/ViewFood";
 import AddMeal from "./pages/AddMeal";
 import ViewMeal from "./pages/ViewMeal";
+import HomeContainer from "./pages/HomeContainer";
+import ViewFoodFavorite from "./pages/ViewFoodFavorite";
+import AddFoodGroup from "./pages/AddFoodGroup";
 
 function App() {
   return (
@@ -15,10 +18,13 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Login} />
+          <Route exact path="/home" component={HomeContainer} />
           <Route exact path="/AddFood" component={AddFood} />
           <Route exact path="/ViewFood" component={ViewFood} />
+          <Route exact path="/AddFoodGroup" component={AddFoodGroup} />
           <Route exact path="/AddMeal" component={AddMeal} />
           <Route exact path="/ViewMeal" component={ViewMeal} />
+          <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
           {/* <Route exact path="/foods/:id" component={Detail} /> */}
           <Route component={NoMatch} />
         </Switch>

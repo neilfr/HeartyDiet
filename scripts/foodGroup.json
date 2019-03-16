@@ -1,0 +1,27 @@
+[
+  { "foodGroupName": "Baked Products", "userName": "master" },
+  { "foodGroupName": "Spices and Herbs", "userName": "master" },
+  { "foodGroupName": "Dairy and Egg Products", "userName": "master" },
+  { "foodGroupName": "Beverages", "userName": "master" },
+  { "foodGroupName": "Sweets", "userName": "master" },
+  { "foodGroupName": "Cereals| Grains and Pasta", "userName": "master" },
+  { "foodGroupName": "Babyfoods", "userName": "master" },
+  { "foodGroupName": "Fats and Oils", "userName": "master" },
+  { "foodGroupName": "Poultry Products", "userName": "master" },
+  { "foodGroupName": "Soups| Sauces and Gravies", "userName": "master" },
+  { "foodGroupName": "Sausages and Luncheon meats", "userName": "master" },
+  { "foodGroupName": "Breakfast cereals", "userName": "master" },
+  { "foodGroupName": "Fruits and fruit juices", "userName": "master" },
+  { "foodGroupName": "Pork Products", "userName": "master" },
+  {
+    "foodGroupName": "Vegetables and Vegetable Products",
+    "userName": "master"
+  },
+  { "foodGroupName": "Nuts and Seeds", "userName": "master" },
+  { "foodGroupName": "Legumes and Legume Products", "userName": "master" },
+  { "foodGroupName": "Beef Products", "userName": "master" },
+  { "foodGroupName": "Finfish and Shellfish Products", "userName": "master" },
+  { "foodGroupName": "Lamb| Veal and Game", "userName": "master" },
+  { "foodGroupName": "Snacks", "userName": "master" },
+  { "foodGroupName": "Fast Foods", "userName": "master" }
+]

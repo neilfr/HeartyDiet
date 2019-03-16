@@ -10,31 +10,13 @@ import SearchResults from "./SearchResults";
 import foods from "./food.json";
 import { FoodPic, FoodContainer } from "./FoodPic";
 
-class Books extends Component {
+class FoodItem extends Component {
   state = {
     results: "",
     foodSearch: "",
     pics: null
   };
 
-  // componentDidMount() {
-  //   this.loadBooks();
-  // }
-
-  // loadBooks = () => {
-  //   API.getBooks()
-  //     .then(res => {
-  //       console.log(res.data);
-  //       this.setState({ results: res.data });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
 
 
   handleInputChange = event => {
@@ -69,9 +51,7 @@ class Books extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
-              <h1>What Food Can I Eat?</h1>
-            </Jumbotron>
+            <h1>What Food Can I Eat?</h1>
             <form>
               <Input
                 value={this.state.foodSearch}
@@ -88,7 +68,9 @@ class Books extends Component {
           </Col>
         </Row>
 
-        <SearchResults results={this.state.results.foodName}
+        <SearchResults
+          foodName={this.state.results.foodName}
+          potassium={this.state.results.potassium}
         />
         <FoodContainer>
           {console.log(this.state.pics)}
@@ -104,4 +86,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default FoodItem;
