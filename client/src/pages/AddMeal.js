@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -25,7 +24,8 @@ class Meal extends Component {
   }
 
   loadFood = () => {
-    API.getFoodByFoodGroup("Sweets")
+    API.getFoodByFoodGroupNameAndUser("Sweets", "master")
+      // API.getFoodByFoodGroupAndUser("Sweets", "JohnSmith")
       .then(res =>
         this.setState({
           foodList: res.data,
@@ -81,12 +81,6 @@ class Meal extends Component {
                 name="mealName"
                 placeholder="Meal Name (required)"
               />
-              {/* <Input
-                value={this.state.foodGroup}
-                onChange={this.handleInputChange}
-                name="foodGroup"
-                placeholder="Food Group (required)"
-              /> */}
 
               <Dropdown
                 name="foods"

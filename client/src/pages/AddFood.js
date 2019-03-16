@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
@@ -10,24 +9,22 @@ import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 class Food extends Component {
   state = {
     foodName: "",
-    foodGroup: "",
+    foodGroupName: "",
     energy: "",
     potassium: "",
-    foodGroup: "",
     foodGroupList: []
   };
 
   componentDidMount() {
-    this.loadFoodGroup();
+    this.loadFoodGroupByMasterAndUser("JohnSmith");
   }
 
-  loadFoodGroup = () => {
-    API.getFoodGroup()
+  loadFoodGroupByMasterAndUser = userName => {
+    API.getFoodGroupByMasterAndUser(userName)
       .then(res =>
         this.setState({
-           foodGroupList: res.data
+          foodGroupList: res.data
         })
-       
       )
       .catch(err => console.log(err));
   };
@@ -49,18 +46,25 @@ class Food extends Component {
     event.preventDefault();
     if (
       this.state.foodName &&
-      this.state.foodGroup &&
+      this.state.foodGroupName &&
       this.state.energy &&
       this.state.potassium
     ) {
       API.saveFood({
         foodName: this.state.foodName,
-        foodGroup: this.state.foodGroup,
+        foodGroupName: this.state.foodGroupName,
         energy: this.state.energy,
         potassium: this.state.potassium,
         userName: "JohnSmith"
       })
-        .then(res => this.loadFood())
+        .then(
+          this.setState({
+            foodName: "",
+            foodGroupName: "",
+            energy: "",
+            potassium: ""
+          })
+        )
         .catch(err => console.log(err));
     }
   };
@@ -80,23 +84,18 @@ class Food extends Component {
                 name="foodName"
                 placeholder="Food Name (required)"
               />
-              {/* <Input
-                value={this.state.foodGroup}
-                onChange={this.handleInputChange}
-                name="foodGroup"
-                placeholder="Food Group (required)"
-              /> */}
-              
+
               <Dropdown
-                name="foodGroup"
+                name="foodGroupName"
                 onChange={this.handleInputChange}
                 label="Food Group"
+                value={this.state.foodGroupName}
               >
                 {this.state.foodGroupList.map(foodGroupList => (
-                  <option value={foodGroupList.foodGroup}>{foodGroupList.foodGroup}</option>
+                  <option value={foodGroupList.foodGroupName}>
+                    {foodGroupList.foodGroupName}
+                  </option>
                 ))}
-                {console.log(this.state.foodGroupList)}
-
               </Dropdown>
               <Input
                 value={this.state.energy}
@@ -120,7 +119,7 @@ class Food extends Component {
                 disabled={
                   !(
                     this.state.foodName &&
-                    this.state.foodGroup &&
+                    this.state.foodGroupName &&
                     this.state.energy &&
                     this.state.potassium
                   )

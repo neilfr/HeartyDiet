@@ -36,6 +36,11 @@ function Nav() {
             </a>
           </li>
           <li className="nav-item">
+            <a className="nav-link" href="/AddFoodGroup">
+              Add Food Group
+            </a>
+          </li>
+          <li className="nav-item">
             <a className="nav-link" href="/AddMeal">
               Add Meal
             </a>
@@ -43,6 +48,11 @@ function Nav() {
           <li className="nav-item">
             <a className="nav-link" href="/ViewMeal">
               View Meal
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/ViewFoodFavorite">
+              View Favorite Foods
             </a>
           </li>
           {/* <li className="nav-item">
