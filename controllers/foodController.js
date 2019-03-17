@@ -1,23 +1,34 @@
 const db = require("../models");
 
+//included res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+//to enable virtual fields in Mongoose.  Documentation: https://mongoosejs.com/docs/guide.html#virtuals
+
 // Defining methods for the foodController
 module.exports = {
   findAll: function(req, res) {
     db.Food.find(req.query)
       .sort({ foodName: 1 })
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
-    db.Food.findById(req.params.id)
+    // db.Food.findById(req.params.id)
+    db.Food.find({ _id: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findByFoodGroupName: function(req, res) {
     db.Food.find({ foodGroupName: req.params.foodGroupName })
       .sort({ foodName: 1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
+      .catch(err => {
+        res.status(422).json(err);
+        console.log(err);
+      });
   },
   findByFoodGroupNameAndUser: function(req, res) {
     db.Food.find({
@@ -25,7 +36,9 @@ module.exports = {
       userName: req.params.userName
     })
       .sort({ foodName: 1 })
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
 
@@ -34,7 +47,9 @@ module.exports = {
       userName: req.params.userName
     })
       .sort({ foodName: 1 })
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
 

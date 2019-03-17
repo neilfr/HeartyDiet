@@ -18,7 +18,8 @@ class Food extends Component {
     energy: "",
     potassium: "",
     thumbnail: null,
-    pics: null
+    pics: null,
+    efficiency: ""
   };
 
   componentDidMount() {
@@ -34,7 +35,8 @@ class Food extends Component {
           foodName: "",
           foodGroupName: "",
           energy: "",
-          potassium: ""
+          potassium: "",
+          efficiency: ""
         })
       )
       .catch(err => console.log(err));
@@ -50,7 +52,8 @@ class Food extends Component {
           foodName: "",
           foodGroupName: "",
           energy: "",
-          potassium: ""
+          potassium: "",
+          efficiency: ""
         })
       )
       .catch(err => console.log(err));
@@ -69,7 +72,8 @@ class Food extends Component {
           foodName: "",
           foodGroupName: "",
           energy: "",
-          potassium: ""
+          potassium: "",
+          efficiency: ""
         })
       )
       .catch(err => console.log(err));
@@ -193,6 +197,11 @@ class Food extends Component {
                     Username: {foodList.userName} <br /> */}
 
                 </Card>
+                {/* Efficiency: {foodList.efficiency}
+                    <br />
+                    Username: {foodList.userName} <br />
+                  </strong> */}
+                {/* </Button> */}
               </Col>
 
             ))

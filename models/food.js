@@ -16,4 +16,14 @@ const FoodSchema = new Schema({
 
 const Food = mongoose.model("Food", FoodSchema);
 
+FoodSchema.virtual("efficiency").get(function() {
+  return parseInt(this.potassium) === 0
+    ? 0
+    : parseInt(this.energy) / parseInt(this.potassium);
+});
+// .set(function() {
+//   this.efficiency = 1000;
+//   // parseInt(potassium) === 0 ? 0 : parseInt(energy) / parseInt(potassium);
+// });
+
 module.exports = Food;
