@@ -77,9 +77,8 @@ class Food extends Component {
   };
 
   saveFoodByUser = id => {
-    alert(id);
     API.getFoodByID(id)
-      // .then(res => this.loadFood())
+
       .then(res => {
         API.saveFood({
           foodName: res.data.foodName,
