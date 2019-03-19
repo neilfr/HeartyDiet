@@ -1,10 +1,21 @@
 .btn {
-  float: left;
-  padding: 14px 28px;
+  /* float: left; */
+  /* padding: 14px 28px; */
   font-size: 20px;
-  text-align: center;
+  /* text-align: center; */
+  border: none;
+  /* max-width:20%; */
+
 }
 
 .food-btn {
   float: none;
+}
+
+.design{
+  height: 60px;
+  margin: 20px;
+  /* padding: 20px 0; */
+  background-color: white;
+  border: none;
 }
