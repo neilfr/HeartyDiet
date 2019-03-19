@@ -1,0 +1,16 @@
+.holder{
+    height:140px;
+    margin: 10px;
+    white-space: normal;
+    border: 1px solid gray;
+}
+
+.custom-btn {
+    font-size: 18px;
+    border: 0;
+    max-width: 130px;
+    text-align: center;
+    white-space: normal;
+    margin-top:15px;
+    background-color: white;
+  }

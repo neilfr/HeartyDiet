@@ -8,6 +8,11 @@ import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 import { FoodPic, FoodContainer } from "./FoodPic";
+import "./viewFoodStyle.css";
+//import { faHome } from "@fortawesome/free-solid-svg-icons";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'font-awesome/css/font-awesome.min.css'
+
 
 
 class Food extends Component {
@@ -122,6 +127,10 @@ class Food extends Component {
   }
 
   render() {
+    const holder = {
+      height: '100px',
+      backgroundColor: 'blue'
+    };
     return (
       <Container fluid>
         <Row>
@@ -140,29 +149,34 @@ class Food extends Component {
             {this.state.foodGroupList.length ? (
               this.state.foodGroupList.map(foodGroupList => (
                 <Col size="lg-4">
-                  <Container>
-                    {/* {console.log(foodGroupList.pic)} */}
-                    <Row>
-                      <Col size="md-4">
-                        <img style={{ width: 85, height: 85, marginTop: 10 }} alt={foodGroupList.foodGroupName} src={foodGroupList.image} />
-                      </Col>
-                      <Col size="md-8">
-                        <Button
-                          key={foodGroupList.foodGroupName}
-                          onClick={() =>
-                            this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                          }
-                          className="btn btn-primary"
-                        >
-                          {/* <Link to={"/food/" + food._id}></Link> */}
-                          <strong>
-                            {foodGroupList.foodGroupName} <br />
-                          </strong>
+                  <Container >
+                    <div className="holder"
+                      onClick={() =>
+                        this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                      }>
+                      {console.log(foodGroupList.image)}
+                      <Row style={{ backgroundColor: 'blue' }}>
+                        <Col size="md-4">
+                          <img style={{ width: 85, height: 85, margin: 10 }} alt="foodPic" src={foodGroupList.image} />
+                        </Col>
+                        <Col size="md-8">
 
-                          {/* <DeleteBtn  /> */}
-                        </Button>
-                      </Col>
-                    </Row>
+                          <Button
+                            key={foodGroupList.foodGroupName}
+                            className="custom-btn">
+                            {/* <Link to={"/food/" + food._id}></Link> */}
+                            <strong>
+                              <p className="button-text"> {foodGroupList.foodGroupName} </p>
+                            </strong>
+
+                            {/* <DeleteBtn  /> */}
+                          </Button>
+                        </Col>
+                      </Row>
+                      <div className="text-right" style={{ marginRight: 10 }}>
+                        <i className="fa fa-heartbeat"></i>
+                      </div>
+                    </div>
                   </Container>
                 </Col>
               ))
@@ -187,13 +201,10 @@ class Food extends Component {
                     Energy: {foodList.energy} <br />
                     Potassium: {foodList.potassium} <br />
                     Username: {foodList.userName} <br />
+                    Efficiency: {foodList.efficiency} <br />
+                    Username: {foodList.userName} <br />
                   </strong>
                 </Button>
-                {/* Efficiency: {foodList.efficiency}
-                    <br />
-                    Username: {foodList.userName} <br />
-                  </strong> */}
-                {/* </Button> */}
               </Col>
 
             ))
