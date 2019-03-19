@@ -110,15 +110,7 @@ class Food extends Component {
   };
 
   // loading cards specific to food group on button click
-  findPic = (name) => {
-    API.getRecipes(name)
-      .then(res => {
-        const ImgRec = res.data.results.filter(recipe => Boolean(recipe.thumbnail))
-        this.setState({ pics: ImgRec.length > 0 ? ImgRec[0].thumbnail : null })
-        console.log(this.state.pics)
-      })
-      .catch(err => console.log(err));
-  };
+
 
   loadFoodCards = (GroupName) => {
     this.state.foodGroupList.map(group => {
@@ -156,22 +148,16 @@ class Food extends Component {
                       </Col>
                       <Col size="md-8">
                         <Button
-                          className="btn btn-default"
                           key={foodGroupList.foodGroupName}
-                          // onClick={() =>
-                          //   this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                          // }
-                          loadFoodByGroupName={this.loadFoodByFoodGroupName}
-                          GroupName={foodGroupList.foodGroupName}
-                          pic={foodGroupList.pic}
-                          loadFoodCards={this.loadFoodCards}
-                          foodList={this.foodList}
+                          onClick={() =>
+                            this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                          }
+                          className="btn btn-primary"
                         >
-
                           {/* <Link to={"/food/" + food._id}></Link> */}
-                          {/* <strong>
-                    {foodGroupList.foodGroupName} <br />
-                  </strong> */}
+                          <strong>
+                            {foodGroupList.foodGroupName} <br />
+                          </strong>
 
                           {/* <DeleteBtn  /> */}
                         </Button>
@@ -190,24 +176,19 @@ class Food extends Component {
           {this.state.foodList.length ? (
             this.state.foodList.map(foodList => (
               <Col size="md-3">
-                <Card
-                  foodList={foodList}
-                  foodName={foodList.foodName}
-                  foodGroup={foodList.foodGroupName}
+                <Button
                   key={foodList._id}
-                  id={foodList._id}
-                  saveFoodByUser={this.saveFoodByUser}
-                  // onClick={() => this.saveFoodByUser(foodList._id, "")}
+                  onClick={() => this.saveFoodByUser(foodList._id, "")}
                   className="btn btn-light btn-lg btn-block"
                 >
-
-                  {/* Food Name: {foodList.foodName} <br />
+                  <strong>
+                    Food Name: {foodList.foodName} <br />
                     Food Group: {foodList.foodGroupName} <br />
                     Energy: {foodList.energy} <br />
                     Potassium: {foodList.potassium} <br />
-                    Username: {foodList.userName} <br /> */}
-
-                </Card>
+                    Username: {foodList.userName} <br />
+                  </strong>
+                </Button>
                 {/* Efficiency: {foodList.efficiency}
                     <br />
                     Username: {foodList.userName} <br />
