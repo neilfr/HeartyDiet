@@ -3,38 +3,56 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
+import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
+import DeleteBtn from "../components/DeleteBtn";
 
 class Meal extends Component {
   state = {
     mealName: "",
-    foods: 0,
-    // foods: [
-    //   {
-    //     foodId: "",
-    //     servingSize: ""
-    //   }
-    // ],
-    foodList: []
+    mealList: []
   };
 
   componentDidMount() {
-    this.loadFood();
+    this.loadMeal();
   }
 
-  loadFood = () => {
-    API.getFoodByFoodGroupNameAndUser("Sweets", "master")
-      // API.getFoodByFoodGroupAndUser("Sweets", "JohnSmith")
-      .then(res =>
+  loadMeal = () => {
+    API.getMeal()
+      .then(res => {
+        console.log("res is: ", res.data);
         this.setState({
-          foodList: res.data,
-          mealName: "",
-          foods: 0
-        })
-      )
+          mealList: res.data
+        });
+      })
       .catch(err => console.log(err));
   };
+
+  deleteMeal = id => {
+    API.deleteMeal(id)
+      .then(res => {
+        console.log("res is: ", res.data);
+        window.location.href = "/AddMeal";
+        // this.setState({
+        //   mealList: res.data
+        // });
+      })
+      .catch(err => console.log(err));
+  };
+
+  // loadFood = () => {
+  //   API.getFoodByFoodGroupNameAndUser("Sweets", "master")
+  //     // API.getFoodByFoodGroupAndUser("Sweets", "JohnSmith")
+  //     .then(res =>
+  //       this.setState({
+  //         foodList: res.data,
+  //         mealName: "",
+  //         foods: 0
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   // deleteFood = id => {
   //   API.deleteFood(id)
@@ -48,7 +66,7 @@ class Meal extends Component {
       [name]: value
     });
     console.log([name], value);
-    console.log(this.state.foods);
+    // console.log(this.state.foods);
   };
 
   handleFormSubmit = event => {
@@ -57,10 +75,9 @@ class Meal extends Component {
     if (this.state.mealName) {
       API.saveMeal({
         mealName: this.state.mealName,
-        foods: this.state.foods,
         userName: "JohnSmith"
       })
-        .then()
+        .then(res => (window.location.href = "/AddMeal"))
         //.then(res => this.loadMeal())
         .catch(err => console.log(err));
     }
@@ -72,53 +89,62 @@ class Meal extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Add Custom Meal</h1>
+              <h1>Add New Meal</h1>
             </Jumbotron>
-            <form>
-              <Input
-                value={this.state.mealName}
-                onChange={this.handleInputChange}
-                name="mealName"
-                placeholder="Meal Name (required)"
-              />
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            {/* <form> */}
+            <Input
+              value={this.state.mealName}
+              onChange={this.handleInputChange}
+              name="mealName"
+              placeholder="Meal Name (required)"
+            />
+            <FormBtn
+              disabled={
+                !this.state.mealName
 
-              <Dropdown
-                name="foods"
-                onChange={this.handleInputChange}
-                label="Foods"
-                // value={this.state.foods[0].foodId}
-              >
-                {this.state.foodList.map(foodList => (
-                  <option value={foodList._id}>{foodList.foodName}</option>
-                ))}
-                {console.log(this.state.foodList)}
-              </Dropdown>
-              {/* <Input
+                // && this.state.foodGroup &&
+                // this.state.energy &&
+                // this.state.potassium
+              }
+              onClick={this.handleFormSubmit}
+            >
+              Add Meal
+            </FormBtn>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-12">
+            <>
+              {/* // name="foods" // onChange={this.handleInputChange}
+              // label="Foods" // // value={this.state.foods[0].foodId}> */}
+              {this.state.mealList.map(meal => (
+                // <ListItem value={meal._id}>
+                <Card value={meal._id}>
+                  {meal.mealName}
+                  <DeleteBtn onClick={() => this.deleteMeal(meal._id)} />
+                </Card>
+                // </ListItem>
+              ))}
+              {/* {console.log(this.state.mealList)} */}
+            </>
+            {/* <Input
                 value={this.state.foods[0].servingSize}
                 onChange={this.handleInputChange}
                 name="servingsize"
                 placeholder="Serving Size (optional)"
               /> */}
 
-              {/* <TextArea
+            {/* <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}
                 name="synopsis"
                 placeholder="Synopsis (Optional)"
               /> */}
-              <FormBtn
-                disabled={
-                  !this.state.mealName
-
-                  // && this.state.foodGroup &&
-                  // this.state.energy &&
-                  // this.state.potassium
-                }
-                onClick={this.handleFormSubmit}
-              >
-                Submit Meal
-              </FormBtn>
-            </form>
+            {/* </form> */}
           </Col>
         </Row>
       </Container>
