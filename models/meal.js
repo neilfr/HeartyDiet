@@ -11,8 +11,9 @@ const mealSchema = new Schema({
   //     servingSize: { type: Number, required: true }
   //   }
   // ],
-  foods: { type: String, required: true },
+  // foods: { type: String, required: true },
   // userId: [{ type: Schema.Types.ObjectId, ref: "User" }]
+  foodList: [{ _id: Number }, { foodName: String }, { servingSize: Number }],
   userName: { type: String, required: true }
 });
 
