@@ -96,7 +96,7 @@ class Food extends Component {
           userName: "JohnSmith"
         })
           .then(
-            res.data.forEach(function(element) {
+            res.data.forEach(function (element) {
               alert(element.foodName + " saved as favorite food");
             })
           )
@@ -191,7 +191,9 @@ class Food extends Component {
                   foodName={foodList.foodName}
                   foodGroup={foodList.foodGroupName}
                   key={foodList._id}
-                  onClick={() => this.saveFoodByUser(foodList._id, "")}
+                  id={foodList._id}
+                  saveFoodByUser={this.saveFoodByUser}
+                  // onClick={() => this.saveFoodByUser(foodList._id, "")}
                   className="btn btn-light btn-lg btn-block"
                 >
 
