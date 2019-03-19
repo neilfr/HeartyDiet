@@ -28,5 +28,16 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+
+  findByUser: function(req, res) {
+    db.Meal.find({
+      userName: req.params.userName
+    })
+      .sort({ mealName: 1 })
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
+      .catch(err => res.status(422).json(err));
   }
 };

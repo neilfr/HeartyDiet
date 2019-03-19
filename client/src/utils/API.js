@@ -16,6 +16,9 @@ export default {
   getMeal: function() {
     return axios.get("/api/meal");
   },
+  getMealByUser: function(userName) {
+    return axios.get("/api/meal/mealByUser/" + userName);
+  },
   deleteMeal: function(id) {
     return axios.delete("/api/meal/" + id);
   },
