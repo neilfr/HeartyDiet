@@ -86,8 +86,8 @@ class Food extends Component {
 
   saveFoodByUser = id => {
     API.getFoodByID(id)
-      // .then(res => this.loadFood())
-      .then(res =>
+
+      .then(res => {
         API.saveFood({
           foodName: res.data.foodName,
           foodGroupName: res.data.foodGroupName,
@@ -95,9 +95,13 @@ class Food extends Component {
           potassium: res.data.potassium,
           userName: "JohnSmith"
         })
-          .then(alert(res.data.foodName + " saved as favorite food"))
-          .catch(err => console.log(err))
-      )
+          .then(
+            res.data.forEach(function(element) {
+              alert(element.foodName + " saved as favorite food");
+            })
+          )
+          .catch(err => console.log(err));
+      })
       .catch(err => console.log(err));
   };
 
