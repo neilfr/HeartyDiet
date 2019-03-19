@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./style.css"
 
 function Card(props) {
   return (
@@ -8,18 +8,12 @@ function Card(props) {
         <div className="card-title">
           <div className="card-subtitle mb-2 text-muted">
             <div className="card-body">
-              {/* <a href="#" class="card-link">Card link</a> */}
-
-
-
-              {/* Food Name: {props.foodName} <br />
-                Food Group: {props.foodGroupName} <br />
-                Energy: {props.energy} <br />
-                Potassium: {props.potassium} <br />
-                Username: {props.userName} <br /> */}
-              {props.foodName}
-
-
+              Food Name:{props.foodList.foodName} <br />
+              Food Group: {props.foodList.foodGroupName} <br />
+              Potassium: {props.foodList.potassium} <br />
+              Energy:{props.foodList.energy}<br />
+              Efficiency:{props.foodList.efficiency}<br />
+              Username: {props.foodList.userName} <br />
             </div>
           </div>
         </div>
