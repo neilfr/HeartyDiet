@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
-// import DeleteBtn from "../components/DeleteBtn";
-=======
->>>>>>> d2d38c2f3b354cbc9a40b109a20480b21f1f32ea
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
