@@ -2,8 +2,11 @@ import axios from "axios";
 
 export default {
   //To get the picture from recipes API
-  getRecipes: function (query) {
-    return axios.get("https://cors.io/?http://www.recipepuppy.com/api/?q=" + query /*{ params: { q: query } }*/);
+  getRecipes: function(query) {
+    return axios.get(
+      "https://cors.io/?http://www.recipepuppy.com/api/?q=" +
+        query /*{ params: { q: query } }*/
+    );
   },
   // Gets all foods
   getFood: function() {
@@ -31,8 +34,12 @@ export default {
     return axios.get("/api/food/foodByID/" + id);
   },
   // Deletes the food with the given id
-  deleteFood: function(id) {
-    return axios.delete("/api/food/" + id);
+  deleteFoodByID: function(id) {
+    return axios.delete("/api/food/foodByID/" + id);
+  },
+  // Update the food with the given id
+  updateFoodByID: function(id) {
+    return axios.put("/api/food/foodByID/" + id);
   },
   // Saves a food to the database
   saveFood: function(foodData) {

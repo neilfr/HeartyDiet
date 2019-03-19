@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
-import Card from "../components/Card";
 
 class Food extends Component {
   state = {
@@ -80,13 +79,16 @@ class Food extends Component {
     API.getFoodByID(id)
 
       .then(res => {
-        API.saveFood({
-          foodName: res.data.foodName,
-          foodGroupName: res.data.foodGroupName,
-          energy: res.data.energy,
-          potassium: res.data.potassium,
-          userName: "JohnSmith"
-        })
+        console.log(res);
+        API.saveFood(
+          res.data.map(food => ({
+            foodName: food.foodName,
+            foodGroupName: food.foodGroupName,
+            energy: food.energy,
+            potassium: food.potassium,
+            userName: "JohnSmith"
+          }))
+        )
           .then(
             res.data.forEach(function(element) {
               alert(element.foodName + " saved as favorite food");

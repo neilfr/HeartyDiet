@@ -19,7 +19,7 @@ const Food = mongoose.model("Food", FoodSchema);
 FoodSchema.virtual("efficiency").get(function() {
   return parseInt(this.potassium) === 0
     ? 0
-    : parseInt(this.energy) / parseInt(this.potassium);
+    : parseFloat(parseInt(this.energy) / parseInt(this.potassium)).toFixed(2);
 });
 // .set(function() {
 //   this.efficiency = 1000;

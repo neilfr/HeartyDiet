@@ -5,7 +5,8 @@ const foodController = require("../../controllers/foodController");
 router
   .route("/")
   .get(foodController.findAll)
-  .post(foodController.create);
+  .post(foodController.create)
+  .delete(foodController.remove);
 
 // Matches with "/api/food/:id"
 router
