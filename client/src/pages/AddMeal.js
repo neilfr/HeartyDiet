@@ -15,10 +15,10 @@ class Meal extends Component {
   };
 
   componentDidMount() {
-    this.loadMeal();
+    this.loadMeals();
   }
 
-  loadMeal = () => {
+  loadMeals = () => {
     API.getMealByUser("JohnSmith")
       .then(res => {
         console.log("res is: ", res.data);
@@ -77,8 +77,9 @@ class Meal extends Component {
         mealName: this.state.mealName,
         userName: "JohnSmith"
       })
+        //todo this refreshes the screen... or should i update state?
         .then(res => (window.location.href = "/AddMeal"))
-        //.then(res => this.loadMeal())
+        //.then(res => this.loadMeals())
         .catch(err => console.log(err));
     }
   };
