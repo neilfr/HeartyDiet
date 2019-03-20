@@ -16,6 +16,10 @@ export default {
   getMeal: function() {
     return axios.get("/api/meal");
   },
+  //! this is the new one
+  updateMealByID: function(id, updatedMeal) {
+    return axios.put("/api/meal/" + id, updatedMeal);
+  },
   getMealByUser: function(userName) {
     return axios.get("/api/meal/mealByUser/" + userName);
   },
