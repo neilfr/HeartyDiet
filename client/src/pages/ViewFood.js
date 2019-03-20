@@ -9,6 +9,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 import { FoodPic, FoodContainer } from "./FoodPic";
 import "./viewFoodStyle.css";
+import SearchResults from "./SearchResults";
 //import { faHome } from "@fortawesome/free-solid-svg-icons";
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
@@ -24,12 +25,14 @@ class Food extends Component {
     energy: "",
     potassium: "",
     pics: null,
-    efficiency: ""
+    efficiency: "",
+    results: [],
+    foodSearch: "",
   };
 
   componentDidMount() {
     this.loadFoodGroupMasterAndUser("master");
-
+    this.loadFood();
   }
 
   loadFood = () => {
@@ -114,17 +117,42 @@ class Food extends Component {
       .catch(err => console.log(err));
   };
 
-  // loading cards specific to food group on button click
-
-
-  loadFoodCards = (GroupName) => {
-    this.state.foodGroupList.map(group => {
-      if (group.foodGroupName == GroupName) {
-        this.loadFoodByFoodGroupName(GroupName)
-        console.log(GroupName, this.state.foodList, this.state.pics)
+  // loading foodList specific to food group on button click
+  // loadFoodCards = (GroupName) => {
+  //   this.state.foodGroupList.map(group => {
+  //     if (group.foodGroupName == GroupName) {
+  //       this.loadFoodByFoodGroupName(GroupName)
+  //       console.log(GroupName, this.state.foodList, this.state.pics)
+  //     }
+  //   })
+  // }
+  //for search bar
+  loadFoodOnSearch = (id) => {
+    console.log(this.state.foodList)
+    this.state.foodList.map(foodItem => {
+      if (foodItem.FoodID === id) {
+        console.log(foodItem)
+        this.setState({ results: foodItem })
+        console.log(this.state.results)
       }
     })
   }
+
+  handleInputChange = event => {
+    this.setState({ foodSearch: event.target.value });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    //this.loadFoodOnSearch(this.state.foodSearch)
+    this.state.foodList.map(foodItem => {
+      if (foodItem.FoodID === this.state.foodSearch) {
+        console.log(foodItem)
+        this.setState({ results: foodItem })
+        console.log(this.state.results)
+      }
+    })
+  };
 
   render() {
     const holder = {
@@ -139,6 +167,19 @@ class Food extends Component {
               <h1>View Food</h1>
             </Jumbotron> */}
           </Col>
+          <form>
+            <Input
+              value={this.state.foodSearch}
+              onChange={this.handleInputChange}
+              name="foodSearch"
+              placeholder="Enter Food Name"
+            />
+            <FormBtn onClick={this.handleFormSubmit}>Search Food</FormBtn>
+          </form>
+          <SearchResults
+            foodName={this.state.results.foodName}
+            potassium={this.state.results.potassium}
+          />
         </Row>
         <div className="container">
           <h4>Browse Common Foods</h4>
@@ -154,11 +195,11 @@ class Food extends Component {
                       onClick={() =>
                         this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
                       }>
-                      {console.log(foodGroupList.image)}
+                      {/* {console.log(foodGroupList.image)} */}
                       <Row style={{ backgroundColor: 'blue' }}>
-                        <Col size="md-4">
+                        {/* <Col size="md-4">
                           <img style={{ width: 85, height: 85, margin: 10 }} alt="foodPic" src={foodGroupList.image} />
-                        </Col>
+                        </Col> */}
                         <Col size="md-8">
 
                           <Button
@@ -204,6 +245,10 @@ class Food extends Component {
                     Efficiency: {foodList.efficiency} <br />
                     Username: {foodList.userName} <br />
                   </strong>
+                  <div>
+                    <i className="fa fa-gratipay"></i><br />
+                    <p className="add-fav">Add to favorites</p>
+                  </div>
                 </Button>
               </Col>
 

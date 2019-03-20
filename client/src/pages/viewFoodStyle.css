@@ -14,3 +14,11 @@
     margin-top:15px;
     background-color: white;
   }
+  .add-fav{
+      color: blue;
+      font-size: 17px
+  }
+
+  .fa {
+      color: red
+  }
