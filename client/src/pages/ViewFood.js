@@ -162,31 +162,28 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
-            {/* <Jumbotron>
-              <h1>View Food</h1>
-            </Jumbotron> */}
-          </Col>
-          <form>
-            <Input
-              value={this.state.foodSearch}
-              onChange={this.handleInputChange}
-              name="foodSearch"
-              placeholder="Enter Food Name"
-            />
-            <FormBtn onClick={this.handleFormSubmit}>Search Food</FormBtn>
-          </form>
-          <SearchResults
+          <div className="col-6 offset-9 search-bar" >
+            <form>
+              <Input
+                value={this.state.foodSearch}
+                onChange={this.handleInputChange}
+                name="foodSearch"
+                placeholder="Enter Food Name"
+              />
+              <button
+                onClick={() => this.handleFormSubmit(this.state.foodSearch)}><i className="fa fa-search"></i>
+              </button>
+            </form>
+          </div>
+          {/* <SearchResults
             foodName={this.state.results.foodName}
             potassium={this.state.results.potassium}
-          />
+          /> */}
         </Row>
         <div className="container">
           <h4>Browse Common Foods</h4>
           <hr />
           <Row>
-            {/* <Col size="md-12"> */}
-            {/* {console.log(this.state.foodGroupList)} */}
             {this.state.foodGroupList.length ? (
               this.state.foodGroupList.map(foodGroupList => (
                 <Col size="lg-4">
