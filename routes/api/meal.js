@@ -14,4 +14,10 @@ router
   .put(mealController.update)
   .delete(mealController.remove);
 
+//just added
+router
+  .route("/mealByUser/:userName")
+  .post(mealController.create)
+  .get(mealController.findByUser);
+
 module.exports = router;
