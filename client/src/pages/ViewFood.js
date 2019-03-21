@@ -140,14 +140,21 @@ class Food extends Component {
 
   handleInputChange = event => {
     this.setState({ foodSearch: event.target.value });
+
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log("something")
+    console.log(this.state.foodSearch)
+    console.log(this.state.foodList)
     //this.loadFoodOnSearch(this.state.foodSearch)
     this.state.foodList.map(foodItem => {
+      var key = foodItem.id;
+      var str = foodItem.foodName;
+      // var array = str.split();
       if (foodItem.FoodID === this.state.foodSearch) {
-        console.log(foodItem)
+        console.log(foodItem.foodName)
         this.setState({ results: foodItem })
         console.log(this.state.results)
       }
@@ -171,14 +178,14 @@ class Food extends Component {
                 placeholder="Enter Food Name"
               />
               <button
-                onClick={() => this.handleFormSubmit(this.state.foodSearch)}><i className="fa fa-search"></i>
+                onClick={this.handleFormSubmit}><i className="fa fa-search"></i>
               </button>
             </form>
           </div>
-          {/* <SearchResults
+          <SearchResults
             foodName={this.state.results.foodName}
             potassium={this.state.results.potassium}
-          /> */}
+          />
         </Row>
         <div className="container">
           <h4>Browse Common Foods</h4>
