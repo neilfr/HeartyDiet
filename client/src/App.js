@@ -10,12 +10,16 @@ import ViewMeal from "./pages/ViewMeal";
 import HomeContainer from "./pages/HomeContainer";
 import ViewFoodFavorite from "./pages/ViewFoodFavorite";
 import AddFoodGroup from "./pages/AddFoodGroup";
+<<<<<<< HEAD
 // for font awesome
 // import { library } from '@fortawesome/fontawesome-svg-core'
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 
 // library.add(faIgloo)
+=======
+import Register from "./pages/Register";
+>>>>>>> Ashley2
 
 function App() {
   return (
@@ -31,6 +35,7 @@ function App() {
           <Route exact path="/AddMeal" component={AddMeal} />
           <Route exact path="/ViewMeal" component={ViewMeal} />
           <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
+          <Route exact path="/Register" component={Register} />
           {/* <Route exact path="/foods/:id" component={Detail} /> */}
           <Route component={NoMatch} />
         </Switch>
