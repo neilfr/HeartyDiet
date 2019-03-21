@@ -47,6 +47,27 @@ class Meal extends Component {
     this.setState({ currentMeal: meal });
   };
 
+  removeFromMeal = food => {
+    console.log("remove food:", food);
+    const updatedMeal = { ...this.state.currentMeal };
+    console.log("updatedMeal is:", updatedMeal);
+    const foodList = [...updatedMeal.foodList];
+    const index = foodList.findIndex(v => v._id === food._id);
+    console.log("index of food is:", index);
+    foodList.splice(index, 1);
+    console.log("new foodList is:", foodList);
+    updatedMeal.foodList = [...foodList];
+    console.log("updatedMeal is:", updatedMeal);
+    API.updateMealByID(this.state.currentMeal._id, updatedMeal)
+      .then(data => {
+        console.log(data.data);
+        this.setState({
+          currentMeal: data.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
   addToMeal = food => {
     const updatedMeal = { ...this.state.currentMeal };
     updatedMeal.foodList = [
@@ -120,7 +141,6 @@ class Meal extends Component {
             <Row>
               <div>
                 <h3>foods in the meals go here</h3>
-                {/* {this.state.currentMeal.foodList.map(food=>( */}
                 {this.state.currentMeal &&
                 this.state.currentMeal.foodList.length > 0 ? (
                   <List>
@@ -129,12 +149,12 @@ class Meal extends Component {
                         <strong>
                           <br /> {food.foodName} <br />
                         </strong>
-                        {/* <Button
-                          className="btn btn-primary"
-                          onClick={() => this.addToMeal(food)}
+                        <Button
+                          className="btn btn-danger"
+                          onClick={() => this.removeFromMeal(food)}
                         >
-                          Add
-                        </Button> */}
+                          Remove
+                        </Button>
                       </ListItem>
                     ))}
                   </List>
