@@ -8,6 +8,12 @@ import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import Card from "../components/Card";
 import { FoodPic, FoodContainer } from "./FoodPic";
+import "./viewFoodStyle.css";
+import SearchResults from "./SearchResults";
+//import { faHome } from "@fortawesome/free-solid-svg-icons";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'font-awesome/css/font-awesome.min.css'
+
 
 
 class Food extends Component {
@@ -19,12 +25,14 @@ class Food extends Component {
     energy: "",
     potassium: "",
     pics: null,
-    efficiency: ""
+    efficiency: "",
+    results: [],
+    foodSearch: "",
   };
 
   componentDidMount() {
     this.loadFoodGroupMasterAndUser("master");
-
+    this.loadFood();
   }
 
   loadFood = () => {
@@ -109,60 +117,104 @@ class Food extends Component {
       .catch(err => console.log(err));
   };
 
-  // loading cards specific to food group on button click
-
-
-  loadFoodCards = (GroupName) => {
-    this.state.foodGroupList.map(group => {
-      if (group.foodGroupName == GroupName) {
-        this.loadFoodByFoodGroupName(GroupName)
-        console.log(GroupName, this.state.foodList, this.state.pics)
+  // loading foodList specific to food group on button click
+  // loadFoodCards = (GroupName) => {
+  //   this.state.foodGroupList.map(group => {
+  //     if (group.foodGroupName == GroupName) {
+  //       this.loadFoodByFoodGroupName(GroupName)
+  //       console.log(GroupName, this.state.foodList, this.state.pics)
+  //     }
+  //   })
+  // }
+  //for search bar
+  loadFoodOnSearch = (id) => {
+    console.log(this.state.foodList)
+    this.state.foodList.map(foodItem => {
+      if (foodItem.FoodID === id) {
+        console.log(foodItem)
+        this.setState({ results: foodItem })
+        console.log(this.state.results)
       }
     })
   }
 
+  handleInputChange = event => {
+    this.setState({ foodSearch: event.target.value });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    //this.loadFoodOnSearch(this.state.foodSearch)
+    this.state.foodList.map(foodItem => {
+      if (foodItem.FoodID === this.state.foodSearch) {
+        console.log(foodItem)
+        this.setState({ results: foodItem })
+        console.log(this.state.results)
+      }
+    })
+  };
+
   render() {
+    const holder = {
+      height: '100px',
+      backgroundColor: 'blue'
+    };
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
-            {/* <Jumbotron>
-              <h1>View Food</h1>
-            </Jumbotron> */}
-          </Col>
+          <div className="col-6 offset-9 search-bar" >
+            <form>
+              <Input
+                value={this.state.foodSearch}
+                onChange={this.handleInputChange}
+                name="foodSearch"
+                placeholder="Enter Food Name"
+              />
+              <button
+                onClick={() => this.handleFormSubmit(this.state.foodSearch)}><i className="fa fa-search"></i>
+              </button>
+            </form>
+          </div>
+          {/* <SearchResults
+            foodName={this.state.results.foodName}
+            potassium={this.state.results.potassium}
+          /> */}
         </Row>
         <div className="container">
           <h4>Browse Common Foods</h4>
           <hr />
           <Row>
-            {/* <Col size="md-12"> */}
-            {/* {console.log(this.state.foodGroupList)} */}
             {this.state.foodGroupList.length ? (
               this.state.foodGroupList.map(foodGroupList => (
                 <Col size="lg-4">
-                  <Container>
-                    {/* {console.log(foodGroupList.pic)} */}
-                    <Row>
-                      <Col size="md-4">
-                        <img style={{ width: 85, height: 85, marginTop: 10 }} alt={foodGroupList.foodGroupName} src={foodGroupList.image} />
-                      </Col>
-                      <Col size="md-8">
-                        <Button
-                          key={foodGroupList.foodGroupName}
-                          onClick={() =>
-                            this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                          }
-                          className="btn btn-primary"
-                        >
-                          {/* <Link to={"/food/" + food._id}></Link> */}
-                          <strong>
-                            {foodGroupList.foodGroupName} <br />
-                          </strong>
+                  <Container >
+                    <div className="holder"
+                      onClick={() =>
+                        this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                      }>
+                      {/* {console.log(foodGroupList.image)} */}
+                      <Row style={{ backgroundColor: 'blue' }}>
+                        {/* <Col size="md-4">
+                          <img style={{ width: 85, height: 85, margin: 10 }} alt="foodPic" src={foodGroupList.image} />
+                        </Col> */}
+                        <Col size="md-8">
 
-                          {/* <DeleteBtn  /> */}
-                        </Button>
-                      </Col>
-                    </Row>
+                          <Button
+                            key={foodGroupList.foodGroupName}
+                            className="custom-btn">
+                            {/* <Link to={"/food/" + food._id}></Link> */}
+                            <strong>
+                              <p className="button-text"> {foodGroupList.foodGroupName} </p>
+                            </strong>
+
+                            {/* <DeleteBtn  /> */}
+                          </Button>
+                        </Col>
+                      </Row>
+                      <div className="text-right" style={{ marginRight: 10 }}>
+                        <i className="fa fa-heartbeat"></i>
+                      </div>
+                    </div>
                   </Container>
                 </Col>
               ))
@@ -187,13 +239,14 @@ class Food extends Component {
                     Energy: {foodList.energy} <br />
                     Potassium: {foodList.potassium} <br />
                     Username: {foodList.userName} <br />
-                  </strong>
-                </Button>
-                {/* Efficiency: {foodList.efficiency}
-                    <br />
+                    Efficiency: {foodList.efficiency} <br />
                     Username: {foodList.userName} <br />
-                  </strong> */}
-                {/* </Button> */}
+                  </strong>
+                  <div>
+                    <i className="fa fa-gratipay"></i><br />
+                    <p className="add-fav">Add to favorites</p>
+                  </div>
+                </Button>
               </Col>
 
             ))

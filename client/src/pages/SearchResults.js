@@ -3,8 +3,7 @@ import React from "react";
 
 function SearchResults(props) {
     return (
-        <div>
-            <h2>Your Search ends here</h2>
+        <div style={{ display: 'inline-blocks' }}>
             <p>{props.foodName}</p>
             <p>Potassium Content:{props.potassium}gm</p>
         </div>
