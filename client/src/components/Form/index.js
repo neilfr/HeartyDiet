@@ -14,9 +14,9 @@ export function Dropdown(props) {
   return (
     <div className="form-group">
       <label>
-      {props.label}
+        {props.label}
         <select {...props} className="form-control">
-         {props.children}
+          {props.children}
           {/* <option value="grapefruit">Grapefruit</option>
           <option value="lime">Lime</option>
           <option value="coconut">Coconut</option>
@@ -40,7 +40,7 @@ export function FormBtn(props) {
     <button
       {...props}
       style={{ float: "right", marginBottom: 10 }}
-      className="btn btn-success"
+      className="btn btn-default"
     >
       {props.children}
     </button>

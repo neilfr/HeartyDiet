@@ -10,12 +10,15 @@ class FoodFavorite extends Component {
     foodFavoriteList: [],
     customize: false,
     editFoodID: null,
-    energy: "",
-    potassium: ""
+    energy: 0,
+    potassium: 0,
+    foodGroupName: "",
+    foodGroupList: []
   };
 
   componentDidMount() {
     this.loadFoodFavorite("JohnSmith");
+    this.loadFoodGroupByMasterAndUser("JohnSmith");
   }
 
   loadFoodFavorite = userName => {
@@ -28,10 +31,18 @@ class FoodFavorite extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteFood = id => {
-    API.deleteFoodByID(id)
-      .then(res => this.loadFoodFavorite("JohnSmith"))
-      .catch(err => console.log(err));
+  deleteFood = (id, foodName) => {
+    if (
+      window.confirm(
+        "Are you sure you would like to delete " +
+          foodName +
+          " from your Favorite Foods?"
+      )
+    ) {
+      API.deleteFoodByID(id)
+        .then(res => this.loadFoodFavorite("JohnSmith"))
+        .catch(err => console.log(err));
+    }
   };
 
   handleInputChange = event => {
@@ -43,36 +54,44 @@ class FoodFavorite extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.energy && this.state.potassium) {
-      API.updateFoodByFoodID({
+
+    if (this.state.energy && this.state.potassium && this.state.foodGroupName) {
+      API.updateFoodByID(this.state.editFoodID, {
         energy: this.state.energy,
-        potassium: this.state.potassium
+        potassium: this.state.potassium,
+        foodGroupName: this.state.foodGroupName
       })
         .then(
           this.setState({
-            energy: "",
-            potassium: "",
+            energy: 0,
+            potassium: 0,
+            foodGroupName: "",
             customize: false
           })
         )
         .catch(err => console.log(err));
+
+      this.loadFoodFavorite("JohnSmith");
     }
   };
 
-  customize = id => {
+  edit = (id, energy, potassium, foodGroupName) => {
     this.setState({
       customize: true,
-      editFoodID: id
+      editFoodID: id,
+      energy: energy,
+      potassium: potassium,
+      foodGroupName: foodGroupName
     });
-
-    // API.deleteFoodByUser(id, "JohnSmith")
-    //   .then(res => this.loadFoodFavorite())
-    //   .catch(err => console.log(err));
   };
 
-  editFoodByUser = id => {
-    API.deleteFoodByUser(id, "JohnSmith")
-      .then(res => this.loadFoodFavorite())
+  loadFoodGroupByMasterAndUser = userName => {
+    API.getFoodGroupByMasterAndUser(userName)
+      .then(res =>
+        this.setState({
+          foodGroupList: res.data
+        })
+      )
       .catch(err => console.log(err));
   };
 
@@ -111,25 +130,40 @@ class FoodFavorite extends Component {
               {this.state.customize &&
               this.state.editFoodID === foodFavoriteList._id ? (
                 <Col size="md-8">
+                  <Dropdown
+                    name="foodGroupName"
+                    onChange={this.handleInputChange}
+                    label="Food Group"
+                    defaultValue={this.state.foodGroupName}
+                  >
+                    {this.state.foodGroupList.map(foodGroupList => (
+                      <option value={foodGroupList.foodGroupName}>
+                        {foodGroupList.foodGroupName}
+                      </option>
+                    ))}
+                  </Dropdown>
+
                   <Input
-                    value={foodFavoriteList.energy}
-                    //onChange={this.handleInputChange}
+                    defaultValue={foodFavoriteList.energy}
+                    onChange={this.handleInputChange}
                     name="energy"
                     placeholder="Energy (required)"
+                    type="text"
                   />
 
                   <Input
-                    value={foodFavoriteList.potassium}
-                    //onChange={this.handleInputChange}
+                    defaultValue={foodFavoriteList.potassium}
+                    onChange={this.handleInputChange}
                     name="potassium"
                     placeholder="Potassium (required)"
+                    type="text"
                   />
 
                   <FormBtn
                     // disabled={!(this.state.energy && this.state.potassium)}
                     onClick={this.handleFormSubmit}
                   >
-                    Submit Food
+                    Submit
                   </FormBtn>
                 </Col>
               ) : (
@@ -137,11 +171,18 @@ class FoodFavorite extends Component {
                   <Col size="md-4">
                     <Button
                       key={foodFavoriteList._id}
-                      onClick={() => this.customize(foodFavoriteList._id)}
+                      onClick={() =>
+                        this.edit(
+                          foodFavoriteList._id,
+                          foodFavoriteList.energy,
+                          foodFavoriteList.potassium,
+                          foodFavoriteList.foodGroupName
+                        )
+                      }
                       className="btn btn-warning editFavoriteFoodBtn"
                     >
                       <strong>
-                        Customize
+                        Edit
                         <br />
                       </strong>
                     </Button>
@@ -149,7 +190,12 @@ class FoodFavorite extends Component {
                   <Col size="md-4">
                     <Button
                       key={foodFavoriteList._id}
-                      onClick={() => this.deleteFood(foodFavoriteList._id)}
+                      onClick={() =>
+                        this.deleteFood(
+                          foodFavoriteList._id,
+                          foodFavoriteList.foodName
+                        )
+                      }
                       className="btn btn-danger deleteFavoriteFoodBtn"
                     >
                       <strong>
