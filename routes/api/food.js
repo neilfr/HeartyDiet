@@ -16,6 +16,12 @@ router
   .delete(foodController.remove);
 
 router
+  .route("/foodByFoodName/:foodName")
+  .get(foodController.findByFoodName)
+  .put(foodController.update)
+  .delete(foodController.remove);
+
+router
   .route("/foodByFoodGroupName/:foodGroupName")
   .get(foodController.findByFoodGroupName)
   .post(foodController.create);

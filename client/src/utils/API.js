@@ -17,10 +17,10 @@ export default {
     return axios.get("/api/meal");
   },
   //! this is the new one
-  updateMealByID: function(id, updatedMeal) {
+  updateMealByID: function (id, updatedMeal) {
     return axios.put("/api/meal/" + id, updatedMeal);
   },
-  getMealByUser: function(userName) {
+  getMealByUser: function (userName) {
     return axios.get("/api/meal/mealByUser/" + userName);
   },
   deleteMeal: function (id) {
@@ -44,6 +44,9 @@ export default {
   getFoodByID: function (id) {
     return axios.get("/api/food/foodByID/" + id);
   },
+  getFoodByFoodName: function (foodName) {
+    return axios.get("/api/food/foodByFoodName/" + foodName);
+  },
   // Deletes the food with the given id
 
   deleteFoodByID: function (id) {
@@ -51,7 +54,7 @@ export default {
   },
   // Update the food with the given id
 
-  updateFoodByID: function(id, updatedFood) {
+  updateFoodByID: function (id, updatedFood) {
     return axios.put("/api/food/foodByID/" + id, updatedFood);
   },
 

@@ -32,7 +32,6 @@ class Food extends Component {
 
   componentDidMount() {
     this.loadFoodGroupMasterAndUser("master");
-    this.loadFood();
   }
 
   loadFood = () => {
@@ -149,16 +148,25 @@ class Food extends Component {
     console.log(this.state.foodSearch)
     console.log(this.state.foodList)
     //this.loadFoodOnSearch(this.state.foodSearch)
-    this.state.foodList.map(foodItem => {
-      var key = foodItem.id;
-      var str = foodItem.foodName;
-      // var array = str.split();
-      if (foodItem.FoodID === this.state.foodSearch) {
-        console.log(foodItem.foodName)
-        this.setState({ results: foodItem })
-        console.log(this.state.results)
-      }
-    })
+    // this.state.foodList.map(foodItem => {
+    //   var key = foodItem.id;
+    //   var str = foodItem.foodName;
+    //   // var array = str.split();
+    //   if (foodItem.FoodID === this.state.foodSearch) {
+    //     console.log(foodItem.foodName)
+    //     this.setState({ results: foodItem })
+    //     console.log(this.state.results)
+    //   }
+    // })
+
+    API.getFoodByFoodName(this.state.foodSearch)
+      .then(res =>
+        this.setState({
+          // results: res
+          foodList: res.data
+        })
+      )
+      .catch(err => console.log(err));
   };
 
   render() {
