@@ -14,7 +14,7 @@ class Meal extends Component {
   state = {
     mealList: [],
     foodFavoriteList: [],
-    currentMeal: {}
+    currentMeal: null
   };
 
   componentDidMount() {
@@ -44,38 +44,30 @@ class Meal extends Component {
   };
 
   selectMeal = meal => {
-    // console.log("show the meal's foods");
-    console.log("meal is: ", meal);
-    // API.updateMealByID(mealId)
-
     this.setState({ currentMeal: meal });
   };
 
   addToMeal = food => {
-    console.log("add this food to the meal's food list", food);
-    console.log("push the following into the meal");
-    console.log(food._id);
-    console.log(food.foodName);
-    console.log("serving size:", 150);
-    // console.log("this.state.foodFavoriteList:", this.state.foodFavoriteList);
-    // add the new food to the meal object's food list
-    console.log("the current meal is: ", this.state.currentMeal);
-    const updatedMeal = this.state.currentMeal;
-    updatedMeal.foodList.push({
-      _id: food._id,
-      foodName: food.foodName,
-      servingSize: 150
+    const updatedMeal = { ...this.state.currentMeal };
+    updatedMeal.foodList = [
+      ...updatedMeal.foodList,
+      {
+        _id: food._id,
+        foodName: food.foodName,
+        servingSize: 150
+      }
+    ];
+    this.setState({
+      currentMeal: updatedMeal
     });
-    console.log("updatedMeal:", updatedMeal);
 
-    console.log("current meal id is:", this.state.currentMeal._id);
-    // todo update... update note occurring
     API.updateMealByID(this.state.currentMeal._id, updatedMeal)
-      .then(
+      .then(data => {
+        console.log(data.data);
         this.setState({
-          currentMeal: updatedMeal
-        })
-      )
+          currentMeal: data.data
+        });
+      })
       .catch(err => console.log(err));
   };
 
@@ -86,6 +78,7 @@ class Meal extends Component {
   // };
 
   render() {
+    console.log(this.state.currentMeal);
     return (
       <Container fluid>
         <Row>
@@ -127,6 +120,27 @@ class Meal extends Component {
             <Row>
               <div>
                 <h3>foods in the meals go here</h3>
+                {/* {this.state.currentMeal.foodList.map(food=>( */}
+                {this.state.currentMeal &&
+                this.state.currentMeal.foodList.length > 0 ? (
+                  <List>
+                    {this.state.currentMeal.foodList.map(food => (
+                      <ListItem key={food._id}>
+                        <strong>
+                          <br /> {food.foodName} <br />
+                        </strong>
+                        {/* <Button
+                          className="btn btn-primary"
+                          onClick={() => this.addToMeal(food)}
+                        >
+                          Add
+                        </Button> */}
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <h3>No Results to Display</h3>
+                )}
               </div>
             </Row>
             <Row>

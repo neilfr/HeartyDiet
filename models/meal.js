@@ -7,7 +7,8 @@ const mealSchema = new Schema({
   foodList: [
     {
       _id: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: "Food"
       },
       foodName: {
         type: String

@@ -19,11 +19,15 @@ module.exports = {
       .catch(err => res.json(err));
   },
   update: function(req, res) {
-    // console.log(req.body);
-    // console.log("req.params:", req.params);
-    // console.log(req.body.id);
+    console.log(req.body);
+    console.log("req.params:", req.params);
+    console.log(req.body.id);
     // res.json("sucess");
-    db.Meal.findOneAndUpdate({ _id: req.params.id }, { $set: req.body })
+    db.Meal.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      { new: true }
+    )
       .then(dbModel => {
         console.log(dbModel);
         res.json(dbModel);
