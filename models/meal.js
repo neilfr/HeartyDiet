@@ -10,12 +10,16 @@ const mealSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Food"
       },
-      foodName: {
-        type: String
-      },
       servingSize: {
         type: Number
       }
+      // ,
+      // foodName: {
+      //   type: String
+      // },
+      // servingSize: {
+      //   type: Number
+      // }
     }
   ],
   userName: { type: String, required: false }

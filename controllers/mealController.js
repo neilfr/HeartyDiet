@@ -8,11 +8,29 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  //! 2 new functions
+  addFoodById: function(req, res) {
+    console.log(req.body);
+    db.Meal.findByIdAndUpdate(
+      req.params.id,
+      { $push: { foodList: req.body } },
+      { new: true },
+      function(err, found) {
+        res.send("meal food add finished");
+      }
+    );
+  },
   findById: function(req, res) {
     db.Meal.findById(req.params.id)
+      .populate("foodList")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  // findById: function(req, res) {
+  //   db.Meal.findById(req.params.id)
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
   create: function(req, res) {
     db.Meal.create(req.body)
       .then(dbModel => res.json(dbModel))

@@ -19,9 +19,9 @@ class Meal extends Component {
 
   componentDidMount() {
     this.loadMeals("JohnSmith");
-    this.loadFoodFavorite("JohnSmith");
+    this.loadFoodFavorites("JohnSmith");
   }
-  loadFoodFavorite = userName => {
+  loadFoodFavorites = userName => {
     API.getFoodByUser(userName)
       .then(res => {
         console.log("foodFavoriteList is: ", res.data);
@@ -68,29 +68,39 @@ class Meal extends Component {
       .catch(err => console.log(err));
   };
 
-  addToMeal = food => {
-    const updatedMeal = { ...this.state.currentMeal };
-    updatedMeal.foodList = [
-      ...updatedMeal.foodList,
-      {
-        _id: food._id,
-        foodName: food.foodName,
-        servingSize: 150
-      }
-    ];
-    this.setState({
-      currentMeal: updatedMeal
-    });
-
-    API.updateMealByID(this.state.currentMeal._id, updatedMeal)
+  //! new version
+  addToMeal = (food_id, servingSize) => {
+    API.addFoodToMealByIDs(this.state.currentMeal._id, food_id, servingSize)
       .then(data => {
-        console.log(data.data);
-        this.setState({
-          currentMeal: data.data
-        });
+        console.log(data);
+        // this.setState({
+        //   currentMeal: data.data
+        // });
       })
       .catch(err => console.log(err));
   };
+
+  // addToMeal = food => {
+  //   const updatedMeal = { ...this.state.currentMeal };
+  //   //
+  //   updatedMeal.foodList.push({
+  //     _id: food._id,
+  //     foodName: food.foodName,
+  //     servingSize: 150
+  //   });
+  //   this.setState({
+  //     currentMeal: updatedMeal
+  //   });
+
+  //   API.updateMealByID(this.state.currentMeal._id, updatedMeal)
+  //     .then(data => {
+  //       console.log(data.data);
+  //       this.setState({
+  //         currentMeal: data.data
+  //       });
+  //     })
+  //     .catch(err => console.log(err));
+  // };
 
   // deleteFood = id => {
   //   API.deleteFood(id)
@@ -171,10 +181,13 @@ class Meal extends Component {
                     <ListItem key={food._id}>
                       <strong>
                         <br /> {food.foodName} <br />
+                        <br /> Energy:{food.energy} <br />
+                        <br /> Potassium:{food.potassium} <br />
+                        <br /> Efficiency:{food.efficiency} <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
-                        onClick={() => this.addToMeal(food)}
+                        onClick={() => this.addToMeal(food._id, 100)}
                       >
                         Add
                       </Button>

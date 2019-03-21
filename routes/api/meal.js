@@ -12,6 +12,8 @@ router
   .route("/:id")
   .get(mealController.findById)
   .put(mealController.update)
+  //! new line below
+  .post(mealController.addFoodById)
   .delete(mealController.remove);
 
 //just added
