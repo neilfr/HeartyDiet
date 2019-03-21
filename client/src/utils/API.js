@@ -50,9 +50,11 @@ export default {
     return axios.delete("/api/food/foodByID/" + id);
   },
   // Update the food with the given id
-  updateFoodByID: function (id) {
-    return axios.put("/api/food/foodByID/" + id);
+
+  updateFoodByID: function(id, updatedFood) {
+    return axios.put("/api/food/foodByID/" + id, updatedFood);
   },
+
   // Saves a food to the database
   saveFood: function (foodData) {
     return axios.post("/api/food", foodData);
