@@ -81,48 +81,70 @@ router.post('/signup', (req, res)=>{
             message: 'Error: Server error.'
           });
       })
-    //   db.User.findOne({
-    //     email: email
-    //   }, (err, previousUsers) => {
-    //     if (err) {
-    //       return res.send({
-    //         success: false,
-    //         message: 'Error: Server error.'
-    //       });
-    //     } else if (previousUsers.length > 0) {
-    //       return res.send({
-    //         success: false,
-    //         message: 'Error: Account already exists.'
-    //       });
-    //     }
-  
-    //     // Save new user
-    //     let dnewUser = new User();
-  
-    //     newUser.email = email;
-    //     newUser.password = newUser.generateHash(password);
-    //     newUser.name = name;
-    //     newUser.save((err, user) => {
-    //       if (err) {
-    //         return res.send({
-    //           success: false,
-    //           message: 'Error: Server error.'
-    //         });
-    //       }
-    //       return res.send({
-    //         success: true,
-    //         message: 'Sign-up complete.'
-    //       });
-    //     });
-    //   });
-  
-
-    // res.json("Success")
-})
+});
 
 
-router.post('/signin', function(req,res){
+router.post('/api/account/signin', function(res, req){
+    let {email, password} = req.body;
 
+    if (!email) {
+        return res.send({
+          success: false,
+          message: 'Error: Email cannot be blank.'
+        });
+      }
+      if (!password) {
+        return res.send({
+          success: false,
+          message: 'Error: Password cannot be blank.'
+        });
+      }
+
+    //Scraping, and validating 
+    email = email.toLowerCase();
+    email = email.trim();
+
+    db.User.findOne({
+        email: email
+    }).then((user) => {
+        console.log(user)
+        if (!user) {
+            return res.send({
+                success: false,
+                message: 'Error: User does not exist.'
+            });
+        }
+        if (!user.validPassword(password)) {
+            return res.send({
+                success: false,
+                message: 'Error: Invalid.'
+            });
+        } else {
+            const userSession = new UserSession();
+            userSession.userId = user._id;
+            userSession.save()
+            .then((userSession)=>{
+                return res.send({
+                    success: true,
+                    message: 'Login Success.',
+                    token: userSession._id
+                });
+            })
+            .catch((err)=>{
+                console.log(err)
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error.'
+                });
+            })
+        }
+    }).catch((err)=>{
+        console.log(err)
+        return res.send({
+            success: false,
+            message: 'Error: Server error.'
+        });
+    })
 });
 
 
