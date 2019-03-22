@@ -16,18 +16,28 @@ export default {
   getMeal: function() {
     return axios.get("/api/meal");
   },
-
-  updateMealByID: function(id, updatedMeal) {
-    return axios.put("/api/meal/" + id, updatedMeal);
+  removeFoodFromMealByID: function(mealId, foodId) {
+    console.log("inside client api removeFoodFromMealById");
+    console.log("mealId is:", mealId);
+    console.log("foodId is:", foodId);
+    return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
   },
+  //todo see if i can remove this... don't think its being used now
+  // updateMealByID: function(id, updatedMeal) {
+  //   return axios.put("/api/meal/" + id, updatedMeal);
+  // },
+
   //! new stuff
-  addFoodToMealByIDs: function(mealId, foodId, servingSize) {
+  addFoodToMealByID: function(mealId, foodId) {
     return axios.post("/api/meal/" + mealId, {
-      _id: foodId,
-      servingSize: servingSize
+      _id: foodId
     });
   },
   getMealByUser: function(userName) {
+    console.log(
+      "I'm inside getMealByUser in the API... looking for meals for:",
+      userName
+    );
     return axios.get("/api/meal/mealByUser/" + userName);
   },
   deleteMeal: function(id) {

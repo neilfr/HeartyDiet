@@ -1,4 +1,5 @@
 const db = require("../models");
+var mongoose = require("mongoose");
 
 // Defining methods for the mealController
 module.exports = {
@@ -10,44 +11,47 @@ module.exports = {
   },
   //! 2 new functions
   addFoodById: function(req, res) {
-    console.log(req.body);
     db.Meal.findByIdAndUpdate(
       req.params.id,
       { $push: { foodList: req.body } },
-      { new: true },
-      function(err, found) {
-        res.send("meal food add finished");
-      }
-    );
+      { new: true }
+    )
+      .populate("foodList")
+      .exec(function(err, found) {
+        res.json(found);
+      });
+  },
+  removeFoodById: function(req, res) {
+    db.Meal.findByIdAndUpdate(
+      req.params.mealId,
+      {
+        $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
+      },
+      { new: true }
+    )
+      .populate("foodList")
+      .exec(function(err, found) {
+        res.json(found);
+      });
   },
   findById: function(req, res) {
     db.Meal.findById(req.params.id)
       .populate("foodList")
-      .then(dbModel => res.json(dbModel))
+      .exec(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  // findById: function(req, res) {
-  //   db.Meal.findById(req.params.id)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
   create: function(req, res) {
     db.Meal.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
   update: function(req, res) {
-    console.log(req.body);
-    console.log("req.params:", req.params);
-    console.log(req.body.id);
-    // res.json("sucess");
     db.Meal.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },
       { new: true }
     )
       .then(dbModel => {
-        console.log(dbModel);
         res.json(dbModel);
       })
       .catch(err => {
@@ -67,9 +71,19 @@ module.exports = {
       userName: req.params.userName
     })
       .sort({ mealName: 1 })
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
-      .catch(err => res.status(422).json(err));
+      //!new lines to include all the related food list data for each of the meals
+      .populate("foodList")
+      .exec(function(err, meals) {
+        console.log("found in findByUser returned:", meals);
+        meals.map(meal => {
+          meal.toJSON({ virtuals: true }); //todo check if Chris put this in... and if so, is it still doing what he needs it to
+        });
+        console.log("meals before return:", meals);
+        res.json(meals);
+      });
+    // .then(dbModel =>
+    //   res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+    // )
+    // .catch(err => res.status(422).json(err));
   }
 };

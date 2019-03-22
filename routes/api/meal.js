@@ -22,4 +22,6 @@ router
   .post(mealController.create)
   .get(mealController.findByUser);
 
+router.route("/food/:mealId/:foodId").delete(mealController.removeFoodById);
+
 module.exports = router;

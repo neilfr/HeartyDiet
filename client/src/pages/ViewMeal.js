@@ -35,7 +35,7 @@ class Meal extends Component {
   loadMeals = userName => {
     API.getMealByUser(userName)
       .then(res => {
-        console.log("res is: ", res.data);
+        console.log("getMealByUser returned: ", res.data);
         this.setState({
           mealList: res.data
         });
@@ -47,20 +47,12 @@ class Meal extends Component {
     this.setState({ currentMeal: meal });
   };
 
-  removeFromMeal = food => {
-    console.log("remove food:", food);
-    const updatedMeal = { ...this.state.currentMeal };
-    console.log("updatedMeal is:", updatedMeal);
-    const foodList = [...updatedMeal.foodList];
-    const index = foodList.findIndex(v => v._id === food._id);
-    console.log("index of food is:", index);
-    foodList.splice(index, 1);
-    console.log("new foodList is:", foodList);
-    updatedMeal.foodList = [...foodList];
-    console.log("updatedMeal is:", updatedMeal);
-    API.updateMealByID(this.state.currentMeal._id, updatedMeal)
+  removeFromMeal = foodID => {
+    console.log("remove food:", foodID);
+    console.log("from meal:", this.state.currentMeal._id);
+    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID)
       .then(data => {
-        console.log(data.data);
+        console.log("I got this back from removeFoodFromMealByID: ", data.data);
         this.setState({
           currentMeal: data.data
         });
@@ -69,44 +61,16 @@ class Meal extends Component {
   };
 
   //! new version
-  addToMeal = (food_id, servingSize) => {
-    API.addFoodToMealByIDs(this.state.currentMeal._id, food_id, servingSize)
+  addToMeal = food_id => {
+    API.addFoodToMealByID(this.state.currentMeal._id, food_id)
       .then(data => {
-        console.log(data);
-        // this.setState({
-        //   currentMeal: data.data
-        // });
+        console.log("addFoodToMealByID data.data is", data.data);
+        this.setState({
+          currentMeal: data.data
+        });
       })
       .catch(err => console.log(err));
   };
-
-  // addToMeal = food => {
-  //   const updatedMeal = { ...this.state.currentMeal };
-  //   //
-  //   updatedMeal.foodList.push({
-  //     _id: food._id,
-  //     foodName: food.foodName,
-  //     servingSize: 150
-  //   });
-  //   this.setState({
-  //     currentMeal: updatedMeal
-  //   });
-
-  //   API.updateMealByID(this.state.currentMeal._id, updatedMeal)
-  //     .then(data => {
-  //       console.log(data.data);
-  //       this.setState({
-  //         currentMeal: data.data
-  //       });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteFood = id => {
-  //   API.deleteFood(id)
-  //     .then(res => this.loadFood())
-  //     .catch(err => console.log(err));
-  // };
 
   render() {
     console.log(this.state.currentMeal);
@@ -158,10 +122,16 @@ class Meal extends Component {
                       <ListItem key={food._id}>
                         <strong>
                           <br /> {food.foodName} <br />
+                          <br /> Energy:{food.energy} <br />
+                          <br /> Potassium:{food.potassium} <br />
+                          <br /> Efficiency:need to get virtual{
+                            food.efficiency
+                          }{" "}
+                          <br />
                         </strong>
                         <Button
                           className="btn btn-danger"
-                          onClick={() => this.removeFromMeal(food)}
+                          onClick={() => this.removeFromMeal(food._id)}
                         >
                           Remove
                         </Button>
@@ -187,7 +157,7 @@ class Meal extends Component {
                       </strong>
                       <Button
                         className="btn btn-primary"
-                        onClick={() => this.addToMeal(food._id, 100)}
+                        onClick={() => this.addToMeal(food._id)}
                       >
                         Add
                       </Button>

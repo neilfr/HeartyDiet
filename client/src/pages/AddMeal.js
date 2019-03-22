@@ -21,7 +21,6 @@ class Meal extends Component {
   loadMeals = () => {
     API.getMealByUser("JohnSmith")
       .then(res => {
-        console.log("res is: ", res.data);
         this.setState({
           mealList: res.data
         });
