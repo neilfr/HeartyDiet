@@ -209,6 +209,13 @@ class Meal extends Component {
               {this.state.currentMeal.totalEnergy}
               <strong>Total Potassium: </strong>
               {this.state.currentMeal.totalPotassium}
+              <strong>
+                Efficiency:
+                {this.state.currentMeal.totalEnergy /
+                  this.state.currentMeal.totalPotassium}
+                {/* {this.state.currentMeal.totalEnergy /
+                  this.state.currentMeal.totalPotassium} */}
+              </strong>
             </Col>
           </Row>
         ) : (
@@ -237,6 +244,8 @@ class Meal extends Component {
                         Meal Name: {meal.mealName} <br />
                         Energy: {meal.totalEnergy} <br />
                         Potassium: {meal.totalPotassium} <br />
+                        Efficiency: {meal.totalEnergy / meal.totalPotassium}
+                        <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
@@ -275,7 +284,8 @@ class Meal extends Component {
                           <br /> Potassium:{food.food.potassium} <br />
                           <br /> ServingSize:{food.servingSize}
                           <br />
-                          <br /> Efficiency:need to get virtual
+                          <br /> Efficiency:
+                          {food.food.energy / food.food.potassium}
                           {food.food.efficiency} <br />
                         </strong>
                         <Button
