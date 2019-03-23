@@ -10,6 +10,12 @@ import {
   setInStorage,
   getFromStorage,
 } from '../utils/storage';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -147,6 +153,8 @@ class Login extends Component {
               >
                 Login
               </FormBtn>
+              <br />
+              <Link to="/register">Register New User</Link>
             </form>
           </Col>
           <Col size="md-4" />
