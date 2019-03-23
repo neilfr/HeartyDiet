@@ -11,14 +11,26 @@ module.exports = {
   },
   //! 2 new functions
   addFoodById: function(req, res) {
+    console.log("inside AddFoodById and");
+    console.log("req.body should be servingSize: ", req.body);
+    console.log("meal id is: ", req.params.mealId);
+    console.log("food id is: ", req.params.foodId);
+
+    let newMealData = {};
     db.Meal.findByIdAndUpdate(
-      req.params.id,
-      { $push: { foodList: req.body } },
+      req.params.mealId,
+      {
+        $push: { foodList: req.params.foodId }
+        // ,
+        // totalEnergy: 50,
+        // totalPotassium: 50
+      },
       { new: true }
     )
       .populate("foodList")
-      .exec(function(err, found) {
-        res.json(found);
+      .exec(function(err, found1) {
+        console.log("found1 is:", found1);
+        res.json(found1);
       });
   },
   removeFoodById: function(req, res) {
@@ -34,6 +46,18 @@ module.exports = {
         res.json(found);
       });
   },
+  updateKCalTotals: function(req, res) {
+    db.Meal.findByIdAndUpdate(
+      req.params.mealId,
+      { $set: req.body },
+      { new: true }
+    )
+      .populate("foodList")
+      .exec(function(err, found) {
+        res.json(found);
+      });
+  },
+
   findById: function(req, res) {
     db.Meal.findById(req.params.id)
       .populate("foodList")

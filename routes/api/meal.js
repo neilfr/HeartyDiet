@@ -12,8 +12,8 @@ router
   .route("/:id")
   .get(mealController.findById)
   .put(mealController.update)
-  //! new line below
-  .post(mealController.addFoodById)
+
+  // .post(mealController.addFoodById)
   .delete(mealController.remove);
 
 //just added
@@ -22,6 +22,10 @@ router
   .post(mealController.create)
   .get(mealController.findByUser);
 
-router.route("/food/:mealId/:foodId").delete(mealController.removeFoodById);
+router
+  .route("/food/:mealId/:foodId")
+  .delete(mealController.removeFoodById)
+  .post(mealController.addFoodById);
 
+router.route("/KCalTotals/:mealId").put(mealController.updateKCalTotals);
 module.exports = router;

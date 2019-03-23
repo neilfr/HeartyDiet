@@ -74,7 +74,9 @@ class Meal extends Component {
     if (this.state.mealName) {
       API.saveMeal({
         mealName: this.state.mealName,
-        userName: "JohnSmith"
+        userName: "JohnSmith",
+        totalEnergy: 0,
+        totalPotassium: 0
       })
         //todo this refreshes the screen... or should i update state?
         .then(res => (window.location.href = "/AddMeal"))

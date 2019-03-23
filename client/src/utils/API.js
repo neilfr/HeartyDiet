@@ -22,15 +22,29 @@ export default {
     console.log("foodId is:", foodId);
     return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
   },
-  //todo see if i can remove this... don't think its being used now
-  // updateMealByID: function(id, updatedMeal) {
-  //   return axios.put("/api/meal/" + id, updatedMeal);
-  // },
 
   //! new stuff
-  addFoodToMealByID: function(mealId, foodId) {
-    return axios.post("/api/meal/" + mealId, {
-      _id: foodId
+  updateEnergyPotassiumTotalsByID: function(
+    mealId,
+    totalEnergy,
+    totalPotassium
+  ) {
+    console.log("mealId is:", mealId);
+    console.log("totalEnergy is:", totalEnergy);
+    console.log("totalPotassium is:", totalPotassium);
+    return axios.put("/api/meal/KCalTotals/" + mealId, {
+      totalEnergy: totalEnergy,
+      totalPotassium: totalPotassium
+    });
+  },
+
+  addFoodToMealByID: function(mealId, foodId, servingSize) {
+    console.log("in addFoodToMealByID");
+    console.log("mealId is:", mealId);
+    console.log("foodId is:", foodId);
+    console.log("servingSize is:", servingSize);
+    return axios.post("/api/meal/food/" + mealId + "/" + foodId, {
+      servingSize: servingSize
     });
   },
   getMealByUser: function(userName) {
