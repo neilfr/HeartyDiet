@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import AddFood from "./pages/AddFood";
 import ViewFood from "./pages/ViewFood";
 import AddMeal from "./pages/AddMeal";
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/ViewMeal" component={ViewMeal} />
           <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
           <Route exact path="/Register" component={Register} />
+          <Route exact path="/Logout" component={Logout} />
           {/* <Route exact path="/foods/:id" component={Detail} /> */}
           <Route component={NoMatch} />
         </Switch>

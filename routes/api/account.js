@@ -134,7 +134,8 @@ router.post('/signin', function(req, res){
                 return res.send({
                     success: true,
                     message: 'Login Success.',
-                    token: userSession._id
+                    token: userSession._id,
+                    user: user
                 });
             })
             .catch((err)=>{
@@ -152,6 +153,32 @@ router.post('/signin', function(req, res){
             message: 'Error: Server error.'
         });
     })
+});
+
+router.get('/logout', function(req, res) {
+    let { query } = req;
+    let { token } = query;
+
+    db.UserSession.findOneAndUpdate({
+        _id: token,
+        isDeleted: false,
+    }, {
+        $set: {
+            isDeleted: true,
+        }
+    }, null, (err, sessions) => {
+        if (err) {
+            console.log(err);
+            return res.send({
+                success: false,
+                message: 'Error: Server error.'
+            });
+        }
+        return res.send({
+            success: true,
+            message: 'Good'
+        });
+    });
 });
 
 
