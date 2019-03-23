@@ -10,6 +10,12 @@ import {
   setInStorage,
   getFromStorage,
 } from '../utils/storage';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -25,6 +31,7 @@ class Login extends Component {
         signUpName: '',
         signUpEmail: '',
         signUpPassword: '',
+        user: ''
       };
 
       this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
@@ -33,7 +40,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-      const obj = getFromStorage('the_main_app');
+      const obj = getFromStorage('userObj');
       if (obj && obj.token) {
         const { token } = obj;
         // Verify the token
@@ -41,7 +48,6 @@ class Login extends Component {
         .then(res => {
           if (res.success) {
             this.setState({
-              token,
               isLoading: false
             });
           } else {
@@ -86,16 +92,21 @@ class Login extends Component {
           email: signInEmail,
           password: signInPassword,
       }).then(res => {
-        console.log(res);
+        console.log(res.data);
           if (res.data.success) {
-            setInStorage('the_main_app', { token: res.token });
+            // setInStorage('userObj', { token: res.data.token });
             this.setState({
               signInError: res.message,
               isLoading: false,
               signInEmail: '',
               signInPassword: '',
-              token: res.token,
+              token: res.data.token,
+              user: res.data.user,
             });
+
+            res.data.user.token = res.data.token;
+
+            setInStorage("userObj", (res.data.user));
             // REDIRECT TO FOOD HOMEPAGE
             window.location.href = '/AddFood'
           }
@@ -103,6 +114,8 @@ class Login extends Component {
 
         });
     }
+
+
 
     render() {
       const {
@@ -147,6 +160,8 @@ class Login extends Component {
               >
                 Login
               </FormBtn>
+              <br />
+              <Link to="/register">Register New User</Link>
             </form>
           </Col>
           <Col size="md-4" />
