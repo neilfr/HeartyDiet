@@ -42,7 +42,10 @@ module.exports = {
     db.Meal.findByIdAndUpdate(
       req.params.mealId,
       {
-        $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
+        $pull: {
+          foodList: { _id: new mongoose.Types.ObjectId(req.params.foodId) }
+          // foodList: [req.params.foodId]
+        }
       },
       { new: true }
     )
@@ -51,6 +54,21 @@ module.exports = {
         res.json(found);
       });
   },
+  // removeFoodById: function(req, res) {
+  //   db.Meal.findByIdAndUpdate(
+  //     req.params.mealId,
+  //     {
+  //       $pullAll: {
+  //         foodList: [{ _id: new mongoose.Types.ObjectId(req.params.foodId) }]
+  //       }
+  //     },
+  //     { new: true }
+  //   )
+  //     .populate("foodList.food") // changed from foodList to foodList.food
+  //     .exec(function(err, found) {
+  //       res.json(found);
+  //     });
+  // },
 
   updateKCalTotals: function(req, res) {
     db.Meal.findByIdAndUpdate(

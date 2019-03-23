@@ -56,37 +56,36 @@ class Meal extends Component {
   removeFromMeal = foodID => {
     console.log("remove food:", foodID);
     console.log("from meal:", this.state.currentMeal._id);
-    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID).then(
-      data => {
+    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID)
+      .then(data => {
         console.log("food delete returned: ", data);
-      }
-    );
+        // }
+        // );
+        const tempFoodList = data.data.foodList;
+        let totalPotassium = 0;
+        let totalEnergy = 0;
+        tempFoodList.map(food => {
+          totalPotassium += food.food.potassium;
+          totalEnergy += food.food.energy;
+        });
+        console.log("total energy is:", totalEnergy);
+        console.log("total potassium is:", totalPotassium);
+        API.updateEnergyPotassiumTotalsForMealByID(
+          this.state.currentMeal._id,
+          totalEnergy,
+          totalPotassium
+        ).then(data => {
+          console.log(
+            "meal data after food REMOVE, with updated totals",
+            data.data
+          );
+          this.setState({
+            currentMeal: data.data
+          });
+        });
+      })
+      .catch(err => console.log(err));
   };
-  //   const tempFoodList = data.data.foodList;
-  //   let totalPotassium = 0;
-  //   let totalEnergy = 0;
-  //   tempFoodList.map(food => {
-  //     totalPotassium += food.food.potassium;
-  //     totalEnergy += food.food.energy;
-  //   });
-  //   console.log("total energy is:", totalEnergy);
-  //   console.log("total potassium is:", totalPotassium);
-  //   API.updateEnergyPotassiumTotalsForMealByID(
-  //     this.state.currentMeal._id,
-  //     totalEnergy,
-  //     totalPotassium
-  //   ).then(data => {
-  //     console.log(
-  //       "meal data after food REMOVE, with updated totals",
-  //       data.data
-  //     );
-  //     this.setState({
-  //       currentMeal: data.data
-  //     });
-  //   });
-  // })
-  // .catch(err => console.log(err));
-  // };
 
   //! new version
   addToMeal = (food_id, servingSize) => {
