@@ -40,7 +40,7 @@ export function FormBtn(props) {
     <button
       {...props}
       style={{ float: "right", marginBottom: 10 }}
-      className="btn btn-default"
+
     >
       {props.children}
     </button>
