@@ -1,0 +1,30 @@
+
+/* .btn {
+  float: left;
+  padding: 14px 28px;
+  font-size: 20px;
+  text-align: center;
+} */
+
+.food-btn {
+  float: none;
+}
+
+.editFavoriteFoodBtn, .deleteFavoriteFoodBtn {
+/* font-size: 10px; */
+  font-weight: bold;
+  text-align: center;
+  width:100px;
+  margin-top: 20px;
+  background-color: white;
+  border: 0ch;
+}
+.editFavoriteFoodBtn {
+width: 95px;
+}
+.btn-span{
+  width:100%;
+  white-space: inherit;
+  text-align: center;
+  font-size: 18px;
+}
