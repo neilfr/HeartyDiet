@@ -9,7 +9,7 @@ function CustomCard(props) {
                 <ul className="list-group">
                     <li className="list-group-item d-flex justify-content-between align-items-center">
                         Food Group
-                        <span className="badge badge-primary pt-3 group-name text-wrap">{props.foodGroup}</span>
+                        <span className="badge badge-primary pt-3 group-name">{props.foodGroup}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
                         Energy
@@ -25,7 +25,7 @@ function CustomCard(props) {
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
                         User Name
-            <span className="badge badge-primary pt-3">{props.username}</span>
+            <span className="badge badge-primary pt-3 ">{props.username}</span>
                     </li>
                 </ul>
                 {/* <p className="text-small text-muted mb-0 pt-3">* At vero eos et accusamus et iusto ducimus.</p> */}

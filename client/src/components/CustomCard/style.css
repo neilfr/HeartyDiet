@@ -10,9 +10,9 @@
     height: 55px;
     border-radius: 2%;
     font-size: 20px;
+    white-space: pre-wrap; 
 }
 .group-name{
     width:160px;
-    white-space: pre-wrap; 
     overflow-wrap: break-word;
 }
