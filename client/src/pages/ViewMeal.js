@@ -199,7 +199,7 @@ class Meal extends Component {
                 this.state.currentMeal.foodList.length > 0 ? (
                   <List>
                     {this.state.currentMeal.foodList.map(food => (
-                      <ListItem key={food._id}>
+                      <Card key={food._id}>
                         <strong>
                           <br /> {food.foodName} <br />
                           <br /> Energy:{food.energy} <br />
@@ -215,7 +215,7 @@ class Meal extends Component {
                         >
                           Remove
                         </Button>
-                      </ListItem>
+                      </Card>
                     ))}
                   </List>
                 ) : (
