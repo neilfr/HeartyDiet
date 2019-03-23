@@ -71,7 +71,7 @@ class Meal extends Component {
   //   });
   //   console.log("total energy is:", totalEnergy);
   //   console.log("total potassium is:", totalPotassium);
-  //   API.updateEnergyPotassiumTotalsByID(
+  //   API.updateEnergyPotassiumTotalsForMealByID(
   //     this.state.currentMeal._id,
   //     totalEnergy,
   //     totalPotassium
@@ -114,7 +114,7 @@ class Meal extends Component {
         });
         console.log("total energy before update totals is:", totalEnergy);
         console.log("total potassium before update totals is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsByID(
+        API.updateEnergyPotassiumTotalsForMealByID(
           this.state.currentMeal._id,
           totalEnergy,
           totalPotassium

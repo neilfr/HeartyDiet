@@ -39,23 +39,19 @@ module.exports = {
   },
   // todo fix remove with the new model
   removeFoodById: function(req, res) {
-    db.Meal.findByIdAndDelete(req.params.mealId).exec(function(err, res) {
-      console.log("remove food by id returned res: ", res);
-      res.json(res);
-    });
+    db.Meal.findByIdAndUpdate(
+      req.params.mealId,
+      {
+        $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
+      },
+      { new: true }
+    )
+      .populate("foodList.food") // changed from foodList to foodList.food
+      .exec(function(err, found) {
+        res.json(found);
+      });
   },
-  // db.Meal.findByIdAndUpdate(
-  //   req.params.mealId,
-  //   {
-  //     $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
-  //   },
-  //   { new: true }
-  // )
-  //   .populate("foodList.food") // changed from foodList to foodList.food
-  //   .exec(function(err, found) {
-  //     res.json(found);
-  //   });
-  // },
+
   updateKCalTotals: function(req, res) {
     db.Meal.findByIdAndUpdate(
       req.params.mealId,
