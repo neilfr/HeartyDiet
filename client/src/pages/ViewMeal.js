@@ -47,46 +47,46 @@ class Meal extends Component {
 
   selectMeal = meal => {
     this.setState({ currentMeal: meal });
+    console.log(
+      "selected meal... now current meal state is:",
+      this.state.currentMeal
+    );
   };
 
   removeFromMeal = foodID => {
     console.log("remove food:", foodID);
     console.log("from meal:", this.state.currentMeal._id);
-    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID)
-      .then(data => {
-        // console.log("in remove food... data.data is", data.data);
-        // console.log("foodlist is:", data.data.foodList);
-        // const totalEnergy = data.data.foodList.reduce((a, b) => ({
-        //   energy: a.energy + b.energy
-        // }));
-        // const totalPotassium = data.data.foodList.reduce((a, b) => ({
-        //   potassium: a.potassium + b.potassium
-        // }));
-        const tempFoodList = data.data.foodList;
-        let totalPotassium = 0;
-        let totalEnergy = 0;
-        tempFoodList.map(food => {
-          totalPotassium += food.potassium;
-          totalEnergy += food.energy;
-        });
-        console.log("total energy is:", totalEnergy);
-        console.log("total potassium is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsByID(
-          this.state.currentMeal._id,
-          totalEnergy,
-          totalPotassium
-        ).then(data => {
-          console.log(
-            "meal data after food REMOVE, with updated totals",
-            data.data
-          );
-          this.setState({
-            currentMeal: data.data
-          });
-        });
-      })
-      .catch(err => console.log(err));
+    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID).then(
+      data => {
+        console.log("food delete returned: ", data);
+      }
+    );
   };
+  //   const tempFoodList = data.data.foodList;
+  //   let totalPotassium = 0;
+  //   let totalEnergy = 0;
+  //   tempFoodList.map(food => {
+  //     totalPotassium += food.food.potassium;
+  //     totalEnergy += food.food.energy;
+  //   });
+  //   console.log("total energy is:", totalEnergy);
+  //   console.log("total potassium is:", totalPotassium);
+  //   API.updateEnergyPotassiumTotalsByID(
+  //     this.state.currentMeal._id,
+  //     totalEnergy,
+  //     totalPotassium
+  //   ).then(data => {
+  //     console.log(
+  //       "meal data after food REMOVE, with updated totals",
+  //       data.data
+  //     );
+  //     this.setState({
+  //       currentMeal: data.data
+  //     });
+  //   });
+  // })
+  // .catch(err => console.log(err));
+  // };
 
   //! new version
   addToMeal = (food_id, servingSize) => {
@@ -103,15 +103,17 @@ class Meal extends Component {
         // const totalPotassium = data.data.foodList.reduce((a, b) => ({
         //   potassium: a.potassium + b.potassium
         // }));
+        console.log("data.data is:", data.data);
         const tempFoodList = data.data.foodList;
+        console.log("tempFoodList is:", tempFoodList);
         let totalPotassium = 0;
         let totalEnergy = 0;
         tempFoodList.map(food => {
-          totalPotassium += food.potassium;
-          totalEnergy += food.energy;
+          totalPotassium += food.food.potassium;
+          totalEnergy += food.food.energy;
         });
-        // console.log("total energy is:", totalEnergy);
-        // console.log("total potassium is:", totalPotassium);
+        console.log("total energy before update totals is:", totalEnergy);
+        console.log("total potassium before update totals is:", totalPotassium);
         API.updateEnergyPotassiumTotalsByID(
           this.state.currentMeal._id,
           totalEnergy,
@@ -174,17 +176,7 @@ class Meal extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12 sm-12">
-            <Jumbotron>
-              <h1>View Meal</h1>
-            </Jumbotron>
-          </Col>
-        </Row>
-
-        {/* add meal section */}
-        <Row>
           <Col size="md-9 sm-9">
-            {/* <form> */}
             <Input
               value={this.state.mealName}
               onChange={this.handleInputChange}
@@ -240,11 +232,7 @@ class Meal extends Component {
               {this.state.mealList.length ? (
                 <>
                   {this.state.mealList.map(meal => (
-                    <Card
-                      key={meal._id}
-                      //todo: clicking on card isn't working...need to fix
-                      // onClick={() => this.selectMeal(meal)}
-                    >
+                    <Card key={meal._id}>
                       {/* <Link to={"/food/" + food._id}></Link> */}
                       <strong>
                         Meal Name: {meal.mealName} <br />
@@ -283,13 +271,13 @@ class Meal extends Component {
                     {this.state.currentMeal.foodList.map(food => (
                       <Card key={food._id}>
                         <strong>
-                          <br /> {food.foodName} <br />
-                          <br /> Energy:{food.energy} <br />
-                          <br /> Potassium:{food.potassium} <br />
-                          <br /> Efficiency:need to get virtual{
-                            food.efficiency
-                          }{" "}
+                          <br /> {food.food.foodName} <br />
+                          <br /> Energy:{food.food.energy} <br />
+                          <br /> Potassium:{food.food.potassium} <br />
+                          <br /> ServingSize:{food.servingSize}
                           <br />
+                          <br /> Efficiency:need to get virtual
+                          {food.food.efficiency} <br />
                         </strong>
                         <Button
                           className="btn btn-danger"
