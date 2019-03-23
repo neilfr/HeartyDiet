@@ -218,7 +218,7 @@ class Food extends Component {
                       {/* <div className="card" style={{ width: 35 }}> */}
                       <div className="row p-2 pt-3">
                         <div className="col-4">
-                          <img className="card-img-left" style={{ width: 85, height: 85 }} alt="foodPic" src={foodGroupList.image} />
+                          <img className="card-img-left" style={{ width: 95, height: 95 }} alt="foodPic" src={foodGroupList.image} />
                           {/* <Col size="md-6" className="card-body"> */}
                         </div>
                         <div className="col-6 offset-1">

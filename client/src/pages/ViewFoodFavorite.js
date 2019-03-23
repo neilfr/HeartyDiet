@@ -4,6 +4,7 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import Card from "../components/Card";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
+import CustomCard from "../components/CustomCard"
 
 class FoodFavorite extends Component {
   state = {
@@ -110,34 +111,28 @@ class FoodFavorite extends Component {
           </Col>
         </Row>
 
+
         {this.state.foodFavoriteList.length ? (
           this.state.foodFavoriteList.map(foodFavoriteList => (
             <Row>
-              <Col size="md-4" >
-                <div className="m-2 mt-5">
-                  <Card
-                    className="card p-1 m-5"
+              <Col size="md-6" className="offset-2" >
+                <div className="m-5">
+                  <CustomCard
                     key={foodFavoriteList._id}
-                  // onClick={() => this.saveFoodByUser(foodFavoriteList._id, "")}
-                  // className="btn btn-light btn-lg btn-block"
+                    title={foodFavoriteList.foodName}
+                    foodGroup={foodFavoriteList.foodGroupName}
+                    energy={foodFavoriteList.energy}
+                    potassium={foodFavoriteList.potassium}
+                    efficiency={foodFavoriteList.efficiency}
+                    username={foodFavoriteList.userName}
                   >
-                    <div className="card-body">
-                      <strong>
-                        <h5 style={foodDisplay}>{foodFavoriteList.foodName}</h5><br />
-                        Food Group: {foodFavoriteList.foodGroupName} <br />
-                        Energy: {foodFavoriteList.energy}kcal <br />
-                        Potassium: {foodFavoriteList.potassium}gm <br />
-                        Efficiency: {foodFavoriteList.efficiency} <br />
-                        Username: {foodFavoriteList.userName} <br />
-                      </strong>
-                    </div>
-                  </Card>
+                  </CustomCard>
                 </div>
               </Col>
 
               {this.state.customize &&
                 this.state.editFoodID === foodFavoriteList._id ? (
-                  <Col size="md-8">
+                  <Col size="md-4">
                     <div className="mt-5">
                       <Dropdown
                         name="foodGroupName"
@@ -189,7 +184,7 @@ class FoodFavorite extends Component {
                   <div className="conatiner button-container">
                     <Col size="md-4">
                       <div className="mt-5">
-                        <Button
+                        <button
                           key={foodFavoriteList._id}
                           onClick={() =>
                             this.edit(
@@ -199,15 +194,15 @@ class FoodFavorite extends Component {
                               foodFavoriteList.foodGroupName
                             )
                           }
-                          className=" editFavoriteFoodBtn"
+                          className=" editFavoriteFoodBtn  btn-lg blue-gradient"
                         >
 
-                          <a className="btn-default btn-lg blue-gradient btn-span">EDIT  <i class="fa fa-pencil-square-o"></i></a>
-                        </Button>
+                          <a>EDIT  <i class="fa fa-pencil-square-o"></i></a>
+                        </button>
                       </div>
                     </Col>
                     <Col size="md-4">
-                      <Button
+                      <button
                         key={foodFavoriteList._id}
                         onClick={() =>
                           this.deleteFood(
@@ -215,10 +210,10 @@ class FoodFavorite extends Component {
                             foodFavoriteList.foodName
                           )
                         }
-                        className="deleteFavoriteFoodBtn"
+                        className="deleteFavoriteFoodBtn btn-lg peach-gradient"
                       >
-                        <a className="btn-default btn-lg peach-gradient btn-span px-1">REMOVE <i class="fa fa-remove"></i></a>
-                      </Button>
+                        <a>REMOVE <i class="fa fa-remove"></i></a>
+                      </button>
                     </Col>
                   </div>
                 )}
