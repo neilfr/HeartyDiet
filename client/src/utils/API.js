@@ -18,19 +18,19 @@ export default {
   },
 
   //! this is the new one ignored this in merge conflict
-//   updateMealByID: function (id, updatedMeal) {
-//     return axios.put("/api/meal/" + id, updatedMeal);
-//   },
-//   getMealByUser: function (userName) {
+  //   updateMealByID: function (id, updatedMeal) {
+  //     return axios.put("/api/meal/" + id, updatedMeal);
+  //   },
+  //   getMealByUser: function (userName) {
   removeFoodFromMealByID: function(mealId, foodId) {
     console.log("inside client api removeFoodFromMealById");
-    console.log("mealId is:", mealId);
-    console.log("foodId is:", foodId);
+    console.log("mealId is:", mealId); //this is right
+    console.log("foodId is:", foodId); // this is correct
     return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
   },
 
   //! new stuff
-  updateEnergyPotassiumTotalsByID: function(
+  updateEnergyPotassiumTotalsForMealByID: function(
     mealId,
     totalEnergy,
     totalPotassium
@@ -82,7 +82,7 @@ export default {
   getFoodByID: function(id) {
     return axios.get("/api/food/foodByID/" + id);
   },
-  getFoodByFoodName: function (foodName) {
+  getFoodByFoodName: function(foodName) {
     return axios.get("/api/food/foodByFoodName/" + foodName);
   },
   // Deletes the food with the given id
@@ -92,7 +92,7 @@ export default {
   },
   // Update the food with the given id
 
-  updateFoodByID: function (id, updatedFood) {
+  updateFoodByID: function(id, updatedFood) {
     return axios.put("/api/food/foodByID/" + id, updatedFood);
   },
 
