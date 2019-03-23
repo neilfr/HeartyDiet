@@ -12,6 +12,8 @@ import Button from "../components/Button";
 
 class Meal extends Component {
   state = {
+    // first item from add meal
+    mealName: "",
     mealList: [],
     foodFavoriteList: [],
     currentMeal: null
@@ -126,9 +128,49 @@ class Meal extends Component {
       })
       .catch(err => console.log(err));
   };
+  //next 3 functions from addMeal.js
+  deleteMeal = id => {
+    API.deleteMeal(id)
+      .then(res => {
+        console.log("res is: ", res.data);
+        window.location.href = "/ViewMeal";
+
+        // window.location.href = "/AddMeal";
+        // this.setState({
+        //   mealList: res.data
+        // });
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+    console.log([name], value);
+    // console.log(this.state.foods);
+  };
+
+  handleFormSubmit = event => {
+    alert(this.state.foods);
+    event.preventDefault();
+    if (this.state.mealName) {
+      API.saveMeal({
+        mealName: this.state.mealName,
+        userName: "JohnSmith",
+        totalEnergy: 0,
+        totalPotassium: 0
+      })
+        //todo this refreshes the screen... or should i update state?
+        .then(res => (window.location.href = "/ViewMeal"))
+        // .then(res => (window.location.href = "/AddMeal"))
+        //.then(res => this.loadMeals())
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
-    // console.log(this.state.currentMeal);
     return (
       <Container fluid>
         <Row>
@@ -139,18 +181,52 @@ class Meal extends Component {
           </Col>
         </Row>
 
+        {/* add meal section */}
+        <Row>
+          <Col size="md-9 sm-9">
+            {/* <form> */}
+            <Input
+              value={this.state.mealName}
+              onChange={this.handleInputChange}
+              name="mealName"
+              placeholder="Enter meal name to create new meal"
+            />
+          </Col>
+          <Col size="md-3 sm-3">
+            <Button
+              className="btn btn-primary"
+              disabled={
+                !this.state.mealName
+
+                // && this.state.foodGroup &&
+                // this.state.energy &&
+                // this.state.potassium
+              }
+              onClick={this.handleFormSubmit}
+            >
+              Add Meal
+            </Button>
+          </Col>
+        </Row>
+        {/* end of add meal section */}
+
         {this.state.currentMeal ? (
           <Row>
             <Col size="md-12 sm-12">
-              CurrentMeal: {this.state.currentMeal.mealName}
-              Total Energy: {this.state.currentMeal.totalEnergy}
-              Total Potassium: {this.state.currentMeal.totalPotassium}
+              <strong>Selected Meal: </strong> {this.state.currentMeal.mealName}
+              <strong>Total Energy: </strong>
+              {this.state.currentMeal.totalEnergy}
+              <strong>Total Potassium: </strong>
+              {this.state.currentMeal.totalPotassium}
             </Col>
           </Row>
         ) : (
           <Row>
             <Col size="md-12 sm-12">
-              <h6>Select a Meal</h6>
+              <h6>
+                Select a Meal from the meal list to see what foods it contains
+                and to make changes
+              </h6>
             </Col>
           </Row>
         )}
@@ -180,6 +256,12 @@ class Meal extends Component {
                         onClick={() => this.selectMeal(meal)}
                       >
                         Select
+                      </Button>
+                      <Button
+                        className="btn btn-danger"
+                        onClick={() => this.deleteMeal(meal._id)}
+                      >
+                        Delete
                       </Button>
                     </Card>
                   ))}
