@@ -10,9 +10,8 @@ import Card from "../components/Card";
 import { FoodPic, FoodContainer } from "./FoodPic";
 import "./viewFoodStyle.css";
 import SearchResults from "./SearchResults";
-//import { faHome } from "@fortawesome/free-solid-svg-icons";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
+//import { MDBMask, MDBView, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 
 
@@ -170,14 +169,22 @@ class Food extends Component {
   };
 
   render() {
-    const holder = {
-      height: '100px',
-      backgroundColor: 'blue'
+    var foodDisplay = {
+      color: '#1e90ff',
+      fontWeight: 'bold'
     };
+    var iconClass = {
+      position: 'absolute',
+      bottom: 0,
+      right: 6
+    };
+    // var iconClass: hover = {
+    //   backgroundColor: 'red'
+    // }
     return (
       <Container fluid>
         <Row>
-          <div className="col-6 offset-9 search-bar" >
+          <div className="col-6 offset-9 search-bar container form-inline" >
             <form>
               <Input
                 value={this.state.foodSearch}
@@ -190,10 +197,10 @@ class Food extends Component {
               </button>
             </form>
           </div>
-          <SearchResults
+          {/* <SearchResults
             foodName={this.state.results.foodName}
             potassium={this.state.results.potassium}
-          />
+          /> */}
         </Row>
         <div className="container">
           <h4>Browse Common Foods</h4>
@@ -203,31 +210,31 @@ class Food extends Component {
               this.state.foodGroupList.map(foodGroupList => (
                 <Col size="lg-4">
                   <Container >
-                    <div className="holder"
+                    <div className="holder container card"
                       onClick={() =>
                         this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
                       }>
                       {/* {console.log(foodGroupList.image)} */}
-                      <Row style={{ backgroundColor: 'blue' }}>
-                        {/* <Col size="md-4">
-                          <img style={{ width: 85, height: 85, margin: 10 }} alt="foodPic" src={foodGroupList.image} />
-                        </Col> */}
-                        <Col size="md-8">
-
-                          <Button
+                      {/* <div className="card" style={{ width: 35 }}> */}
+                      <div className="row p-2 pt-3">
+                        <div className="col-4">
+                          <img className="card-img-left" style={{ width: 85, height: 85 }} alt="foodPic" src={foodGroupList.image} />
+                          {/* <Col size="md-6" className="card-body"> */}
+                        </div>
+                        <div className="col-6 offset-1">
+                          <button
                             key={foodGroupList.foodGroupName}
-                            className="custom-btn">
+                            className="custom-btn text-center">
                             {/* <Link to={"/food/" + food._id}></Link> */}
                             <strong>
-                              <p className="button-text"> {foodGroupList.foodGroupName} </p>
+                              <p className="card-title"> {foodGroupList.foodGroupName} </p>
                             </strong>
+                          </button>
+                        </div>
 
-                            {/* <DeleteBtn  /> */}
-                          </Button>
-                        </Col>
-                      </Row>
-                      <div className="text-right" style={{ marginRight: 10 }}>
-                        <i className="fa fa-heartbeat"></i>
+                      </div>
+                      <div style={iconClass} className="moreIcon">
+                        <p style={{ color: 'blue' }}>more</p>
                       </div>
                     </div>
                   </Container>
@@ -242,22 +249,23 @@ class Food extends Component {
         <Row>
           {this.state.foodList.length ? (
             this.state.foodList.map(foodList => (
-              <Col size="md-3">
+              <Col size="md-6">
                 <Button
                   key={foodList._id}
                   onClick={() => this.saveFoodByUser(foodList._id, "")}
-                  className="btn btn-light btn-lg btn-block"
+                  className="btn btn-light btn-lg text-left designed p-5"
                 >
-                  <strong>
-                    Food Name: {foodList.foodName} <br />
-                    Food Group: {foodList.foodGroupName} <br />
-                    Energy: {foodList.energy} <br />
-                    Potassium: {foodList.potassium} <br />
-                    Username: {foodList.userName} <br />
-                    Efficiency: {foodList.efficiency} <br />
-                    Username: {foodList.userName} <br />
-                  </strong>
-                  <div>
+                  <div className="card-content">
+                    <strong>
+                      <h5 style={foodDisplay}>{foodList.foodName}</h5><br />
+                      Food Group: {foodList.foodGroupName} <br />
+                      Energy: {foodList.energy}kCal <br />
+                      Potassium: {foodList.potassium}gm <br />
+                      Efficiency: {foodList.efficiency} <br />
+                      Username: {foodList.userName} <br />
+                    </strong>
+                  </div>
+                  <div className="text-right">
                     <i className="fa fa-gratipay"></i><br />
                     <p className="add-fav">Add to favorites</p>
                   </div>
