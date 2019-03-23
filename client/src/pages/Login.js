@@ -68,13 +68,15 @@ class Login extends Component {
       });
     }
   
-    onSignIn() {
+    onSignIn = e => {
+      e.preventDefault();
       //Grab the state
       const {
         signInEmail,
         signInPassword,
       } = this.state;
   
+
       this.setState({
         isLoading: true,
       });
@@ -84,7 +86,8 @@ class Login extends Component {
           email: signInEmail,
           password: signInPassword,
       }).then(res => {
-          if (res.success) {
+        console.log(res);
+          if (res.data.success) {
             setInStorage('the_main_app', { token: res.token });
             this.setState({
               signInError: res.message,
@@ -93,7 +96,11 @@ class Login extends Component {
               signInPassword: '',
               token: res.token,
             });
+            // REDIRECT TO FOOD HOMEPAGE
+            window.location.href = '/AddFood'
           }
+        }).catch(err => {
+
         });
     }
 
@@ -112,7 +119,7 @@ class Login extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Login / Landing Page - Login is not actually working</h1>
+              <h1>Please Login to plan your Hearty Diet.</h1>
             </Jumbotron>
           </Col>
         </Row>

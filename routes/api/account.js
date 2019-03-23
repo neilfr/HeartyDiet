@@ -3,6 +3,7 @@ const db  = require("./../../models")
 const brcrypt = require('bcrypt');
 
 
+
 router.post('/signup', (req, res)=>{
     // console.log(req)
     let {name, email, password} = req.body;
@@ -84,9 +85,11 @@ router.post('/signup', (req, res)=>{
 });
 
 
-router.post('/api/account/signin', function(res, req){
+router.post('/signin', function(req, res){
+    // console.log(req.body)
+    // res.send('Sent')
     let {email, password} = req.body;
-
+    
     if (!email) {
         return res.send({
           success: false,
@@ -114,14 +117,18 @@ router.post('/api/account/signin', function(res, req){
                 message: 'Error: User does not exist.'
             });
         }
-        if (!user.validPassword(password)) {
+        // console.log(db.User.validPassword(password,
+        if (!db.User.validPassword(password, user.password)) {
             return res.send({
                 success: false,
                 message: 'Error: Invalid.'
             });
         } else {
-            const userSession = new UserSession();
-            userSession.userId = user._id;
+            const userSession = new db.UserSession({
+                userId: user._id,
+                timestamp: Date.now(),
+                isDeleted: false
+            });
             userSession.save()
             .then((userSession)=>{
                 return res.send({
