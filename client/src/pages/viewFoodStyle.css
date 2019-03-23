@@ -1,22 +1,21 @@
 .holder{
     height:140px;
     margin: 10px;
-    white-space: normal;
+    /* white-space: normal; */
     border: 1px solid gray;
 }
 
 .custom-btn {
     font-size: 18px;
-    border: 0;
+    border: none;
     max-width: 130px;
     text-align: center;
     white-space: normal;
-    margin-top:15px;
     background-color: white;
   }
   .add-fav{
       color: blue;
-      font-size: 17px
+      font-size: 14px
   }
 
   .fa-gratipay,.fa-heartbeat {
@@ -27,3 +26,13 @@
       margin-top: 15px;
     width:170px
   }
+ .designed{
+     margin-bottom: 25px;
+     /* padding-bottom: 100px; */
+     width: 100%;
+     height: 300px;
+ }
+.moreIcon:hover{
+    cursor: pointer;
+    
+}

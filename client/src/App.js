@@ -16,6 +16,7 @@ import AddFoodGroup from "./pages/AddFoodGroup";
 //import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 
 // library.add(faIgloo)
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/AddMeal" component={AddMeal} />
           <Route exact path="/ViewMeal" component={ViewMeal} />
           <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
+          <Route exact path="/Register" component={Register} />
           {/* <Route exact path="/foods/:id" component={Detail} /> */}
           <Route component={NoMatch} />
         </Switch>
