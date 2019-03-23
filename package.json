@@ -24,9 +24,11 @@
     ]
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
     "express": "^4.16.3",
+    "font-awesome": "^4.7.0",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
     "mongoose-type-url": "^1.0.5"
