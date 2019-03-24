@@ -9,6 +9,9 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
+// import '../node_modules/react-vis/dist/style.css';
+//import 'C:\Users\gurne\OneDrive\Documents\Project3\project3\client\node_modules/'
+//import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
 
 class Meal extends Component {
   state = {
@@ -131,6 +134,7 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
+
         <Row>
           <Col size="md-12 sm-12">
             <Jumbotron>
@@ -138,22 +142,22 @@ class Meal extends Component {
             </Jumbotron>
           </Col>
         </Row>
-
+        {/* the charts and details should show here */}
         {this.state.currentMeal ? (
           <Row>
-            <Col size="md-12 sm-12">
+            <Col size="md-9 ">
               CurrentMeal: {this.state.currentMeal.mealName}
               Total Energy: {this.state.currentMeal.totalEnergy}
               Total Potassium: {this.state.currentMeal.totalPotassium}
             </Col>
           </Row>
         ) : (
-          <Row>
-            <Col size="md-12 sm-12">
-              <h6>Select a Meal</h6>
-            </Col>
-          </Row>
-        )}
+            <Row>
+              <Col size="md-12 sm-12">
+                <h6>Select a Meal</h6>
+              </Col>
+            </Row>
+          )}
 
         <Row>
           <Col size="md-4 sm-4">
@@ -166,8 +170,8 @@ class Meal extends Component {
                   {this.state.mealList.map(meal => (
                     <Card
                       key={meal._id}
-                      //todo: clicking on card isn't working...need to fix
-                      // onClick={() => this.selectMeal(meal)}
+                    //todo: clicking on card isn't working...need to fix
+                    // onClick={() => this.selectMeal(meal)}
                     >
                       {/* <Link to={"/food/" + food._id}></Link> */}
                       <strong>
@@ -185,8 +189,8 @@ class Meal extends Component {
                   ))}
                 </>
               ) : (
-                <h6>No Meals, Add a meal first</h6>
-              )}
+                  <h6>No Meals, Add a meal first</h6>
+                )}
             </Row>
           </Col>
           <Col size="md-4 sm-4">
@@ -194,33 +198,33 @@ class Meal extends Component {
               <h3>Foods in your Meal</h3>
             </Row>
             <Row>
-              <div>
+              <div className="container">
                 {this.state.currentMeal &&
-                this.state.currentMeal.foodList.length > 0 ? (
-                  <List>
-                    {this.state.currentMeal.foodList.map(food => (
-                      <Card key={food._id}>
-                        <strong>
-                          <br /> {food.foodName} <br />
-                          <br /> Energy:{food.energy} <br />
-                          <br /> Potassium:{food.potassium} <br />
-                          <br /> Efficiency:need to get virtual{
-                            food.efficiency
-                          }{" "}
-                          <br />
-                        </strong>
-                        <Button
-                          className="btn btn-danger"
-                          onClick={() => this.removeFromMeal(food._id)}
-                        >
-                          Remove
+                  this.state.currentMeal.foodList.length > 0 ? (
+                    <List>
+                      {this.state.currentMeal.foodList.map(food => (
+                        <Card key={food._id}>
+                          <strong>
+                            <br /> {food.foodName} <br />
+                            <br /> Energy:{food.energy} <br />
+                            <br /> Potassium:{food.potassium} <br />
+                            <br /> Efficiency:need to get virtual{
+                              food.efficiency
+                            }{" "}
+                            <br />
+                          </strong>
+                          <Button
+                            className="btn btn-danger"
+                            onClick={() => this.removeFromMeal(food._id)}
+                          >
+                            Remove
                         </Button>
-                      </Card>
-                    ))}
-                  </List>
-                ) : (
-                  <h6>Click Add on a food card to add it to your meal</h6>
-                )}
+                        </Card>
+                      ))}
+                    </List>
+                  ) : (
+                    <h6>Click Add on a food card to add it to your meal</h6>
+                  )}
               </div>
             </Row>
           </Col>
@@ -249,8 +253,8 @@ class Meal extends Component {
                   ))}
                 </List>
               ) : (
-                <h6>Click Add to add a food to the meal</h6>
-              )}
+                  <h6>Click Add to add a food to the meal</h6>
+                )}
             </Row>
           </Col>
         </Row>

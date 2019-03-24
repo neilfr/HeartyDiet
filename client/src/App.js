@@ -10,12 +10,6 @@ import ViewMeal from "./pages/ViewMeal";
 import HomeContainer from "./pages/HomeContainer";
 import ViewFoodFavorite from "./pages/ViewFoodFavorite";
 import AddFoodGroup from "./pages/AddFoodGroup";
-// for font awesome
-// import { library } from '@fortawesome/fontawesome-svg-core'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { faIgloo } from '@fortawesome/free-solid-svg-icons'
-
-// library.add(faIgloo)
 import Register from "./pages/Register";
 
 function App() {
