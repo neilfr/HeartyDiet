@@ -146,17 +146,6 @@ class Food extends Component {
     console.log("something")
     console.log(this.state.foodSearch)
     console.log(this.state.foodList)
-    //this.loadFoodOnSearch(this.state.foodSearch)
-    // this.state.foodList.map(foodItem => {
-    //   var key = foodItem.id;
-    //   var str = foodItem.foodName;
-    //   // var array = str.split();
-    //   if (foodItem.FoodID === this.state.foodSearch) {
-    //     console.log(foodItem.foodName)
-    //     this.setState({ results: foodItem })
-    //     console.log(this.state.results)
-    //   }
-    // })
 
     API.getFoodByFoodName(this.state.foodSearch)
       .then(res =>
@@ -178,14 +167,27 @@ class Food extends Component {
       bottom: 0,
       right: 6
     };
-    // var iconClass: hover = {
-    //   backgroundColor: 'red'
-    // }
+
     return (
       <Container fluid>
         <Row>
-          <div className="col-6 offset-9 search-bar container form-inline" >
-            <form>
+          <div className="col-6 search-bar offset-6" >
+            <div class="input-group mt-3 form-sm form-2 pl-0">
+              <input class="form-control my-0 py-1 red-border" type="text" placeholder="Enter Food Name" aria-label="Search"
+                value={this.state.foodSearch}
+                onChange={this.handleInputChange}
+                name="foodSearch"
+              />
+              <div class="input-group-append">
+                {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
+                <button
+                  className="input-group-text red lighten-3"
+                  onClick={this.handleFormSubmit}><i className=" fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+
+            {/* <form>
               <Input
                 value={this.state.foodSearch}
                 onChange={this.handleInputChange}
@@ -195,7 +197,7 @@ class Food extends Component {
               <button
                 onClick={this.handleFormSubmit}><i className="fa fa-search"></i>
               </button>
-            </form>
+            </form> */}
           </div>
           {/* <SearchResults
             foodName={this.state.results.foodName}
@@ -217,8 +219,8 @@ class Food extends Component {
                       {/* {console.log(foodGroupList.image)} */}
                       {/* <div className="card" style={{ width: 35 }}> */}
                       <div className="row p-2 pt-3">
-                        <div className="col-4">
-                          <img className="card-img-left" style={{ width: 85, height: 85 }} alt="foodPic" src={foodGroupList.image} />
+                        <div className="col-4 view overlay zoom">
+                          <img className="card-img-left" style={{ width: 95, height: 95 }} alt="foodPic" src={foodGroupList.image} />
                           {/* <Col size="md-6" className="card-body"> */}
                         </div>
                         <div className="col-6 offset-1">
@@ -277,7 +279,7 @@ class Food extends Component {
               <h3>No Results to Display</h3>
             )}
         </Row>
-      </Container>
+      </Container >
     );
   }
 }

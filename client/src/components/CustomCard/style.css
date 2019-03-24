@@ -1,0 +1,18 @@
+/* span{
+    width:90px;
+    height:45px;
+} */
+.badge-pill{
+    font-size: 18px;
+}
+.badge-primary{
+    width:120px;
+    height: 55px;
+    border-radius: 2%;
+    font-size: 20px;
+    white-space: pre-wrap; 
+}
+.group-name{
+    width:160px;
+    overflow-wrap: break-word;
+}
