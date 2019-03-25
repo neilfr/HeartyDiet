@@ -203,9 +203,7 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
-
         <Row>
-
           <Col size="sm-12">
             <Jumbotron>
               <h1>View Meal</h1>
@@ -221,221 +219,199 @@ class Meal extends Component {
             <div className="d-flex flex-row justify-content-center mb-5">
               <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentMeal.mealName}</span></div>
               <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentMeal.totalEnergy}kCal</div>
-              <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.totalPotassium}gm</div>
+              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.totalPotassium}gm</div>
+              <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.efficiency}</div>
             </div>
           </div>
         ) : (
 
-          <Col size="md-9 sm-9">
-            <Input
-              value={this.state.mealName}
-              onChange={this.handleInputChange}
-              name="mealName"
-              placeholder="Enter meal name to create new meal"
-            />
-          </Col>
-          <Col size="md-3 sm-3">
-            <Button
-              className="btn btn-primary"
-              disabled={
-                !this.state.mealName
-
-                // && this.state.foodGroup &&
-                // this.state.energy &&
-                // this.state.potassium
-              }
-              onClick={this.handleFormSubmit}
-            >
-              Add Meal
-            </Button>
-          </Col>
-        </Row>
-        {/* end of add meal section */}
-
-        {this.state.currentMeal ? (
-          <Row>
-            <Col size="md-12 sm-12">
-              <strong>Selected Meal: </strong> {this.state.currentMeal.mealName}
-              <strong>Total Energy: </strong>
-              {this.state.currentMeal.totalEnergy}
-              <strong>Total Potassium: </strong>
-              {this.state.currentMeal.totalPotassium}
-              <strong>
-                Efficiency:
-                {/* {this.state.currentMeal.totalEnergy /
-                  this.state.currentMeal.totalPotassium} */}
-                {this.state.currentMeal.efficiency}
-              </strong>
-            </Col>
-          </Row>
-        ) : (
-          <Row>
-            <Col size="md-12 sm-12">
-              <h6>
-                Select a Meal from the meal list to see what foods it contains
-                and to make changes
-              </h6>
-            </Col>
-          </Row>
-        )}
-
-        <Row>
-          <Col size="md-4 sm-4">
-
             <Row>
-              <Col size="sm-12">
-                <h6>Select a Meal</h6>
+              <Col size="md-12 sm-12">
+                <h6>
+                  Select a Meal from the meal list to see what foods it contains
+                  and to make changes
+          </h6>
               </Col>
             </Row>
           )}
 
-        <Row>
-          <div className="col-3 ml-5">
-            <div className=" justify-content-center">
-              <h3 className='text-center'>Select a Meal</h3>
-              <hr />
-            </div>
-            <Row>
-              {this.state.mealList.length ? (
-                <>
-                  <ul class="list-group list-group-flush">
-                    <ul className="list-group">
-                      {this.state.mealList.map(meal => (
-                        <li className="list-group-item" key={meal._id} s>
+        <Col size="md-9 sm-9">
+          <Input
+            value={this.state.mealName}
+            onChange={this.handleInputChange}
+            name="mealName"
+            placeholder="Enter meal name to create new meal"
+          />
+        </Col>
+        <Col size="md-3 sm-3">
+          <Button
+            className="btn btn-primary"
+            disabled={
+              !this.state.mealName
 
-                          {/* //todo: clicking on card isn't working...need to fix */}
-                          {/* // onClick={() => this.selectMeal(meal)} */}
-                          {/* <Link to={"/food/" + food._id}></Link> */}
-                          <div className="row">
-                            <div className="col-8">
-                              <strong>
+              // && this.state.foodGroup &&
+              // this.state.energy &&
+              // this.state.potassium
+            }
+            onClick={this.handleFormSubmit}
+          >
+            Add Meal
+            </Button>
+        </Col>
+
+        {/* end of add meal section */}
+        <Col size="md-4 sm-4">
+          <Row>
+            <Col size="sm-12">
+              <h6>Select a Meal</h6>
+            </Col>
+          </Row>
+          )}
+        </Col>
+
+        <div className="col-3 ml-5">
+          <div className=" justify-content-center">
+            <h3 className='text-center'>Select a Meal</h3>
+            <hr />
+          </div>
+          <Row>
+            {this.state.mealList.length ? (
+              <>
+                <ul class="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.mealList.map(meal => (
+                      <li className="list-group-item" key={meal._id} s>
+
+                        {/* //todo: clicking on card isn't working...need to fix */}
+                        {/* // onClick={() => this.selectMeal(meal)} */}
+                        {/* <Link to={"/food/" + food._id}></Link> */}
+                        <div className="row">
+                          <div className="col-8">
+                            <strong>
                               <h5 style={{ fontWeight: 'bolder' }}> Meal Name:<span className="meal-selected">{meal.mealName}</span> </h5>
                               <span className="spanIt">Energy:</span> {meal.totalEnergy} <br />
                               <span className="spanIt"> Potassium:</span> {meal.totalPotassium} <br />
-                                 {parseInt(meal.totalPotassium) === 0
-                          ? 0
-                          : parseFloat(
-                              parseInt(meal.totalEnergy) /
-                                parseInt(meal.totalPotassium)
-                            ).toFixed(2)}
-                        <br />
-                                </strong>
-                            </div>
-                            <div className="col-2">
-                              <button
-                                // style={{ border: 0 }}
-                                role="button"
-                                type="button"
-                                className="btn px-3 text-center blue-gradient "
-                                onClick={() => this.selectMeal(meal)}
-                              >
-                                <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
-                              </button>
-                            </div>
-                          <Button
-                        className="btn btn-danger"
-                        onClick={() => this.deleteMeal(meal._id)}
-                      >
-                        Delete
-                      </Button>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </ul>
-                </>
-              ) : (
-                  <div className="justify-content-center">
-                    <h6 className='text-center'>No Meals, Add a meal first</h6>
-                  </div>
-                )}
-            </Row>
-          </div>
-          <div className='col-3 offset-1'>
-
-            <div className="justify-content-center ml-3">
-              <h3>Customize your Meal</h3>
-              <hr />
-            </div>
-
-            <Row>
-              {this.state.currentMeal &&
-                this.state.currentMeal.foodList.length > 0 ? (
-                  <ul class="list-group list-group-flush">
-                    <ul className="list-group">
-                      {this.state.currentMeal.foodList.map(food => (
-                        <li className="list-group-item text-center"
-                          key={food._id}>
-                          <div>
-                            <strong>
-                              <h5 style={{ fontWeight: 'bolder' }}>{food.foodName}</h5>
-                              <span className="spanIt">Energy:</span>{food.energy} <br />
-                              <span className="spanIt">Potassium:</span>{food.potassium} <br />
-                               <span className="spanIt"ServingSize:</span>{food.servingSize}
-                              <span className="spanIt"> Efficiency:</span> {food.efficiency}
-                              <br />  
+                              {parseInt(meal.totalPotassium) === 0
+                                ? 0
+                                : parseFloat(
+                                  parseInt(meal.totalEnergy) /
+                                  parseInt(meal.totalPotassium)
+                                ).toFixed(2)}
+                              <br />
                             </strong>
                           </div>
-                          <button
-                            className="btn px-3 text-center peach-gradient "
-                            onClick={() => this.removeFromMeal(food._id)}
-                          >
-                            <div style={{ textAlign: 'center' }}><i class="fa fa-minus-circle fa-2x"></i></div>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </ul>
-                ) : (
-                  <h6>Click Add on a food item to add it to your meal</h6>
-                )}
-            </Row>
-          </div>
-          <div className='col-3 offset-1'>
-
-            <div className="justify-content-center ml-5">
-              <h3>Add Favorite Foods</h3>
-              <hr />
-            </div>
-
-            <Row>
-              {this.state.foodFavoriteList.length ? (
-                <ul class="list-group list-group-flush">
-                  <ul className="list-group">
-                    {this.state.foodFavoriteList.map(food => (
-                      <li className="list-group-item" key={food._id}>
-                        <div className="row">
-                          <div className="col-2 mt-5">
+                          <div className="col-2">
                             <button
-                              // style={{ border: 0 }} 
+                              // style={{ border: 0 }}
                               role="button"
                               type="button"
                               className="btn px-3 text-center blue-gradient "
-                              onClick={() => this.addToMeal(food._id, 100)}
+                              onClick={() => this.selectMeal(meal)}
                             >
                               <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
                             </button>
                           </div>
-                          <div className="col-8 offset-2">
-                            <strong>
-                              <h5 style={{ fontWeight: 'bolder' }}>{food.foodName} </h5>
-                              <span className="spanIt">Energy:</span>{food.energy} <br />
-                              <span className="spanIt">Potassium:</span> {food.potassium} <br />
-                              <span className="spanIt">Efficiency:</span>{food.efficiency} <br />
-                            </strong>
-                          </div>
+                          <Button
+                            className="btn btn-danger"
+                            onClick={() => this.deleteMeal(meal._id)}
+                          >
+                            Delete
+                      </Button>
                         </div>
                       </li>
                     ))}
                   </ul>
                 </ul>
-              ) : (
-                  <div className="justify-content-center ml-5">
-                    <h6>Click Add to add a food to the meal</h6>
-                  </div>
-                )}
-            </Row>
+              </>
+            ) : (
+                <div className="justify-content-center">
+                  <h6 className='text-center'>No Meals, Add a meal first</h6>
+                </div>
+              )}
+          </Row>
+        </div>
+        <div className='col-3 offset-1'>
+
+          <div className="justify-content-center ml-3">
+            <h3>Customize your Meal</h3>
+            <hr />
           </div>
+
+          <Row>
+            {this.state.currentMeal &&
+              this.state.currentMeal.foodList.length > 0 ? (
+                <ul class="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.currentMeal.foodList.map(food => (
+                      <li className="list-group-item text-center"
+                        key={food._id}>
+                        <div>
+                          <strong>
+                            <h5 style={{ fontWeight: 'bolder' }}>{food.foodName}</h5>
+                            <span className="spanIt">Energy:</span>{food.energy} <br />
+                            <span className="spanIt">Potassium:</span>{food.potassium} <br />
+                            <span className="spanIt"> ServingSize:</span>{food.servingSize}<br />
+                            <span className="spanIt"> Efficiency:</span> {food.efficiency}<br />
+                          </strong>
+                        </div>
+                        <button
+                          className="btn px-3 text-center peach-gradient "
+                          onClick={() => this.removeFromMeal(food._id)}
+                        >
+                          <div style={{ textAlign: 'center' }}><i class="fa fa-minus-circle fa-2x"></i></div>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </ul>
+              ) : (
+                <h6>Click Add on a food item to add it to your meal</h6>
+              )}
+          </Row>
+        </div>
+        {/* <div className='col-3 offset-1'> */}
+
+        <div className="justify-content-center ml-5">
+          <h3>Add Favorite Foods</h3>
+          <hr />
+        </div>
+
+        <Row>
+          {this.state.foodFavoriteList.length ? (
+            <ul class="list-group list-group-flush">
+              <ul className="list-group">
+                {this.state.foodFavoriteList.map(food => (
+                  <li className="list-group-item" key={food._id}>
+                    <div className="row">
+                      <div className="col-2 mt-5">
+                        <button
+                          // style={{ border: 0 }} 
+                          role="button"
+                          type="button"
+                          className="btn px-3 text-center blue-gradient "
+                          onClick={() => this.addToMeal(food._id, 100)}
+                        >
+                          <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
+                        </button>
+                      </div>
+                      <div className="col-8 offset-2">
+                        <strong>
+                          <h5 style={{ fontWeight: 'bolder' }}>{food.foodName} </h5>
+                          <span className="spanIt">Energy:</span>{food.energy} <br />
+                          <span className="spanIt">Potassium:</span> {food.potassium} <br />
+                          <span className="spanIt">Efficiency:</span>{food.efficiency} <br />
+                        </strong>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </ul>
+          ) : (
+              <div className="justify-content-center ml-5">
+                <h6>Click Add to add a food to the meal</h6>
+              </div>
+            )}
         </Row>
       </Container>
     );
