@@ -3,6 +3,10 @@ module.exports = {
   Meal: require("./meal"),
   User: require("./user"),
   FoodGroup: require("./foodGroup"),
+
   DailyPlan: require("./dailyPlan"),
   Schedule: require("./schedule")
+
+  UserSession: require("./UserSessions")
+
 };

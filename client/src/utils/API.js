@@ -24,8 +24,8 @@ export default {
   //   getMealByUser: function (userName) {
   removeFoodFromMealByID: function(mealId, foodId) {
     console.log("inside client api removeFoodFromMealById");
-    console.log("mealId is:", mealId);
-    console.log("foodId is:", foodId);
+    console.log("mealId is:", mealId); //this is right
+    console.log("foodId is:", foodId); // this is correct
     return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
   },
 
@@ -36,7 +36,7 @@ export default {
   },
 
   //! new stuff
-  updateEnergyPotassiumTotalsByID: function(
+  updateEnergyPotassiumTotalsForMealByID: function(
     mealId,
     totalEnergy,
     totalPotassium

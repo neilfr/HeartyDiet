@@ -8,8 +8,14 @@ const mealSchema = new Schema({
   totalPotassium: { type: Number, required: false },
   foodList: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Food"
+      food: {
+        type: Schema.Types.ObjectId,
+        ref: "Food"
+      },
+      servingSize: {
+        type: Number,
+        default: 100
+      }
     }
   ]
 });
