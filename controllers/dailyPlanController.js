@@ -6,34 +6,31 @@ module.exports = {
   findAll: function(req, res) {
     db.DailyPlan.find(req.query)
       .sort({ dailyPlanName: 1 })
-      .then(dbModel => res.json(dbModel))
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
   //! 2 new functions
-  addFoodById: function(req, res) {
-    console.log("inside AddFoodById and");
-    console.log("req.body should be servingSize: ", req.body);
-    console.log("dailyPlan id is: ", req.params.dailyPlanId);
-    console.log("food id is: ", req.params.foodId);
-
-    let newDailyPlanData = {};
+  addMealById: function(req, res) {
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
-        $push: { foodList: req.params.foodId }
+        $push: { mealList: req.params.mealId }
         // ,
         // totalEnergy: 50,
         // totalPotassium: 50
       },
       { new: true }
     )
-      .populate("foodList")
+      .populate("mealList")
       .exec(function(err, found1) {
         console.log("found1 is:", found1);
         res.json(found1);
       });
   },
-  removeFoodById: function(req, res) {
+  removeMealById: function(req, res) {
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
@@ -61,7 +58,10 @@ module.exports = {
   findById: function(req, res) {
     db.DailyPlan.findById(req.params.id)
       .populate("foodList")
-      .then(dbModel => res.json(dbModel))
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {

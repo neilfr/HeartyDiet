@@ -10,34 +10,23 @@ import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
 
-class Meal extends Component {
+class DailyPlan extends Component {
   state = {
-    // first item from add meal
-    mealName: "",
+    dailyPlanName: "",
+    dailyPlanList: [],
     mealList: [],
-    foodFavoriteList: [],
-    currentMeal: null
+    dailyPlanMealList: [],
+    currentDailyPlan: null
   };
 
   componentDidMount() {
-    this.loadMeals("JohnSmith");
-    this.loadFoodFavorites("JohnSmith");
+    this.loadDailyPlans("JohnSmith");
+    this.loadMealList("JohnSmith");
   }
-  loadFoodFavorites = userName => {
-    API.getFoodByUser(userName)
-      .then(res => {
-        console.log("foodFavoriteList is: ", res.data);
-        this.setState({
-          foodFavoriteList: res.data
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
-  loadMeals = userName => {
+  loadMealList = userName => {
     API.getMealByUser(userName)
       .then(res => {
-        console.log("getMealByUser returned: ", res.data);
+        console.log("mealList is: ", res.data);
         this.setState({
           mealList: res.data
         });
@@ -45,42 +34,71 @@ class Meal extends Component {
       .catch(err => console.log(err));
   };
 
-  selectMeal = meal => {
-    this.setState({ currentMeal: meal });
+  loadDailyPlans = userName => {
+    API.getDailyPlanByUser(userName)
+      .then(res => {
+        console.log("getDailyPlanByUser returned: ", res.data);
+        this.setState({
+          dailyPlanList: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  selectDailyPlan = dailyPlan => {
+    console.log("selectDailyPlan dailyplan is : " + dailyPlan);
+    console.log(dailyPlan);
+
+    this.setState({ currentDailyPlan: dailyPlan });
     console.log(
-      "selected meal... now current meal state is:",
-      this.state.currentMeal
+      "selected dailyPlan... now current dailyPlan state is:",
+      this.state.currentDailyPlan
+    );
+
+    var mealListArray = [];
+    dailyPlan.mealList.map(mealID =>
+      API.getMealByID(mealID)
+        .then(res => {
+          console.log("mealListArray element is: ", res.data);
+
+          mealListArray.push(res.data);
+
+          this.setState({
+            dailyPlanMealList: mealListArray
+          });
+        })
+        .catch(err => console.log(err))
     );
   };
 
-  removeFromMeal = foodID => {
-    console.log("remove food:", foodID);
-    console.log("from meal:", this.state.currentMeal._id);
-    API.removeFoodFromMealByID(this.state.currentMeal._id, foodID)
+  removeFromDailyPlan = mealID => {
+    console.log("remove meal:", mealID);
+    console.log("from dailyPlan:", this.state.currentDailyPlan._id);
+    API.removeMealFromDailyPlanByID(this.state.currentDailyPlan._id, mealID)
       .then(data => {
-        console.log("food delete returned: ", data);
+        console.log("meal delete returned: ", data);
         // }
         // );
-        const tempFoodList = data.data.foodList;
+        const tempMealList = data.data.mealList;
         let totalPotassium = 0;
         let totalEnergy = 0;
-        tempFoodList.map(food => {
-          totalPotassium += food.food.potassium;
-          totalEnergy += food.food.energy;
+        tempMealList.map(meal => {
+          totalPotassium += meal.meal.potassium;
+          totalEnergy += meal.meal.energy;
         });
         console.log("total energy is:", totalEnergy);
         console.log("total potassium is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsForMealByID(
-          this.state.currentMeal._id,
+        API.updateEnergyPotassiumTotalsForDailyPlanByID(
+          this.state.currentDailyPlan._id,
           totalEnergy,
           totalPotassium
         ).then(data => {
           console.log(
-            "meal data after food REMOVE, with updated totals",
+            "dailyPlan data after meal REMOVE, with updated totals",
             data.data
           );
           this.setState({
-            currentMeal: data.data
+            currentDailyPlan: data.data
           });
         });
       })
@@ -88,57 +106,57 @@ class Meal extends Component {
   };
 
   //! new version
-  addToMeal = (food_id, servingSize) => {
-    // console.log("in addToMeal");
-    // console.log("food id is:", food_id);
+  addToDailyPlan = meal_id => {
+    // console.log("in addToDailyPlan");
+    // console.log("meal id is:", meal_id);
     // console.log("servingSize is:", servingSize);
-    API.addFoodToMealByID(this.state.currentMeal._id, food_id, servingSize)
+    API.addMealToDailyPlanByID(this.state.currentDailyPlan._id, meal_id)
       .then(data => {
-        // console.log("addFoodToMealByID data.data is", data.data);
-        // console.log("foodlist is:", data.data.foodList);
-        // const totalEnergy = data.data.foodList.reduce((a, b) => ({
+        // console.log("addMealToDailyPlanByID data.data is", data.data);
+        // console.log("meallist is:", data.data.mealList);
+        // const totalEnergy = data.data.mealList.reduce((a, b) => ({
         //   energy: a.energy + b.energy
         // }));
-        // const totalPotassium = data.data.foodList.reduce((a, b) => ({
+        // const totalPotassium = data.data.mealList.reduce((a, b) => ({
         //   potassium: a.potassium + b.potassium
         // }));
         console.log("data.data is:", data.data);
-        const tempFoodList = data.data.foodList;
-        console.log("tempFoodList is:", tempFoodList);
+        const tempMealList = data.data.mealList;
+        console.log("tempMealList is:", tempMealList);
         let totalPotassium = 0;
         let totalEnergy = 0;
-        tempFoodList.map(food => {
-          totalPotassium += food.food.potassium;
-          totalEnergy += food.food.energy;
+        tempMealList.map(meal => {
+          totalPotassium += meal.totalPotassium;
+          totalEnergy += meal.totalEnergy;
         });
         console.log("total energy before update totals is:", totalEnergy);
         console.log("total potassium before update totals is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsForMealByID(
-          this.state.currentMeal._id,
+        API.updateEnergyPotassiumTotalsForDailyPlanByID(
+          this.state.currentDailyPlan._id,
           totalEnergy,
           totalPotassium
         ).then(data => {
           console.log(
-            "meal data after food ADD, with updated totals",
+            "dailyPlan data after meal ADD, with updated totals",
             data.data
           );
           this.setState({
-            currentMeal: data.data
+            currentDailyPlan: data.data
           });
         });
       })
       .catch(err => console.log(err));
   };
-  //next 3 functions from addMeal.js
-  deleteMeal = id => {
-    API.deleteMeal(id)
+  //next 3 functions from addDailyPlan.js
+  deleteDailyPlan = id => {
+    API.deleteDailyPlan(id)
       .then(res => {
         console.log("res is: ", res.data);
-        window.location.href = "/ViewMeal";
+        window.location.href = "/ViewDailyPlan";
 
-        // window.location.href = "/AddMeal";
+        // window.location.href = "/AddDailyPlan";
         // this.setState({
-        //   mealList: res.data
+        //   dailyPlanList: res.data
         // });
       })
       .catch(err => console.log(err));
@@ -150,23 +168,22 @@ class Meal extends Component {
       [name]: value
     });
     console.log([name], value);
-    // console.log(this.state.foods);
+    // console.log(this.state.meals);
   };
 
   handleFormSubmit = event => {
-    alert(this.state.foods);
     event.preventDefault();
-    if (this.state.mealName) {
-      API.saveMeal({
-        mealName: this.state.mealName,
+    if (this.state.dailyPlanName) {
+      API.saveDailyPlan({
+        dailyPlanName: this.state.dailyPlanName,
         userName: "JohnSmith",
         totalEnergy: 0,
         totalPotassium: 0
       })
         //todo this refreshes the screen... or should i update state?
-        .then(res => (window.location.href = "/ViewMeal"))
-        // .then(res => (window.location.href = "/AddMeal"))
-        //.then(res => this.loadMeals())
+        .then(res => (window.location.href = "/ViewDailyPlan"))
+        // .then(res => (window.location.href = "/AddDailyPlan"))
+        //.then(res => this.loadDailyPlans())
         .catch(err => console.log(err));
     }
   };
@@ -177,46 +194,47 @@ class Meal extends Component {
         <Row>
           <Col size="md-9 sm-9">
             <Input
-              value={this.state.mealName}
+              value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
-              name="mealName"
-              placeholder="Enter meal name to create new meal"
+              name="dailyPlanName"
+              placeholder="Enter dailyPlan name to create new dailyPlan"
             />
           </Col>
           <Col size="md-3 sm-3">
             <Button
               className="btn btn-primary"
               disabled={
-                !this.state.mealName
+                !this.state.dailyPlanName
 
-                // && this.state.foodGroup &&
+                // && this.state.mealGroup &&
                 // this.state.energy &&
                 // this.state.potassium
               }
               onClick={this.handleFormSubmit}
             >
-              Add Meal
+              Add DailyPlan
             </Button>
           </Col>
         </Row>
-        {/* end of add meal section */}
+        {/* end of add dailyPlan section */}
 
-        {this.state.currentMeal ? (
+        {this.state.currentDailyPlan ? (
           <Row>
             <Col size="md-12 sm-12">
-              <strong>Selected Meal: </strong> {this.state.currentMeal.mealName}
+              <strong>Selected DailyPlan: </strong>{" "}
+              {this.state.currentDailyPlan.dailyPlanName}
               <strong>Total Energy: </strong>
-              {this.state.currentMeal.totalEnergy}
+              {this.state.currentDailyPlan.totalEnergy}
               <strong>Total Potassium: </strong>
-              {this.state.currentMeal.totalPotassium}
+              {this.state.currentDailyPlan.totalPotassium}
             </Col>
           </Row>
         ) : (
           <Row>
             <Col size="md-12 sm-12">
               <h6>
-                Select a Meal from the meal list to see what foods it contains
-                and to make changes
+                Select a DailyPlan from the dailyPlan list to see what meals it
+                contains and to make changes
               </h6>
             </Col>
           </Row>
@@ -225,28 +243,28 @@ class Meal extends Component {
         <Row>
           <Col size="md-4 sm-4">
             <Row>
-              <h3>Meal List</h3>
+              <h3>DailyPlan List</h3>
             </Row>
             <Row>
-              {this.state.mealList.length ? (
+              {this.state.dailyPlanList.length ? (
                 <>
-                  {this.state.mealList.map(meal => (
-                    <Card key={meal._id}>
-                      {/* <Link to={"/food/" + food._id}></Link> */}
+                  {this.state.dailyPlanList.map(dailyPlan => (
+                    <Card key={dailyPlan._id}>
+                      {/* <Link to={"/meal/" + meal._id}></Link> */}
                       <strong>
-                        Meal Name: {meal.mealName} <br />
-                        Energy: {meal.totalEnergy} <br />
-                        Potassium: {meal.totalPotassium} <br />
+                        DailyPlan Name: {dailyPlan.dailyPlanName} <br />
+                        Energy: {dailyPlan.totalEnergy} <br />
+                        Potassium: {dailyPlan.totalPotassium} <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
-                        onClick={() => this.selectMeal(meal)}
+                        onClick={() => this.selectDailyPlan(dailyPlan)}
                       >
                         Select
                       </Button>
                       <Button
                         className="btn btn-danger"
-                        onClick={() => this.deleteMeal(meal._id)}
+                        onClick={() => this.deleteDailyPlan(dailyPlan._id)}
                       >
                         Delete
                       </Button>
@@ -254,33 +272,36 @@ class Meal extends Component {
                   ))}
                 </>
               ) : (
-                <h6>No Meals, Add a meal first</h6>
+                <h6>No DailyPlans, Add a dailyPlan first</h6>
               )}
             </Row>
           </Col>
           <Col size="md-4 sm-4">
             <Row>
-              <h3>Foods in your Meal</h3>
+              <h3>Meals in your DailyPlan</h3>
             </Row>
             <Row>
               <div>
-                {this.state.currentMeal &&
-                this.state.currentMeal.foodList.length > 0 ? (
+                {/* this.state.currentDailyPlan && */}
+                {this.state.dailyPlanMealList.length + " meals"}
+                {this.state.dailyPlanMealList.length > 0 ? (
                   <List>
-                    {this.state.currentMeal.foodList.map(food => (
-                      <Card key={food._id}>
+                    {this.state.dailyPlanMealList.map((
+                      meal // console.log("MEAL IS: " + meal)
+                    ) => (
+                      <Card key={meal._id}>
                         <strong>
-                          <br /> {food.food.foodName} <br />
-                          <br /> Energy:{food.food.energy} <br />
-                          <br /> Potassium:{food.food.potassium} <br />
-                          <br /> ServingSize:{food.servingSize}
-                          <br />
+                          <br /> {meal.mealName} <br />
+                          <br /> Energy:{meal.totalEnergy} <br />
+                          <br /> Potassium:{meal.totalPotassium} <br />
+                          {/* <br /> ServingSize:{meal.servingSize}
+                          <br /> */}
                           <br /> Efficiency:need to get virtual
-                          {food.food.efficiency} <br />
+                          {meal.efficiency} <br />
                         </strong>
                         <Button
                           className="btn btn-danger"
-                          onClick={() => this.removeFromMeal(food._id)}
+                          onClick={() => this.removeFromDailyPlan(meal._id)}
                         >
                           Remove
                         </Button>
@@ -288,29 +309,29 @@ class Meal extends Component {
                     ))}
                   </List>
                 ) : (
-                  <h6>Click Add on a food card to add it to your meal</h6>
+                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
                 )}
               </div>
             </Row>
           </Col>
           <Col size="md-4 sm-4">
             <Row>
-              <h3>Favorite Foods</h3>
+              <h3>Meals</h3>
             </Row>
             <Row>
-              {this.state.foodFavoriteList.length ? (
+              {this.state.mealList.length ? (
                 <List>
-                  {this.state.foodFavoriteList.map(food => (
-                    <ListItem key={food._id}>
+                  {this.state.mealList.map(meal => (
+                    <ListItem key={meal._id}>
                       <strong>
-                        <br /> {food.foodName} <br />
-                        <br /> Energy:{food.energy} <br />
-                        <br /> Potassium:{food.potassium} <br />
-                        <br /> Efficiency:{food.efficiency} <br />
+                        <br /> {meal.mealName} <br />
+                        <br /> Energy:{meal.energy} <br />
+                        <br /> Potassium:{meal.potassium} <br />
+                        <br /> Efficiency:{meal.efficiency} <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
-                        onClick={() => this.addToMeal(food._id, 100)}
+                        onClick={() => this.addToDailyPlan(meal._id)}
                       >
                         Add
                       </Button>
@@ -318,7 +339,7 @@ class Meal extends Component {
                   ))}
                 </List>
               ) : (
-                <h6>Click Add to add a food to the meal</h6>
+                <h6>Click Add to add a meal to the dailyPlan</h6>
               )}
             </Row>
           </Col>
@@ -328,4 +349,4 @@ class Meal extends Component {
   }
 }
 
-export default Meal;
+export default DailyPlan;

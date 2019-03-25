@@ -16,13 +16,19 @@ module.exports = {
   findById: function(req, res) {
     // db.Food.findById(req.params.id)
     db.Food.find({ _id: req.params.id })
-      .then(dbModel => res.json(dbModel))
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
   findByFoodName: function(req, res) {
     // db.Food.findById(req.params.id)
     db.Food.find({ foodName: { $regex: new RegExp(req.params.foodName, "i") } })
-      .then(dbModel => res.json(dbModel))
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
   findByFoodGroupName: function(req, res) {

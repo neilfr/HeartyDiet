@@ -15,6 +15,7 @@ class Meal extends Component {
     // first item from add meal
     mealName: "",
     mealList: [],
+    foodList: [],
     foodFavoriteList: [],
     currentMeal: null
   };
@@ -46,11 +47,29 @@ class Meal extends Component {
   };
 
   selectMeal = meal => {
+    console.log(meal);
     this.setState({ currentMeal: meal });
     console.log(
       "selected meal... now current meal state is:",
       this.state.currentMeal
     );
+
+    var foodListArray = [];
+    meal.foodList.map(food => {
+      API.getFoodByID(food.food)
+        .then(res => {
+          console.log("getFoodByMealID returned: ", res);
+
+          res.data.map(foodObject => {
+            foodListArray.push(foodObject);
+
+            this.setState({
+              foodList: foodListArray
+            });
+          });
+        })
+        .catch(err => console.log(err));
+    });
   };
 
   removeFromMeal = foodID => {
@@ -211,10 +230,9 @@ class Meal extends Component {
               {this.state.currentMeal.totalPotassium}
               <strong>
                 Efficiency:
-                {this.state.currentMeal.totalEnergy /
-                  this.state.currentMeal.totalPotassium}
                 {/* {this.state.currentMeal.totalEnergy /
                   this.state.currentMeal.totalPotassium} */}
+                {this.state.currentMeal.efficiency}
               </strong>
             </Col>
           </Row>
@@ -244,7 +262,17 @@ class Meal extends Component {
                         Meal Name: {meal.mealName} <br />
                         Energy: {meal.totalEnergy} <br />
                         Potassium: {meal.totalPotassium} <br />
-                        Efficiency: {meal.totalEnergy / meal.totalPotassium}
+                        {/* Efficiency: {meal.totalEnergy / meal.totalPotassium} */}
+                        {/* Efficiency: {meal.efficiency} */}
+                        {/*Chris: There was not enough time to fix the virtual efficiency field issue.
+                          I just used the formula for now.  The problem is that the api is returning an array
+                          the virtual needs JSON.  There is just not enough time to fix this.*/}
+                        {parseInt(meal.totalPotassium) === 0
+                          ? 0
+                          : parseFloat(
+                              parseInt(meal.totalEnergy) /
+                                parseInt(meal.totalPotassium)
+                            ).toFixed(2)}
                         <br />
                       </strong>
                       <Button
@@ -273,20 +301,20 @@ class Meal extends Component {
             </Row>
             <Row>
               <div>
-                {this.state.currentMeal &&
-                this.state.currentMeal.foodList.length > 0 ? (
+                {this.state.foodList.length > 0 ? (
                   <List>
-                    {this.state.currentMeal.foodList.map(food => (
+                    {this.state.foodList.map(food => (
                       <Card key={food._id}>
                         <strong>
-                          <br /> {food.food.foodName} <br />
-                          <br /> Energy:{food.food.energy} <br />
-                          <br /> Potassium:{food.food.potassium} <br />
+                          <br /> {food.foodName} <br />
+                          <br /> Energy:{food.energy} <br />
+                          <br /> Potassium:{food.potassium} <br />
                           <br /> ServingSize:{food.servingSize}
                           <br />
                           <br /> Efficiency:
-                          {food.food.energy / food.food.potassium}
-                          {food.food.efficiency} <br />
+                          {/* {food.food.energy / food.food.potassium} */}
+                          {food.efficiency}
+                          <br />
                         </strong>
                         <Button
                           className="btn btn-danger"
