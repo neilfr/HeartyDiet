@@ -74,7 +74,7 @@ export default {
     });
   },
 
-  addMealToPlanByID: function(dailyPlanId, mealId) {
+  addMealToDailyPlanByID: function(dailyPlanId, mealId) {
     return axios.post("/api/dailyPlan/meal/" + dailyPlanId + "/" + mealId);
   },
 
@@ -160,6 +160,9 @@ export default {
   },
   saveMeal: function(mealData) {
     return axios.post("/api/meal", mealData);
+  },
+  saveDailyPlan: function(dailyPlanData) {
+    return axios.post("/api/dailyPlan", dailyPlanData);
   },
   getUser: function() {
     return axios.get("/api/user");

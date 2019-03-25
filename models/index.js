@@ -5,8 +5,7 @@ module.exports = {
   FoodGroup: require("./foodGroup"),
 
   DailyPlan: require("./dailyPlan"),
-  Schedule: require("./schedule")
+  Schedule: require("./schedule"),
 
   UserSession: require("./UserSessions")
-
 };

@@ -22,10 +22,10 @@ router
   .post(dailyPlanController.create)
   .get(dailyPlanController.findByUser);
 
-// router
-//   .route("/dailyPlan/meal/:dailyPlanId/:mealId")
-// .delete(dailyPlanController.removeMealById)
-// .post(dailyPlanController.addMealById);
+router
+  .route("/meal/:dailyPlanId/:mealId")
+.delete(dailyPlanController.removeMealById)
+.post(dailyPlanController.addMealById);
 
 router
   .route("/KCalTotals/:dailyPlanId")
