@@ -181,7 +181,7 @@ class Meal extends Component {
   };
 
   handleFormSubmit = event => {
-    alert(this.state.foods);
+    // alert(this.state.foods);
     event.preventDefault();
     if (this.state.mealName) {
       API.saveMeal({
