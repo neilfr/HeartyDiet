@@ -194,10 +194,10 @@ class FoodFavorite extends Component {
                               foodFavoriteList.foodGroupName
                             )
                           }
-                          className=" editFavoriteFoodBtn  btn-lg blue-gradient"
+                          className="btn btn-outline-mdb-color waves-effect edit-button"
                         >
 
-                          <a>EDIT  <i class="fa fa-pencil-square-o"></i></a>
+                          <a style={{ fontWeight: 'bolder', fontSize: 15 }}>EDIT<i class="fa fa-pencil-square-o"></i></a>
                         </button>
                       </div>
                     </Col>
@@ -210,9 +210,9 @@ class FoodFavorite extends Component {
                             foodFavoriteList.foodName
                           )
                         }
-                        className="deleteFavoriteFoodBtn btn-lg peach-gradient"
+                        className=" btn btn-outline-mdb-color waves-effect remove-button"
                       >
-                        <a>REMOVE <i class="fa fa-remove"></i></a>
+                        <a style={{ fontWeight: 'bolder', fontSize: 15 }}>REMOVE<i class="fa fa-remove"></i></a>
                       </button>
                     </Col>
                   </div>
