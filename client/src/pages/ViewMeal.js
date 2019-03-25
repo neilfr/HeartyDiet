@@ -17,7 +17,10 @@ import 'font-awesome/css/font-awesome.min.css'
 
 class Meal extends Component {
   state = {
+    // first item from add meal
+    mealName: "",
     mealList: [],
+    foodList: [],
     foodFavoriteList: [],
     currentMeal: null
   };
@@ -49,7 +52,29 @@ class Meal extends Component {
   };
 
   selectMeal = meal => {
+    console.log(meal);
     this.setState({ currentMeal: meal });
+    console.log(
+      "selected meal... now current meal state is:",
+      this.state.currentMeal
+    );
+
+    var foodListArray = [];
+    meal.foodList.map(food => {
+      API.getFoodByID(food.food)
+        .then(res => {
+          console.log("getFoodByMealID returned: ", res);
+
+          res.data.map(foodObject => {
+            foodListArray.push(foodObject);
+
+            this.setState({
+              foodList: foodListArray
+            });
+          });
+        })
+        .catch(err => console.log(err));
+    });
   };
 
   removeFromMeal = foodID => {
@@ -57,24 +82,19 @@ class Meal extends Component {
     console.log("from meal:", this.state.currentMeal._id);
     API.removeFoodFromMealByID(this.state.currentMeal._id, foodID)
       .then(data => {
-        // console.log("in remove food... data.data is", data.data);
-        // console.log("foodlist is:", data.data.foodList);
-        // const totalEnergy = data.data.foodList.reduce((a, b) => ({
-        //   energy: a.energy + b.energy
-        // }));
-        // const totalPotassium = data.data.foodList.reduce((a, b) => ({
-        //   potassium: a.potassium + b.potassium
-        // }));
+        console.log("food delete returned: ", data);
+        // }
+        // );
         const tempFoodList = data.data.foodList;
         let totalPotassium = 0;
         let totalEnergy = 0;
         tempFoodList.map(food => {
-          totalPotassium += food.potassium;
-          totalEnergy += food.energy;
+          totalPotassium += food.food.potassium;
+          totalEnergy += food.food.energy;
         });
         console.log("total energy is:", totalEnergy);
         console.log("total potassium is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsByID(
+        API.updateEnergyPotassiumTotalsForMealByID(
           this.state.currentMeal._id,
           totalEnergy,
           totalPotassium
@@ -106,16 +126,18 @@ class Meal extends Component {
         // const totalPotassium = data.data.foodList.reduce((a, b) => ({
         //   potassium: a.potassium + b.potassium
         // }));
+        console.log("data.data is:", data.data);
         const tempFoodList = data.data.foodList;
+        console.log("tempFoodList is:", tempFoodList);
         let totalPotassium = 0;
         let totalEnergy = 0;
         tempFoodList.map(food => {
-          totalPotassium += food.potassium;
-          totalEnergy += food.energy;
+          totalPotassium += food.food.potassium;
+          totalEnergy += food.food.energy;
         });
-        // console.log("total energy is:", totalEnergy);
-        // console.log("total potassium is:", totalPotassium);
-        API.updateEnergyPotassiumTotalsByID(
+        console.log("total energy before update totals is:", totalEnergy);
+        console.log("total potassium before update totals is:", totalPotassium);
+        API.updateEnergyPotassiumTotalsForMealByID(
           this.state.currentMeal._id,
           totalEnergy,
           totalPotassium
@@ -131,6 +153,47 @@ class Meal extends Component {
       })
       .catch(err => console.log(err));
   };
+  //next 3 functions from addMeal.js
+  deleteMeal = id => {
+    API.deleteMeal(id)
+      .then(res => {
+        console.log("res is: ", res.data);
+        window.location.href = "/ViewMeal";
+
+        // window.location.href = "/AddMeal";
+        // this.setState({
+        //   mealList: res.data
+        // });
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+    console.log([name], value);
+    // console.log(this.state.foods);
+  };
+
+  handleFormSubmit = event => {
+    alert(this.state.foods);
+    event.preventDefault();
+    if (this.state.mealName) {
+      API.saveMeal({
+        mealName: this.state.mealName,
+        userName: "JohnSmith",
+        totalEnergy: 0,
+        totalPotassium: 0
+      })
+        //todo this refreshes the screen... or should i update state?
+        .then(res => (window.location.href = "/ViewMeal"))
+        // .then(res => (window.location.href = "/AddMeal"))
+        //.then(res => this.loadMeals())
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     const thumbnail = {
@@ -142,6 +205,7 @@ class Meal extends Component {
       <Container fluid>
 
         <Row>
+
           <Col size="sm-12">
             <Jumbotron>
               <h1>View Meal</h1>
@@ -161,6 +225,63 @@ class Meal extends Component {
             </div>
           </div>
         ) : (
+
+          <Col size="md-9 sm-9">
+            <Input
+              value={this.state.mealName}
+              onChange={this.handleInputChange}
+              name="mealName"
+              placeholder="Enter meal name to create new meal"
+            />
+          </Col>
+          <Col size="md-3 sm-3">
+            <Button
+              className="btn btn-primary"
+              disabled={
+                !this.state.mealName
+
+                // && this.state.foodGroup &&
+                // this.state.energy &&
+                // this.state.potassium
+              }
+              onClick={this.handleFormSubmit}
+            >
+              Add Meal
+            </Button>
+          </Col>
+        </Row>
+        {/* end of add meal section */}
+
+        {this.state.currentMeal ? (
+          <Row>
+            <Col size="md-12 sm-12">
+              <strong>Selected Meal: </strong> {this.state.currentMeal.mealName}
+              <strong>Total Energy: </strong>
+              {this.state.currentMeal.totalEnergy}
+              <strong>Total Potassium: </strong>
+              {this.state.currentMeal.totalPotassium}
+              <strong>
+                Efficiency:
+                {/* {this.state.currentMeal.totalEnergy /
+                  this.state.currentMeal.totalPotassium} */}
+                {this.state.currentMeal.efficiency}
+              </strong>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col size="md-12 sm-12">
+              <h6>
+                Select a Meal from the meal list to see what foods it contains
+                and to make changes
+              </h6>
+            </Col>
+          </Row>
+        )}
+
+        <Row>
+          <Col size="md-4 sm-4">
+
             <Row>
               <Col size="sm-12">
                 <h6>Select a Meal</h6>
@@ -187,9 +308,18 @@ class Meal extends Component {
                           {/* <Link to={"/food/" + food._id}></Link> */}
                           <div className="row">
                             <div className="col-8">
+                              <strong>
                               <h5 style={{ fontWeight: 'bolder' }}> Meal Name:<span className="meal-selected">{meal.mealName}</span> </h5>
                               <span className="spanIt">Energy:</span> {meal.totalEnergy} <br />
                               <span className="spanIt"> Potassium:</span> {meal.totalPotassium} <br />
+                                 {parseInt(meal.totalPotassium) === 0
+                          ? 0
+                          : parseFloat(
+                              parseInt(meal.totalEnergy) /
+                                parseInt(meal.totalPotassium)
+                            ).toFixed(2)}
+                        <br />
+                                </strong>
                             </div>
                             <div className="col-2">
                               <button
@@ -202,6 +332,12 @@ class Meal extends Component {
                                 <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
                               </button>
                             </div>
+                          <Button
+                        className="btn btn-danger"
+                        onClick={() => this.deleteMeal(meal._id)}
+                      >
+                        Delete
+                      </Button>
                           </div>
                         </li>
                       ))}
@@ -235,10 +371,9 @@ class Meal extends Component {
                               <h5 style={{ fontWeight: 'bolder' }}>{food.foodName}</h5>
                               <span className="spanIt">Energy:</span>{food.energy} <br />
                               <span className="spanIt">Potassium:</span>{food.potassium} <br />
-                              <span className="spanIt"> Efficiency:</span>need to get virtual{
-                                food.efficiency
-                              }{" "}
-                              <br />
+                               <span className="spanIt"ServingSize:</span>{food.servingSize}
+                              <span className="spanIt"> Efficiency:</span> {food.efficiency}
+                              <br />  
                             </strong>
                           </div>
                           <button

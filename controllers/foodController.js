@@ -5,7 +5,7 @@ const db = require("../models");
 
 // Defining methods for the foodController
 module.exports = {
-  findAll: function (req, res) {
+  findAll: function(req, res) {
     db.Food.find(req.query)
       .sort({ foodName: 1 })
       .then(dbModel =>
@@ -13,19 +13,25 @@ module.exports = {
       )
       .catch(err => res.status(422).json(err));
   },
-  findById: function (req, res) {
+  findById: function(req, res) {
     // db.Food.findById(req.params.id)
     db.Food.find({ _id: req.params.id })
-      .then(dbModel => res.json(dbModel))
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
-  findByFoodName: function (req, res) {
+  findByFoodName: function(req, res) {
     // db.Food.findById(req.params.id)
-    db.Food.find({ foodName: { $regex: new RegExp(req.params.foodName, 'i') } })
-      .then(dbModel => res.json(dbModel))
+    db.Food.find({ foodName: { $regex: new RegExp(req.params.foodName, "i") } })
+      // .then(dbModel => res.json(dbModel))
+      .then(dbModel =>
+        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+      )
       .catch(err => res.status(422).json(err));
   },
-  findByFoodGroupName: function (req, res) {
+  findByFoodGroupName: function(req, res) {
     db.Food.find({ foodGroupName: req.params.foodGroupName })
       .sort({ foodName: 1 })
       .then(dbModel =>
@@ -36,7 +42,7 @@ module.exports = {
         console.log(err);
       });
   },
-  findByFoodGroupNameAndUser: function (req, res) {
+  findByFoodGroupNameAndUser: function(req, res) {
     db.Food.find({
       foodGroupName: req.params.foodGroupName,
       userName: req.params.userName
@@ -48,7 +54,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findByUser: function (req, res) {
+  findByUser: function(req, res) {
     db.Food.find({
       userName: req.params.userName
     })
@@ -59,18 +65,18 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) {
+  create: function(req, res) {
     db.Food.create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  update: function (req, res) {
+  update: function(req, res) {
     db.Food.findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  remove: function (req, res) {
+  remove: function(req, res) {
     db.Food.findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))

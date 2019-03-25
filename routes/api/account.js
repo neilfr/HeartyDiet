@@ -3,6 +3,7 @@ const db  = require("./../../models")
 const brcrypt = require('bcrypt');
 
 
+
 router.post('/signup', (req, res)=>{
     // console.log(req)
     let {name, email, password} = req.body;
@@ -81,48 +82,103 @@ router.post('/signup', (req, res)=>{
             message: 'Error: Server error.'
           });
       })
-    //   db.User.findOne({
-    //     email: email
-    //   }, (err, previousUsers) => {
-    //     if (err) {
-    //       return res.send({
-    //         success: false,
-    //         message: 'Error: Server error.'
-    //       });
-    //     } else if (previousUsers.length > 0) {
-    //       return res.send({
-    //         success: false,
-    //         message: 'Error: Account already exists.'
-    //       });
-    //     }
-  
-    //     // Save new user
-    //     let dnewUser = new User();
-  
-    //     newUser.email = email;
-    //     newUser.password = newUser.generateHash(password);
-    //     newUser.name = name;
-    //     newUser.save((err, user) => {
-    //       if (err) {
-    //         return res.send({
-    //           success: false,
-    //           message: 'Error: Server error.'
-    //         });
-    //       }
-    //       return res.send({
-    //         success: true,
-    //         message: 'Sign-up complete.'
-    //       });
-    //     });
-    //   });
-  
-
-    // res.json("Success")
-})
+});
 
 
-router.post('/signin', function(req,res){
+router.post('/signin', function(req, res){
+    // console.log(req.body)
+    // res.send('Sent')
+    let {email, password} = req.body;
+    
+    if (!email) {
+        return res.send({
+          success: false,
+          message: 'Error: Email cannot be blank.'
+        });
+      }
+      if (!password) {
+        return res.send({
+          success: false,
+          message: 'Error: Password cannot be blank.'
+        });
+      }
 
+    //Scraping, and validating 
+    email = email.toLowerCase();
+    email = email.trim();
+
+    db.User.findOne({
+        email: email
+    }).then((user) => {
+        console.log(user)
+        if (!user) {
+            return res.send({
+                success: false,
+                message: 'Error: User does not exist.'
+            });
+        }
+        // console.log(db.User.validPassword(password,
+        if (!db.User.validPassword(password, user.password)) {
+            return res.send({
+                success: false,
+                message: 'Error: Invalid.'
+            });
+        } else {
+            const userSession = new db.UserSession({
+                userId: user._id,
+                timestamp: Date.now(),
+                isDeleted: false
+            });
+            userSession.save()
+            .then((userSession)=>{
+                return res.send({
+                    success: true,
+                    message: 'Login Success.',
+                    token: userSession._id,
+                    user: user
+                });
+            })
+            .catch((err)=>{
+                console.log(err)
+                return res.send({
+                    success: false,
+                    message: 'Error: Server error.'
+                });
+            })
+        }
+    }).catch((err)=>{
+        console.log(err)
+        return res.send({
+            success: false,
+            message: 'Error: Server error.'
+        });
+    })
+});
+
+router.get('/logout', function(req, res) {
+    let { query } = req;
+    let { token } = query;
+
+    db.UserSession.findOneAndUpdate({
+        _id: token,
+        isDeleted: false,
+    }, {
+        $set: {
+            isDeleted: true,
+        }
+    }, null, (err, sessions) => {
+        if (err) {
+            console.log(err);
+            return res.send({
+                success: false,
+                message: 'Error: Server error.'
+            });
+        }
+        return res.send({
+            success: true,
+            message: 'Good'
+        });
+    });
 });
 
 

@@ -16,6 +16,8 @@ router
   // .post(mealController.addFoodById)
   .delete(mealController.remove);
 
+router.route("/mealByID/:id").get(mealController.findById2);
+
 //just added
 router
   .route("/mealByUser/:userName")
