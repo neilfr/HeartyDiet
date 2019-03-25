@@ -18,15 +18,21 @@ export default {
   },
 
   //! this is the new one ignored this in merge conflict
-//   updateMealByID: function (id, updatedMeal) {
-//     return axios.put("/api/meal/" + id, updatedMeal);
-//   },
-//   getMealByUser: function (userName) {
+  //   updateMealByID: function (id, updatedMeal) {
+  //     return axios.put("/api/meal/" + id, updatedMeal);
+  //   },
+  //   getMealByUser: function (userName) {
   removeFoodFromMealByID: function(mealId, foodId) {
     console.log("inside client api removeFoodFromMealById");
     console.log("mealId is:", mealId);
     console.log("foodId is:", foodId);
     return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
+  },
+
+  removeDailyPlanFromScheduleByID: function(scheduleId, dailyPlanId) {
+    return axios.delete(
+      "/api/schedule/dailyPlan/" + scheduleId + "/" + dailyPlanId
+    );
   },
 
   //! new stuff
@@ -44,6 +50,20 @@ export default {
     });
   },
 
+  updateEnergyPotassiumTotalsForScheduleByID: function(
+    scheduleId,
+    totalEnergy,
+    totalPotassium
+  ) {
+    console.log("scheduleId is:", scheduleId);
+    console.log("totalEnergy is:", totalEnergy);
+    console.log("totalPotassium is:", totalPotassium);
+    return axios.put("/api/schedule/KCalTotals/" + scheduleId, {
+      totalEnergy: totalEnergy,
+      totalPotassium: totalPotassium
+    });
+  },
+
   addFoodToMealByID: function(mealId, foodId, servingSize) {
     console.log("in addFoodToMealByID");
     console.log("mealId is:", mealId);
@@ -53,14 +73,43 @@ export default {
       servingSize: servingSize
     });
   },
+
+  addMealToPlanByID: function(dailyPlanId, mealId) {
+    return axios.post("/api/dailyPlan/meal/" + dailyPlanId + "/" + mealId);
+  },
+
+  // addDailyPlanToScheduleByDate: function(scheduleData) {
+  //   return axios.post("/api/schedule" + scheduleData);
+  // },
+
   getMealByUser: function(userName) {
     console.log(
       "I'm inside getMealByUser in the API... looking for meals for:",
       userName
     );
-
     return axios.get("/api/meal/mealByUser/" + userName);
   },
+
+  getDailyPlanByUser: function(userName) {
+    return axios.get("/api/dailyPlan/dailyPlanByUser/" + userName);
+  },
+
+  getMealByID: function(id) {
+    return axios.get("/api/meal/mealByID/" + id);
+  },
+
+  getDailyPlanByID: function(id) {
+    return axios.get("/api/dailyPlan/" + id);
+  },
+
+  getScheduleByScheduleDate: function(scheduleDate) {
+    return axios.get("/api/schedule/dailyPlanByScheduleDate/" + scheduleDate);
+  },
+
+  getScheduleByUser: function(userName) {
+    return axios.get("/api/schedule/scheduleByUser/" + userName);
+  },
+
   deleteMeal: function(id) {
     return axios.delete("/api/meal/" + id);
   },
@@ -82,7 +131,7 @@ export default {
   getFoodByID: function(id) {
     return axios.get("/api/food/foodByID/" + id);
   },
-  getFoodByFoodName: function (foodName) {
+  getFoodByFoodName: function(foodName) {
     return axios.get("/api/food/foodByFoodName/" + foodName);
   },
   // Deletes the food with the given id
@@ -92,13 +141,19 @@ export default {
   },
   // Update the food with the given id
 
-  updateFoodByID: function (id, updatedFood) {
+  updateFoodByID: function(id, updatedFood) {
     return axios.put("/api/food/foodByID/" + id, updatedFood);
   },
 
   // Saves a food to the database
   saveFood: function(foodData) {
     return axios.post("/api/food", foodData);
+  },
+  saveSchedule: function(scheduleData) {
+    return axios.post("/api/schedule", scheduleData);
+  },
+  updateSchedule: function(scheduleData) {
+    return axios.put("/api/schedule", scheduleData);
   },
   saveFoodGroup: function(foodGroupData) {
     return axios.post("/api/foodGroup", foodGroupData);

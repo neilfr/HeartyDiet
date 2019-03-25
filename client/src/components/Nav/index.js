@@ -21,39 +21,89 @@ function Nav() {
       {/* <div className="collapse navbar-collapse" id="navbarNav"> */}
       <ul className="nav">
         <li className="nav-item m-2">
-          <Link to="/" className={window.location.pathname === "/" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
+          <Link
+            to="/"
+            className={
+              window.location.pathname === "/"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
             Home
-            </Link>
+          </Link>
         </li>
         <li className="nav-item m-2">
-          <Link to="/AddFood" className={window.location.pathname === "/AddFood" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
+          <Link
+            to="/AddFood"
+            className={
+              window.location.pathname === "/AddFood"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
             Add Food
-            </Link>
+          </Link>
         </li>
         <li className="nav-item m-2">
-          <Link to="/ViewFood" className={window.location.pathname === "/ViewFood" ? "text-white white-darker-hover font-weight-bold" : "text-dark grey-lighter-hover"}>
+          <Link
+            to="/ViewFood"
+            className={
+              window.location.pathname === "/ViewFood"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark grey-lighter-hover"
+            }
+          >
             View Food
-            </Link>
+          </Link>
         </li>
         <li className="nav-item m-2">
-          <Link to="/AddFoodGroup" className={window.location.pathname === "/AddFoodGroup" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
+          <Link
+            to="/AddFoodGroup"
+            className={
+              window.location.pathname === "/AddFoodGroup"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
             Add Food Group
-            </Link>
+          </Link>
+        </li>
+
+        <li className="nav-item m-2">
+          <Link
+            to="/ViewMeal"
+            className={
+              window.location.pathname === "/ViewMeal"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
+            Add / View Meal
+          </Link>
         </li>
         <li className="nav-item m-2">
-          <Link to="/AddMeal" className={window.location.pathname === "/AddMeal" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
-            Add Meal
-            </Link>
+          <Link
+            to="/ViewSchedule"
+            className={
+              window.location.pathname === "/ViewSchedule"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
+            Add / View Schedule
+          </Link>
         </li>
         <li className="nav-item m-2">
-          <Link to="/ViewMeal" className={window.location.pathname === "/ViewMeal" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
-            View Meal
-            </Link>
-        </li>
-        <li className="nav-item m-2">
-          <Link to="/ViewFoodFavorite" className={window.location.pathname === "/ViewFoodFavorite" ? "text-white white-darker-hover font-weight-bold" : "text-dark"}>
+          <Link
+            to="/ViewFoodFavorite"
+            className={
+              window.location.pathname === "/ViewFoodFavorite"
+                ? "text-white white-darker-hover font-weight-bold"
+                : "text-dark"
+            }
+          >
             View Favorite Foods
-            </Link>
+          </Link>
         </li>
         {/* <li className="nav-item m-2">
             <a className="text-dark disabled" href="#">
