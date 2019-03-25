@@ -4,6 +4,7 @@ import { FormBtn } from "../Form";
 import { getFromStorage, deleteFromStorage } from "../../utils/storage";
 import axios from 'axios';
 
+
 class Nav extends Component {
 
   constructor() {
@@ -125,6 +126,7 @@ class Nav extends Component {
       </nav>
     );
   }
+
 }
 
 export default Nav;

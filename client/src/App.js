@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import AddFood from "./pages/AddFood";
 import ViewFood from "./pages/ViewFood";
+import ViewSchedule from "./pages/ViewSchedule";
 import AddMeal from "./pages/AddMeal";
 import ViewMeal from "./pages/ViewMeal";
 import HomeContainer from "./pages/HomeContainer";
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/AddFoodGroup" component={AddFoodGroup} />
           <Route exact path="/AddMeal" component={AddMeal} />
           <Route exact path="/ViewMeal" component={ViewMeal} />
+          <Route exact path="/ViewSchedule" component={ViewSchedule} />
           <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
           <Route exact path="/Register" component={Register} />
           <Route exact path="/Logout" component={Logout} />

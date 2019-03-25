@@ -84,8 +84,13 @@ module.exports = {
 
   findById: function(req, res) {
     db.Meal.findById(req.params.id)
-      .populate("foodList.food") // changed from foodList to foodList.food
+  .populate("foodList.food") // changed from foodList to foodList.food
       .exec(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findById2: function(req, res) {
+    db.Meal.findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
