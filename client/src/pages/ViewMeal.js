@@ -142,7 +142,7 @@ class Meal extends Component {
       <Container fluid>
 
         <Row>
-          <Col size="md-12 sm-12">
+          <Col size="sm-12">
             <Jumbotron>
               <h1>View Meal</h1>
             </Jumbotron>
@@ -162,7 +162,7 @@ class Meal extends Component {
           </div>
         ) : (
             <Row>
-              <Col size="md-12 sm-12">
+              <Col size="sm-12">
                 <h6>Select a Meal</h6>
               </Col>
             </Row>
@@ -170,11 +170,10 @@ class Meal extends Component {
 
         <Row>
           <div className="col-3 ml-5">
-            <Row>
-              <div className="justify-content-center ml-3">
-                <h3>Select a Meal</h3>
-              </div>
-            </Row>
+            <div className=" justify-content-center">
+              <h3 className='text-center'>Select a Meal</h3>
+              <hr />
+            </div>
             <Row>
               {this.state.mealList.length ? (
                 <>
@@ -211,17 +210,18 @@ class Meal extends Component {
                 </>
               ) : (
                   <div className="justify-content-center">
-                    <h6>No Meals, Add a meal first</h6>
+                    <h6 className='text-center'>No Meals, Add a meal first</h6>
                   </div>
                 )}
             </Row>
           </div>
           <div className='col-3 offset-1'>
-            <Row>
-              <div className="justify-content-center">
-                <h3>Customize your Meal</h3>
-              </div>
-            </Row>
+
+            <div className="justify-content-center ml-3">
+              <h3>Customize your Meal</h3>
+              <hr />
+            </div>
+
             <Row>
               {this.state.currentMeal &&
                 this.state.currentMeal.foodList.length > 0 ? (
@@ -257,11 +257,12 @@ class Meal extends Component {
             </Row>
           </div>
           <div className='col-3 offset-1'>
-            <Row>
-              <div className="justify-content-center ml-5">
-                <h3>Add Favorite Foods</h3>
-              </div>
-            </Row>
+
+            <div className="justify-content-center ml-5">
+              <h3>Add Favorite Foods</h3>
+              <hr />
+            </div>
+
             <Row>
               {this.state.foodFavoriteList.length ? (
                 <ul class="list-group list-group-flush">
@@ -294,7 +295,9 @@ class Meal extends Component {
                   </ul>
                 </ul>
               ) : (
-                  <h6>Click Add to add a food to the meal</h6>
+                  <div className="justify-content-center ml-5">
+                    <h6>Click Add to add a food to the meal</h6>
+                  </div>
                 )}
             </Row>
           </div>
