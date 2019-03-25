@@ -9,8 +9,8 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
-import './viewFoodStyle.css';
-import 'font-awesome/css/font-awesome.min.css'
+import "./viewFoodStyle.css";
+import "font-awesome/css/font-awesome.min.css";
 // import '../node_modules/react-vis/dist/style.css';
 //import 'C:\Users\gurne\OneDrive\Documents\Project3\project3\client\node_modules/'
 //import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
@@ -29,6 +29,7 @@ class Meal extends Component {
     this.loadMeals("JohnSmith");
     this.loadFoodFavorites("JohnSmith");
   }
+
   loadFoodFavorites = userName => {
     API.getFoodByUser(userName)
       .then(res => {
@@ -153,6 +154,7 @@ class Meal extends Component {
       })
       .catch(err => console.log(err));
   };
+
   //next 3 functions from addMeal.js
   deleteMeal = id => {
     API.deleteMeal(id)
@@ -217,23 +219,53 @@ class Meal extends Component {
               <h3>Current Meal</h3>
             </div>
             <div className="d-flex flex-row justify-content-center mb-5">
-              <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentMeal.mealName}</span></div>
-              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentMeal.totalEnergy}kCal</div>
-              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.totalPotassium}gm</div>
-              <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.efficiency}</div>
+              <div className="p-3 pl-5 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/ftEWZYQ.png"
+                />
+                <span className="meal-selected">
+                  {" "}
+                  {this.state.currentMeal.mealName}
+                </span>
+              </div>
+              <div className="p-3 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/iCAG80W.png"
+                />
+                {this.state.currentMeal.totalEnergy}kCal
+              </div>
+              <div className="p-3 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/rK4wz3p.jpg"
+                />{" "}
+                {this.state.currentMeal.totalPotassium}gm
+              </div>
+              <div className="p-3  pr-5 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/rK4wz3p.jpg"
+                />{" "}
+                {this.state.currentMeal.efficiency}
+              </div>
             </div>
           </div>
         ) : (
-
-            <Row>
-              <Col size="md-12 sm-12">
-                <h6>
-                  Select a Meal from the meal list to see what foods it contains
-                  and to make changes
-          </h6>
-              </Col>
-            </Row>
-          )}
+          <Row>
+            <Col size="md-12 sm-12">
+              <h6>
+                Select a Meal from the meal list to see what foods it contains
+                and to make changes
+              </h6>
+            </Col>
+          </Row>
+        )}
 
         <Col size="md-9 sm-9">
           <Input
@@ -256,7 +288,7 @@ class Meal extends Component {
             onClick={this.handleFormSubmit}
           >
             Add Meal
-            </Button>
+          </Button>
         </Col>
 
         {/* end of add meal section */}
@@ -266,12 +298,12 @@ class Meal extends Component {
               <h6>Select a Meal</h6>
             </Col>
           </Row>
-          )}
+          {/* )} */}
         </Col>
 
         <div className="col-3 ml-5">
           <div className=" justify-content-center">
-            <h3 className='text-center'>Select a Meal</h3>
+            <h3 className="text-center">Select a Meal</h3>
             <hr />
           </div>
           <Row>
@@ -281,22 +313,29 @@ class Meal extends Component {
                   <ul className="list-group">
                     {this.state.mealList.map(meal => (
                       <li className="list-group-item" key={meal._id} s>
-
                         {/* //todo: clicking on card isn't working...need to fix */}
                         {/* // onClick={() => this.selectMeal(meal)} */}
                         {/* <Link to={"/food/" + food._id}></Link> */}
                         <div className="row">
                           <div className="col-8">
                             <strong>
-                              <h5 style={{ fontWeight: 'bolder' }}> Meal Name:<span className="meal-selected">{meal.mealName}</span> </h5>
-                              <span className="spanIt">Energy:</span> {meal.totalEnergy} <br />
-                              <span className="spanIt"> Potassium:</span> {meal.totalPotassium} <br />
+                              <h5 style={{ fontWeight: "bolder" }}>
+                                {" "}
+                                Meal Name:
+                                <span className="meal-selected">
+                                  {meal.mealName}
+                                </span>{" "}
+                              </h5>
+                              <span className="spanIt">Energy:</span>{" "}
+                              {meal.totalEnergy} <br />
+                              <span className="spanIt"> Potassium:</span>{" "}
+                              {meal.totalPotassium} <br />
                               {parseInt(meal.totalPotassium) === 0
                                 ? 0
                                 : parseFloat(
-                                  parseInt(meal.totalEnergy) /
-                                  parseInt(meal.totalPotassium)
-                                ).toFixed(2)}
+                                    parseInt(meal.totalEnergy) /
+                                      parseInt(meal.totalPotassium)
+                                  ).toFixed(2)}
                               <br />
                             </strong>
                           </div>
@@ -308,7 +347,9 @@ class Meal extends Component {
                               className="btn px-3 text-center blue-gradient "
                               onClick={() => this.selectMeal(meal)}
                             >
-                              <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
+                              <div style={{ textAlign: "center" }}>
+                                <i class="fa fa-plus-circle fa-2x" />
+                              </div>
                             </button>
                           </div>
                           <Button
@@ -316,7 +357,7 @@ class Meal extends Component {
                             onClick={() => this.deleteMeal(meal._id)}
                           >
                             Delete
-                      </Button>
+                          </Button>
                         </div>
                       </li>
                     ))}
@@ -324,14 +365,13 @@ class Meal extends Component {
                 </ul>
               </>
             ) : (
-                <div className="justify-content-center">
-                  <h6 className='text-center'>No Meals, Add a meal first</h6>
-                </div>
-              )}
+              <div className="justify-content-center">
+                <h6 className="text-center">No Meals, Add a meal first</h6>
+              </div>
+            )}
           </Row>
         </div>
-        <div className='col-3 offset-1'>
-
+        <div className="col-3 offset-1">
           <div className="justify-content-center ml-3">
             <h3>Customize your Meal</h3>
             <hr />
@@ -339,34 +379,43 @@ class Meal extends Component {
 
           <Row>
             {this.state.currentMeal &&
-              this.state.currentMeal.foodList.length > 0 ? (
-                <ul class="list-group list-group-flush">
-                  <ul className="list-group">
-                    {this.state.currentMeal.foodList.map(food => (
-                      <li className="list-group-item text-center"
-                        key={food._id}>
-                        <div>
-                          <strong>
-                            <h5 style={{ fontWeight: 'bolder' }}>{food.foodName}</h5>
-                            <span className="spanIt">Energy:</span>{food.energy} <br />
-                            <span className="spanIt">Potassium:</span>{food.potassium} <br />
-                            <span className="spanIt"> ServingSize:</span>{food.servingSize}<br />
-                            <span className="spanIt"> Efficiency:</span> {food.efficiency}<br />
-                          </strong>
+            this.state.currentMeal.foodList.length > 0 ? (
+              <ul class="list-group list-group-flush">
+                <ul className="list-group">
+                  {this.state.currentMeal.foodList.map(food => (
+                    <li className="list-group-item text-center" key={food._id}>
+                      <div>
+                        <strong>
+                          <h5 style={{ fontWeight: "bolder" }}>
+                            {food.foodName}
+                          </h5>
+                          <span className="spanIt">Energy:</span>
+                          {food.energy} <br />
+                          <span className="spanIt">Potassium:</span>
+                          {food.potassium} <br />
+                          <span className="spanIt"> ServingSize:</span>
+                          {food.servingSize}
+                          <br />
+                          <span className="spanIt"> Efficiency:</span>{" "}
+                          {food.efficiency}
+                          <br />
+                        </strong>
+                      </div>
+                      <button
+                        className="btn px-3 text-center peach-gradient "
+                        onClick={() => this.removeFromMeal(food._id)}
+                      >
+                        <div style={{ textAlign: "center" }}>
+                          <i class="fa fa-minus-circle fa-2x" />
                         </div>
-                        <button
-                          className="btn px-3 text-center peach-gradient "
-                          onClick={() => this.removeFromMeal(food._id)}
-                        >
-                          <div style={{ textAlign: 'center' }}><i class="fa fa-minus-circle fa-2x"></i></div>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                      </button>
+                    </li>
+                  ))}
                 </ul>
-              ) : (
-                <h6>Click Add on a food item to add it to your meal</h6>
-              )}
+              </ul>
+            ) : (
+              <h6>Click Add on a food item to add it to your meal</h6>
+            )}
           </Row>
         </div>
         {/* <div className='col-3 offset-1'> */}
@@ -385,21 +434,28 @@ class Meal extends Component {
                     <div className="row">
                       <div className="col-2 mt-5">
                         <button
-                          // style={{ border: 0 }} 
+                          // style={{ border: 0 }}
                           role="button"
                           type="button"
                           className="btn px-3 text-center blue-gradient "
                           onClick={() => this.addToMeal(food._id, 100)}
                         >
-                          <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
+                          <div style={{ textAlign: "center" }}>
+                            <i class="fa fa-plus-circle fa-2x" />
+                          </div>
                         </button>
                       </div>
                       <div className="col-8 offset-2">
                         <strong>
-                          <h5 style={{ fontWeight: 'bolder' }}>{food.foodName} </h5>
-                          <span className="spanIt">Energy:</span>{food.energy} <br />
-                          <span className="spanIt">Potassium:</span> {food.potassium} <br />
-                          <span className="spanIt">Efficiency:</span>{food.efficiency} <br />
+                          <h5 style={{ fontWeight: "bolder" }}>
+                            {food.foodName}{" "}
+                          </h5>
+                          <span className="spanIt">Energy:</span>
+                          {food.energy} <br />
+                          <span className="spanIt">Potassium:</span>{" "}
+                          {food.potassium} <br />
+                          <span className="spanIt">Efficiency:</span>
+                          {food.efficiency} <br />
                         </strong>
                       </div>
                     </div>
@@ -408,10 +464,10 @@ class Meal extends Component {
               </ul>
             </ul>
           ) : (
-              <div className="justify-content-center ml-5">
-                <h6>Click Add to add a food to the meal</h6>
-              </div>
-            )}
+            <div className="justify-content-center ml-5">
+              <h6>Click Add to add a food to the meal</h6>
+            </div>
+          )}
         </Row>
       </Container>
     );
