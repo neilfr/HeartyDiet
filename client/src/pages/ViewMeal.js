@@ -46,7 +46,8 @@ class Meal extends Component {
       .then(res => {
         console.log("getMealByUser returned: ", res.data);
         this.setState({
-          mealList: res.data
+          mealList: res.data,
+          currentMeal: res.data[0]
         });
       })
       .catch(err => console.log(err));
