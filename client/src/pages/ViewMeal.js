@@ -9,6 +9,11 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
+import './viewFoodStyle.css';
+import 'font-awesome/css/font-awesome.min.css'
+// import '../node_modules/react-vis/dist/style.css';
+//import 'C:\Users\gurne\OneDrive\Documents\Project3\project3\client\node_modules/'
+//import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
 
 class Meal extends Component {
   state = {
@@ -191,175 +196,222 @@ class Meal extends Component {
   };
 
   render() {
+    const thumbnail = {
+      width: 50,
+      height: 50
+    };
+    // console.log(this.state.currentMeal);
     return (
       <Container fluid>
         <Row>
-          <Col size="md-9 sm-9">
-            <Input
-              value={this.state.mealName}
-              onChange={this.handleInputChange}
-              name="mealName"
-              placeholder="Enter meal name to create new meal"
-            />
-          </Col>
-          <Col size="md-3 sm-3">
-            <Button
-              className="btn btn-primary"
-              disabled={
-                !this.state.mealName
-
-                // && this.state.foodGroup &&
-                // this.state.energy &&
-                // this.state.potassium
-              }
-              onClick={this.handleFormSubmit}
-            >
-              Add Meal
-            </Button>
+          <Col size="sm-12">
+            <Jumbotron>
+              <h1>View Meal</h1>
+            </Jumbotron>
           </Col>
         </Row>
-        {/* end of add meal section */}
-
+        {/* the charts and details should show here */}
         {this.state.currentMeal ? (
-          <Row>
-            <Col size="md-12 sm-12">
-              <strong>Selected Meal: </strong> {this.state.currentMeal.mealName}
-              <strong>Total Energy: </strong>
-              {this.state.currentMeal.totalEnergy}
-              <strong>Total Potassium: </strong>
-              {this.state.currentMeal.totalPotassium}
-              <strong>
-                Efficiency:
-                {/* {this.state.currentMeal.totalEnergy /
-                  this.state.currentMeal.totalPotassium} */}
-                {this.state.currentMeal.efficiency}
-              </strong>
-            </Col>
-          </Row>
+          <div>
+            <div className="d-flex flex-row justify-content-center mb-1">
+              <h3>Current Meal</h3>
+            </div>
+            <div className="d-flex flex-row justify-content-center mb-5">
+              <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentMeal.mealName}</span></div>
+              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentMeal.totalEnergy}kCal</div>
+              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.totalPotassium}gm</div>
+              <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.efficiency}</div>
+            </div>
+          </div>
         ) : (
+
+            <Row>
+              <Col size="md-12 sm-12">
+                <h6>
+                  Select a Meal from the meal list to see what foods it contains
+                  and to make changes
+          </h6>
+              </Col>
+            </Row>
+          )}
+
+        <Col size="md-9 sm-9">
+          <Input
+            value={this.state.mealName}
+            onChange={this.handleInputChange}
+            name="mealName"
+            placeholder="Enter meal name to create new meal"
+          />
+        </Col>
+        <Col size="md-3 sm-3">
+          <Button
+            className="btn btn-primary"
+            disabled={
+              !this.state.mealName
+
+              // && this.state.foodGroup &&
+              // this.state.energy &&
+              // this.state.potassium
+            }
+            onClick={this.handleFormSubmit}
+          >
+            Add Meal
+            </Button>
+        </Col>
+
+        {/* end of add meal section */}
+        <Col size="md-4 sm-4">
           <Row>
-            <Col size="md-12 sm-12">
-              <h6>
-                Select a Meal from the meal list to see what foods it contains
-                and to make changes
-              </h6>
+            <Col size="sm-12">
+              <h6>Select a Meal</h6>
             </Col>
           </Row>
-        )}
+          )}
+        </Col>
 
-        <Row>
-          <Col size="md-4 sm-4">
-            <Row>
-              <h3>Meal List</h3>
-            </Row>
-            <Row>
-              {this.state.mealList.length ? (
-                <>
-                  {this.state.mealList.map(meal => (
-                    <Card key={meal._id}>
-                      {/* <Link to={"/food/" + food._id}></Link> */}
-                      <strong>
-                        Meal Name: {meal.mealName} <br />
-                        Energy: {meal.totalEnergy} <br />
-                        Potassium: {meal.totalPotassium} <br />
-                        {/* Efficiency: {meal.totalEnergy / meal.totalPotassium} */}
-                        {/* Efficiency: {meal.efficiency} */}
-                        {/*Chris: There was not enough time to fix the virtual efficiency field issue.
-                          I just used the formula for now.  The problem is that the api is returning an array
-                          the virtual needs JSON.  There is just not enough time to fix this.*/}
-                        {parseInt(meal.totalPotassium) === 0
-                          ? 0
-                          : parseFloat(
-                              parseInt(meal.totalEnergy) /
-                                parseInt(meal.totalPotassium)
-                            ).toFixed(2)}
-                        <br />
-                      </strong>
-                      <Button
-                        className="btn btn-primary"
-                        onClick={() => this.selectMeal(meal)}
-                      >
-                        Select
+        <div className="col-3 ml-5">
+          <div className=" justify-content-center">
+            <h3 className='text-center'>Select a Meal</h3>
+            <hr />
+          </div>
+          <Row>
+            {this.state.mealList.length ? (
+              <>
+                <ul class="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.mealList.map(meal => (
+                      <li className="list-group-item" key={meal._id} s>
+
+                        {/* //todo: clicking on card isn't working...need to fix */}
+                        {/* // onClick={() => this.selectMeal(meal)} */}
+                        {/* <Link to={"/food/" + food._id}></Link> */}
+                        <div className="row">
+                          <div className="col-8">
+                            <strong>
+                              <h5 style={{ fontWeight: 'bolder' }}> Meal Name:<span className="meal-selected">{meal.mealName}</span> </h5>
+                              <span className="spanIt">Energy:</span> {meal.totalEnergy} <br />
+                              <span className="spanIt"> Potassium:</span> {meal.totalPotassium} <br />
+                              {parseInt(meal.totalPotassium) === 0
+                                ? 0
+                                : parseFloat(
+                                  parseInt(meal.totalEnergy) /
+                                  parseInt(meal.totalPotassium)
+                                ).toFixed(2)}
+                              <br />
+                            </strong>
+                          </div>
+                          <div className="col-2">
+                            <button
+                              // style={{ border: 0 }}
+                              role="button"
+                              type="button"
+                              className="btn px-3 text-center blue-gradient "
+                              onClick={() => this.selectMeal(meal)}
+                            >
+                              <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
+                            </button>
+                          </div>
+                          <Button
+                            className="btn btn-danger"
+                            onClick={() => this.deleteMeal(meal._id)}
+                          >
+                            Delete
                       </Button>
-                      <Button
-                        className="btn btn-danger"
-                        onClick={() => this.deleteMeal(meal._id)}
-                      >
-                        Delete
-                      </Button>
-                    </Card>
-                  ))}
-                </>
-              ) : (
-                <h6>No Meals, Add a meal first</h6>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </ul>
+              </>
+            ) : (
+                <div className="justify-content-center">
+                  <h6 className='text-center'>No Meals, Add a meal first</h6>
+                </div>
               )}
-            </Row>
-          </Col>
-          <Col size="md-4 sm-4">
-            <Row>
-              <h3>Foods in your Meal</h3>
-            </Row>
-            <Row>
-              <div>
-                {this.state.foodList.length > 0 ? (
-                  <List>
-                    {this.state.foodList.map(food => (
-                      <Card key={food._id}>
-                        <strong>
-                          <br /> {food.foodName} <br />
-                          <br /> Energy:{food.energy} <br />
-                          <br /> Potassium:{food.potassium} <br />
-                          <br /> ServingSize:{food.servingSize}
-                          <br />
-                          <br /> Efficiency:
-                          {/* {food.food.energy / food.food.potassium} */}
-                          {food.efficiency}
-                          <br />
-                        </strong>
-                        <Button
-                          className="btn btn-danger"
+          </Row>
+        </div>
+        <div className='col-3 offset-1'>
+
+          <div className="justify-content-center ml-3">
+            <h3>Customize your Meal</h3>
+            <hr />
+          </div>
+
+          <Row>
+            {this.state.currentMeal &&
+              this.state.currentMeal.foodList.length > 0 ? (
+                <ul class="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.currentMeal.foodList.map(food => (
+                      <li className="list-group-item text-center"
+                        key={food._id}>
+                        <div>
+                          <strong>
+                            <h5 style={{ fontWeight: 'bolder' }}>{food.foodName}</h5>
+                            <span className="spanIt">Energy:</span>{food.energy} <br />
+                            <span className="spanIt">Potassium:</span>{food.potassium} <br />
+                            <span className="spanIt"> ServingSize:</span>{food.servingSize}<br />
+                            <span className="spanIt"> Efficiency:</span> {food.efficiency}<br />
+                          </strong>
+                        </div>
+                        <button
+                          className="btn px-3 text-center peach-gradient "
                           onClick={() => this.removeFromMeal(food._id)}
                         >
-                          Remove
-                        </Button>
-                      </Card>
+                          <div style={{ textAlign: 'center' }}><i class="fa fa-minus-circle fa-2x"></i></div>
+                        </button>
+                      </li>
                     ))}
-                  </List>
-                ) : (
-                  <h6>Click Add on a food card to add it to your meal</h6>
-                )}
-              </div>
-            </Row>
-          </Col>
-          <Col size="md-4 sm-4">
-            <Row>
-              <h3>Favorite Foods</h3>
-            </Row>
-            <Row>
-              {this.state.foodFavoriteList.length ? (
-                <List>
-                  {this.state.foodFavoriteList.map(food => (
-                    <ListItem key={food._id}>
-                      <strong>
-                        <br /> {food.foodName} <br />
-                        <br /> Energy:{food.energy} <br />
-                        <br /> Potassium:{food.potassium} <br />
-                        <br /> Efficiency:{food.efficiency} <br />
-                      </strong>
-                      <Button
-                        className="btn btn-primary"
-                        onClick={() => this.addToMeal(food._id, 100)}
-                      >
-                        Add
-                      </Button>
-                    </ListItem>
-                  ))}
-                </List>
+                  </ul>
+                </ul>
               ) : (
-                <h6>Click Add to add a food to the meal</h6>
+                <h6>Click Add on a food item to add it to your meal</h6>
               )}
-            </Row>
-          </Col>
+          </Row>
+        </div>
+        {/* <div className='col-3 offset-1'> */}
+
+        <div className="justify-content-center ml-5">
+          <h3>Add Favorite Foods</h3>
+          <hr />
+        </div>
+
+        <Row>
+          {this.state.foodFavoriteList.length ? (
+            <ul class="list-group list-group-flush">
+              <ul className="list-group">
+                {this.state.foodFavoriteList.map(food => (
+                  <li className="list-group-item" key={food._id}>
+                    <div className="row">
+                      <div className="col-2 mt-5">
+                        <button
+                          // style={{ border: 0 }} 
+                          role="button"
+                          type="button"
+                          className="btn px-3 text-center blue-gradient "
+                          onClick={() => this.addToMeal(food._id, 100)}
+                        >
+                          <div style={{ textAlign: 'center' }}><i class="fa fa-plus-circle fa-2x"></i></div>
+                        </button>
+                      </div>
+                      <div className="col-8 offset-2">
+                        <strong>
+                          <h5 style={{ fontWeight: 'bolder' }}>{food.foodName} </h5>
+                          <span className="spanIt">Energy:</span>{food.energy} <br />
+                          <span className="spanIt">Potassium:</span> {food.potassium} <br />
+                          <span className="spanIt">Efficiency:</span>{food.efficiency} <br />
+                        </strong>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </ul>
+          ) : (
+              <div className="justify-content-center ml-5">
+                <h6>Click Add to add a food to the meal</h6>
+              </div>
+            )}
         </Row>
       </Container>
     );
