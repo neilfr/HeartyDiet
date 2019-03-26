@@ -268,13 +268,13 @@ class Schedule extends Component {
   render() {
     return (
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col size="md-12 sm-12">
             <Jumbotron>
               <h1>View Schedule</h1>
             </Jumbotron>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row>
           <Col size="md-12">
