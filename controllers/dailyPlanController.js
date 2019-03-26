@@ -49,8 +49,9 @@ module.exports = {
       { $set: req.body },
       { new: true }
     )
-      .populate("foodList")
+      //   .populate("foodList.food") // changed from foodList to foodList.food
       .exec(function(err, found) {
+        console.log(found, err);
         res.json(found);
       });
   },
@@ -59,9 +60,7 @@ module.exports = {
     db.DailyPlan.findById(req.params.id)
       .populate("foodList")
       // .then(dbModel => res.json(dbModel))
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
+      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
@@ -75,9 +74,7 @@ module.exports = {
       { $set: req.body },
       { new: true }
     )
-      .then(dbModel => {
-        res.json(dbModel);
-      })
+      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
       .catch(err => {
         console.error(err);
         res.json(err);

@@ -50,6 +50,20 @@ export default {
     });
   },
 
+  updateEnergyPotassiumTotalsForDailyPlanByID: function(
+    dailyPlanId,
+    totalEnergy,
+    totalPotassium
+  ) {
+    console.log("dailyPlanId is:", dailyPlanId);
+    console.log("totalEnergy is:", totalEnergy);
+    console.log("totalPotassium is:", totalPotassium);
+    return axios.put("/api/dailyPlan/KCalTotals/" + dailyPlanId, {
+      totalEnergy: totalEnergy,
+      totalPotassium: totalPotassium
+    });
+  },
+
   updateEnergyPotassiumTotalsForScheduleByID: function(
     scheduleId,
     totalEnergy,
