@@ -14,8 +14,7 @@ module.exports = {
   },
   //! 2 new functions
   addFoodById: function(req, res) {
-    console.log("inside AddFoodById and");
-    console.log("req.body should be servingSize: ", req.body);
+    console.log("IN ADDFOODBYID servingSize: ", req.body);
     console.log("meal id is: ", req.params.mealId);
     console.log("food id is: ", req.params.foodId);
 
@@ -177,6 +176,5 @@ module.exports = {
     //   res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
     // );
     // .catch(err => res.status(422).json(err));
-
   }
 };

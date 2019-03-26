@@ -413,7 +413,7 @@ class Meal extends Component {
                             <span className="spanIt">Potassium:</span>
                             {food.food.potassium} <br />
                             <span className="spanIt"> ServingSize:</span>
-                            {food.food.servingSize}
+                            {food.servingSize}
                             <br />
                             <span className="spanIt"> Efficiency:</span>{" "}
                             {/* {food.food.energy / food.food.potassium} */}
