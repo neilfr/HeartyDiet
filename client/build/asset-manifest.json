@@ -8,7 +8,11 @@
   "static/js/2.94029bb3.chunk.js": "/static/js/2.94029bb3.chunk.js",
   "static/js/2.94029bb3.chunk.js.map": "/static/js/2.94029bb3.chunk.js.map",
   "index.html": "/index.html",
+<<<<<<< HEAD
   "precache-manifest.f5b57001734d3746049d0e616f4e271e.js": "/precache-manifest.f5b57001734d3746049d0e616f4e271e.js",
+=======
+  "precache-manifest.f27ba89c8bb30228a9cb201a33d94433.js": "/precache-manifest.f27ba89c8bb30228a9cb201a33d94433.js",
+>>>>>>> test
   "service-worker.js": "/service-worker.js",
   "static/css/2.792a9777.chunk.css.map": "/static/css/2.792a9777.chunk.css.map",
   "static/css/main.f82c067a.chunk.css.map": "/static/css/main.f82c067a.chunk.css.map",

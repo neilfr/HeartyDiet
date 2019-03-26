@@ -191,13 +191,13 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col size="sm-12">
             <Jumbotron>
               <h1>View Meal</h1>
             </Jumbotron>
           </Col>
-        </Row>
+        </Row> */}
         {/* the charts and details should show here */}
         {this.state.currentMeal ? (
           <div>
