@@ -415,9 +415,13 @@ class Meal extends Component {
                             <span className="spanIt"> ServingSize:</span>
                             {food.servingSize}
                             <br />
-                            <span className="spanIt"> Efficiency:</span>{" "}
+                            <span className="spanIt"> Efficiency:</span>
+                            {food.food.efficiency}{" "}
                             {/* {food.food.energy / food.food.potassium} */}
-                            {food.food.efficiency}
+                            {/* {parseFloat(
+                              parseInt(food.food.energy) /
+                                parseInt(food.food.potassium)
+                            ).toFixed(2)} */}
                             <br />
                           </strong>
                         </div>

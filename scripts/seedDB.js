@@ -25,15 +25,15 @@ const foodGroupSeed = foodGroupData.map(x => {
   return x;
 });
 
-const dailyPlanSeed = dailyPlanData.map(x => {
-  delete x._id;
-  return x;
-});
+// const dailyPlanSeed = dailyPlanData.map(x => {
+//   delete x._id;
+//   return x;
+// });
 
-const scheduleSeed = scheduleData.map(x => {
-  delete x._id;
-  return x;
-});
+// const scheduleSeed = scheduleData.map(x => {
+//   delete x._id;
+//   return x;
+// });
 
 const Food_Insert = db.Food.remove({})
   .then(() => db.Food.collection.insertMany(foodSeed))
@@ -65,32 +65,32 @@ const Foodgroup_Insert = db.FoodGroup.remove({})
     process.exit(1);
   });
 
-const DailyPlan_Insert = db.DailyPlan.remove({})
-  .then(() => db.DailyPlan.collection.insertMany(dailyPlanSeed))
-  .then(data => {
-    console.log(data.result.n + " daily plan records inserted!");
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+// const DailyPlan_Insert = db.DailyPlan.remove({})
+//   .then(() => db.DailyPlan.collection.insertMany(dailyPlanSeed))
+//   .then(data => {
+//     console.log(data.result.n + " daily plan records inserted!");
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
-const Schedule_Insert = db.Schedule.remove({})
-  .then(() => db.Schedule.collection.insertMany(scheduleSeed))
-  .then(data => {
-    console.log(data.result.n + " schedule records inserted!");
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit(1);
-  });
+// const Schedule_Insert = db.Schedule.remove({})
+//   .then(() => db.Schedule.collection.insertMany(scheduleSeed))
+//   .then(data => {
+//     console.log(data.result.n + " schedule records inserted!");
+//   })
+//   .catch(err => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
 Promise.all([
   Food_Insert,
   // User_Insert,
-  Foodgroup_Insert,
-  DailyPlan_Insert,
-  Schedule_Insert
+  Foodgroup_Insert
+  // DailyPlan_Insert,
+  // Schedule_Insert
 ]).then(function() {
   console.log("all seeds loaded!!");
   process.exit(0);
