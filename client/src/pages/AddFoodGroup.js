@@ -10,7 +10,8 @@ import Button from "../components/Button";
 class FoodGroup extends Component {
   state = {
     foodGroupName: "",
-    foodGroupList: ""
+    foodGroupList: "",
+    pic: null
   };
 
   componentDidMount() {
@@ -44,38 +45,61 @@ class FoodGroup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.foodGroupName) {
+      this.findPic(this.state.foodGroupName);
       API.saveFoodGroup({
         foodGroupName: this.state.foodGroupName,
         userName: "JohnSmith"
       })
+
         .then(res => this.loadFoodGroupByMasterAndUser("JohnSmith"))
         .catch(err => console.log(err));
     }
+  };
+
+  findPic = name => {
+    API.getRecipes(name)
+      .then(res => {
+        const ImgRec = res.data.results.filter(recipe =>
+          Boolean(recipe.thumbnail)
+        );
+        this.setState({ pics: ImgRec.length > 0 ? ImgRec[0].thumbnail : null });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
-            {this.state.foodGroupList.length ? (
-              this.state.foodGroupList.map(foodGroupList => (
-                <Button
+          {this.state.foodGroupList.length ? (
+            <div>
+              {/* <ul class="list-group list-group-flush">
+                <ul className="list-group list-group-horizontal"> */}
+              {this.state.foodGroupList.map(foodGroupList => (
+                <div
+                  style={{ border: 2 }}
                   key={foodGroupList.foodGroupName}
-                  className="btn btn-secondary"
+                  className="flex-item"
                 >
                   {/* <Link to={"/food/" + food._id}></Link> */}
-                  <strong>
-                    {foodGroupList.foodGroupName} <br />
-                  </strong>
+                  <div>
+                    {foodGroupList.image ? (
+                      <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+                        src={foodGroupList.image} />) : (
+                        <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+                          src={this.state.pics} />)}
+                    <h4> {foodGroupList.foodGroupName}</h4><br />
+                  </div>
 
                   {/* <DeleteBtn  /> */}
-                </Button>
-              ))
-            ) : (
+                </div>
+              ))}
+              {/* </ul>
+              </ul> */}
+            </div>
+          ) : (
               <h3>No Results to Display</h3>
             )}
-          </Col>
         </Row>
 
         <Row>

@@ -158,10 +158,25 @@ module.exports = {
       userName: req.params.userName
     })
       .sort({ mealName: 1 })
-      // .then(dbModel => res.json(dbModel))
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
-      .catch(err => res.status(422).json(err));
+
+      //!new lines to include all the related food list data for each of the meals
+
+      .populate("foodList.food") // changed from foodList to foodList.food
+
+      .exec(function(err, meals) {
+        console.log("found in findByUser returned:", meals);
+
+        meals.map(meal => {
+          meal.toJSON({ virtuals: true }); //todo check if Chris put this in... and if so, is it still doing what he needs it to
+        });
+
+        console.log("meals before return:", meals);
+        res.json(meals);
+      });
+    // .exec(dbModel =>
+    //   res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+    // );
+    // .catch(err => res.status(422).json(err));
+
   }
 };
