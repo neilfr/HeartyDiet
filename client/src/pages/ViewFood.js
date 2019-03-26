@@ -10,10 +10,8 @@ import Card from "../components/Card";
 import { FoodPic, FoodContainer } from "./FoodPic";
 import "./viewFoodStyle.css";
 import SearchResults from "./SearchResults";
-import 'font-awesome/css/font-awesome.min.css'
+import "font-awesome/css/font-awesome.min.css";
 //import { MDBMask, MDBView, MDBContainer, MDBRow, MDBCol } from "mdbreact";
-
-
 
 class Food extends Component {
   state = {
@@ -26,7 +24,7 @@ class Food extends Component {
     pics: null,
     efficiency: "",
     results: [],
-    foodSearch: "",
+    foodSearch: ""
   };
 
   componentDidMount() {
@@ -47,7 +45,6 @@ class Food extends Component {
       )
       .catch(err => console.log(err));
   };
-
 
   loadFoodGroupMasterAndUser = userName => {
     API.getFoodGroupByMasterAndUser(userName)
@@ -70,7 +67,7 @@ class Food extends Component {
     // this.setState((state, props) => {
     //   return { thumbnail: state.pics }
     // })
-    console.log(this.state.thumbnail)
+    console.log(this.state.thumbnail);
     API.getFoodByFoodGroupName(foodGroupName)
       .then(res =>
         this.setState({
@@ -96,20 +93,14 @@ class Food extends Component {
 
       .then(res => {
         console.log(res);
-        API.saveFood(
-          res.data.map(food => ({
-            foodName: food.foodName,
-            foodGroupName: food.foodGroupName,
-            energy: food.energy,
-            potassium: food.potassium,
-            userName: "JohnSmith"
-          }))
-        )
-          .then(
-            res.data.forEach(function (element) {
-              alert(element.foodName + " saved as favorite food");
-            })
-          )
+        API.saveFood({
+          foodName: res.data.foodName,
+          foodGroupName: res.data.foodGroupName,
+          energy: res.data.energy,
+          potassium: res.data.potassium,
+          userName: "JohnSmith"
+        })
+          .then(alert(res.data.foodName + " saved as favorite food"))
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
@@ -125,27 +116,26 @@ class Food extends Component {
   //   })
   // }
   //for search bar
-  loadFoodOnSearch = (id) => {
-    console.log(this.state.foodList)
+  loadFoodOnSearch = id => {
+    console.log(this.state.foodList);
     this.state.foodList.map(foodItem => {
       if (foodItem.FoodID === id) {
-        console.log(foodItem)
-        this.setState({ results: foodItem })
-        console.log(this.state.results)
+        console.log(foodItem);
+        this.setState({ results: foodItem });
+        console.log(this.state.results);
       }
-    })
-  }
+    });
+  };
 
   handleInputChange = event => {
     this.setState({ foodSearch: event.target.value });
-
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("something")
-    console.log(this.state.foodSearch)
-    console.log(this.state.foodList)
+    console.log("something");
+    console.log(this.state.foodSearch);
+    console.log(this.state.foodList);
 
     API.getFoodByFoodName(this.state.foodSearch)
       .then(res =>
@@ -159,11 +149,11 @@ class Food extends Component {
 
   render() {
     var foodDisplay = {
-      color: '#1e90ff',
-      fontWeight: 'bold'
+      color: "#1e90ff",
+      fontWeight: "bold"
     };
     var iconClass = {
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
       right: 6
     };
@@ -171,9 +161,13 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
-          <div className="col-6 search-bar offset-6" >
+          <div className="col-6 search-bar offset-6">
             <div class="input-group mt-3 form-sm form-2 pl-0">
-              <input class="form-control my-0 py-1 red-border" type="text" placeholder="Enter Food Name" aria-label="Search"
+              <input
+                class="form-control my-0 py-1 red-border"
+                type="text"
+                placeholder="Enter Food Name"
+                aria-label="Search"
                 value={this.state.foodSearch}
                 onChange={this.handleInputChange}
                 name="foodSearch"
@@ -182,7 +176,9 @@ class Food extends Component {
                 {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
                 <button
                   className="input-group-text red lighten-3"
-                  onClick={this.handleFormSubmit}><i className=" fa fa-search"></i>
+                  onClick={this.handleFormSubmit}
+                >
+                  <i className=" fa fa-search" />
                 </button>
               </div>
             </div>
@@ -211,40 +207,52 @@ class Food extends Component {
             {this.state.foodGroupList.length ? (
               this.state.foodGroupList.map(foodGroupList => (
                 <Col size="lg-4">
-                  <Container >
-                    <div className="holder container card"
+                  <Container>
+                    <div
+                      className="holder container card"
                       onClick={() =>
-                        this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                      }>
+                        this.loadFoodByFoodGroupName(
+                          foodGroupList.foodGroupName
+                        )
+                      }
+                    >
                       {/* {console.log(foodGroupList.image)} */}
                       {/* <div className="card" style={{ width: 35 }}> */}
                       <div className="row p-2 pt-3">
                         <div className="col-4 view overlay zoom">
-                          <img className="card-img-left" style={{ width: 95, height: 95 }} alt="foodPic" src={foodGroupList.image} />
+                          <img
+                            className="card-img-left"
+                            style={{ width: 95, height: 95 }}
+                            alt="foodPic"
+                            src={foodGroupList.image}
+                          />
                           {/* <Col size="md-6" className="card-body"> */}
                         </div>
                         <div className="col-6 offset-1">
                           <button
                             key={foodGroupList.foodGroupName}
-                            className="custom-btn text-center">
+                            className="custom-btn text-center"
+                          >
                             {/* <Link to={"/food/" + food._id}></Link> */}
                             <strong>
-                              <p className="card-title"> {foodGroupList.foodGroupName} </p>
+                              <p className="card-title">
+                                {" "}
+                                {foodGroupList.foodGroupName}{" "}
+                              </p>
                             </strong>
                           </button>
                         </div>
-
                       </div>
                       <div style={iconClass} className="moreIcon">
-                        <p style={{ color: 'blue' }}>more</p>
+                        <p style={{ color: "blue" }}>more</p>
                       </div>
                     </div>
                   </Container>
                 </Col>
               ))
             ) : (
-                <h3>No Results to Display1</h3>
-              )}
+              <h3>No Results to Display1</h3>
+            )}
             {/* </Col> */}
           </Row>
         </div>
@@ -259,7 +267,8 @@ class Food extends Component {
                 >
                   <div className="card-content">
                     <strong>
-                      <h5 style={foodDisplay}>{foodList.foodName}</h5><br />
+                      <h5 style={foodDisplay}>{foodList.foodName}</h5>
+                      <br />
                       Food Group: {foodList.foodGroupName} <br />
                       Energy: {foodList.energy}kCal <br />
                       Potassium: {foodList.potassium}gm <br />
@@ -268,18 +277,18 @@ class Food extends Component {
                     </strong>
                   </div>
                   <div className="text-right">
-                    <i className="fa fa-gratipay"></i><br />
+                    <i className="fa fa-gratipay" />
+                    <br />
                     <p className="add-fav">Add to favorites</p>
                   </div>
                 </Button>
               </Col>
-
             ))
           ) : (
-              <h3>No Results to Display</h3>
-            )}
+            <h3>No Results to Display</h3>
+          )}
         </Row>
-      </Container >
+      </Container>
     );
   }
 }

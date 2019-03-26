@@ -29,6 +29,13 @@ export default {
     return axios.delete("/api/meal/food/" + mealId + "/" + foodId);
   },
 
+  removeMealFromDailyPlanByID: function(dailyPlanId, mealId) {
+    console.log("inside client api removeMealFromDailyPlanByID");
+    console.log("dailPlanId is:", dailyPlanId);
+    console.log("mealId is:", mealId);
+    return axios.delete("/api/dailyPlan/meal/" + dailyPlanId + "/" + mealId);
+  },
+
   removeDailyPlanFromScheduleByID: function(scheduleId, dailyPlanId) {
     return axios.delete(
       "/api/schedule/dailyPlan/" + scheduleId + "/" + dailyPlanId
@@ -126,6 +133,10 @@ export default {
 
   deleteMeal: function(id) {
     return axios.delete("/api/meal/" + id);
+  },
+
+  deleteDailyPlan: function(id) {
+    return axios.delete("/api/dailyPlan/" + id);
   },
   getFoodByFoodGroupName: function(foodGroupName) {
     return axios.get("/api/food/foodByFoodGroupName/" + foodGroupName);
