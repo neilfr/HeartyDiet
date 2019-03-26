@@ -405,16 +405,19 @@ class Meal extends Component {
                       >
                         <div>
                           <strong>
-                            {/* <h5 style={{ fontWeight: 'bolder' }}>{food.food.foodName}</h5> */}
-                            <span className="spanIt">Energy1:</span>
+                            <h5 style={{ fontWeight: "bolder" }}>
+                              {food.food.foodName}
+                            </h5>
+                            <span className="spanIt">Energy:</span>
                             {food.food.energy} <br />
-                            <span className="spanIt">Potassium1:</span>
+                            <span className="spanIt">Potassium:</span>
                             {food.food.potassium} <br />
-                            <span className="spanIt"> ServingSize1:</span>
+                            <span className="spanIt"> ServingSize:</span>
                             {food.food.servingSize}
                             <br />
-                            <span className="spanIt"> Efficiency1:</span>{" "}
-                            {food.food.energy / food.food.potassium}
+                            <span className="spanIt"> Efficiency:</span>{" "}
+                            {/* {food.food.energy / food.food.potassium} */}
+                            {food.food.efficiency}
                             <br />
                           </strong>
                         </div>
@@ -468,11 +471,11 @@ class Meal extends Component {
                               <h5 style={{ fontWeight: "bolder" }}>
                                 {food.foodName}{" "}
                               </h5>
-                              <span className="spanIt">Energy2:</span>
+                              <span className="spanIt">Energy:</span>
                               {food.energy} <br />
-                              <span className="spanIt">Potassium2:</span>{" "}
+                              <span className="spanIt">Potassium:</span>{" "}
                               {food.potassium} <br />
-                              <span className="spanIt">Efficiency2:</span>
+                              <span className="spanIt">Efficiency:</span>
                               {food.efficiency} <br />
                             </strong>
                           </div>
