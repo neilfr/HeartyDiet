@@ -141,7 +141,7 @@ module.exports = {
       .sort({ mealName: 1 })
       //!new lines to include all the related food list data for each of the meals
 
-      //.populate("foodList.food") // changed from foodList to foodList.food
+      .populate("foodList.food") // changed from foodList to foodList.food
 
       .exec(function(err, meals) {
         console.log("found in findByUser returned:", meals);

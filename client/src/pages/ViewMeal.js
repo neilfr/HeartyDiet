@@ -54,7 +54,7 @@ class Meal extends Component {
   };
 
   selectMeal = meal => {
-    console.log(meal);
+    console.log("JUST GOT INTO SELECT MEAL AND MEAL IS:", meal);
     this.setState({ currentMeal: meal });
     console.log(
       "selected meal... now current meal state is:",
@@ -63,13 +63,17 @@ class Meal extends Component {
 
     var foodListArray = [];
     meal.foodList.map(food => {
+      console.log("MAPPING OVER FOOD AND FOOD IS:", food);
       API.getFoodByID(food.food)
         .then(res => {
           console.log("getFoodByMealID returned: ", res);
 
           res.data.map(foodObject => {
+            console.log(
+              "PUSHING THIS FOODOBJECT ONTO FOODLIST ARRAY: ",
+              foodObject
+            );
             foodListArray.push(foodObject);
-
             this.setState({
               foodList: foodListArray
             });
@@ -402,14 +406,14 @@ class Meal extends Component {
                         <div>
                           <strong>
                             {/* <h5 style={{ fontWeight: 'bolder' }}>{food.food.foodName}</h5> */}
-                            <span className="spanIt">Energy:</span>
+                            <span className="spanIt">Energy1:</span>
                             {food.food.energy} <br />
-                            <span className="spanIt">Potassium:</span>
+                            <span className="spanIt">Potassium1:</span>
                             {food.food.potassium} <br />
-                            <span className="spanIt"> ServingSize:</span>
-                            {food.servingSize}
+                            <span className="spanIt"> ServingSize1:</span>
+                            {food.food.servingSize}
                             <br />
-                            <span className="spanIt"> Efficiency:</span>{" "}
+                            <span className="spanIt"> Efficiency1:</span>{" "}
                             {food.food.energy / food.food.potassium}
                             <br />
                           </strong>
@@ -464,11 +468,11 @@ class Meal extends Component {
                               <h5 style={{ fontWeight: "bolder" }}>
                                 {food.foodName}{" "}
                               </h5>
-                              <span className="spanIt">Energy:</span>
+                              <span className="spanIt">Energy2:</span>
                               {food.energy} <br />
-                              <span className="spanIt">Potassium:</span>{" "}
+                              <span className="spanIt">Potassium2:</span>{" "}
                               {food.potassium} <br />
-                              <span className="spanIt">Efficiency:</span>
+                              <span className="spanIt">Efficiency2:</span>
                               {food.efficiency} <br />
                             </strong>
                           </div>
