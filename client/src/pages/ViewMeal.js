@@ -220,7 +220,7 @@ class Meal extends Component {
               <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentMeal.mealName}</span></div>
               <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentMeal.totalEnergy}kCal</div>
               <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.totalPotassium}gm</div>
-              <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.efficiency}</div>
+              {/* <div className='p-3  pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" /> {this.state.currentMeal.efficiency}</div> */}
             </div>
           </div>
         ) : (

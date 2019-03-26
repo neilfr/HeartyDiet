@@ -189,10 +189,14 @@ class DailyPlan extends Component {
   };
 
   render() {
+    const thumbnail = {
+      width: 50,
+      height: 50
+    };
     return (
       <Container fluid>
         <Row>
-          <Col size="md-9 sm-9">
+          <Col size="md-6" className='ml-3'>
             <Input
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
@@ -200,7 +204,7 @@ class DailyPlan extends Component {
               placeholder="Enter dailyPlan name to create new dailyPlan"
             />
           </Col>
-          <Col size="md-3 sm-3">
+          <Col size="md-3 ">
             <Button
               className="btn btn-primary"
               disabled={
@@ -219,26 +223,21 @@ class DailyPlan extends Component {
         {/* end of add dailyPlan section */}
 
         {this.state.currentDailyPlan ? (
-          <Row>
-            <Col size="md-12 sm-12">
-              <strong>Selected DailyPlan: </strong>{" "}
-              {this.state.currentDailyPlan.dailyPlanName}
-              <strong>Total Energy: </strong>
-              {this.state.currentDailyPlan.totalEnergy}
-              <strong>Total Potassium: </strong>
-              {this.state.currentDailyPlan.totalPotassium}
-            </Col>
-          </Row>
+          <div>
+            <div className="d-flex flex-row justify-content-center mb-1">
+              <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentDailyPlan.dailyPlanName}</span></div>
+              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentDailyPlan.totalEnergy}</div>
+              <div className='p-3 pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" />{this.state.currentDailyPlan.totalPotassium}</div>
+            </div>
+          </div>
         ) : (
-          <Row>
-            <Col size="md-12 sm-12">
+            <div className="row ml-5">
               <h6>
-                Select a DailyPlan from the dailyPlan list to see what meals it
-                contains and to make changes
-              </h6>
-            </Col>
-          </Row>
-        )}
+                Select a Meal from the meal list to see what foods it contains
+                and to make changes
+            </h6>
+            </div>
+          )}
 
         <Row>
           <Col size="md-4 sm-4">
@@ -272,8 +271,8 @@ class DailyPlan extends Component {
                   ))}
                 </>
               ) : (
-                <h6>No DailyPlans, Add a dailyPlan first</h6>
-              )}
+                  <h6>No DailyPlans, Add a dailyPlan first</h6>
+                )}
             </Row>
           </Col>
           <Col size="md-4 sm-4">
@@ -289,28 +288,28 @@ class DailyPlan extends Component {
                     {this.state.dailyPlanMealList.map((
                       meal // console.log("MEAL IS: " + meal)
                     ) => (
-                      <Card key={meal._id}>
-                        <strong>
-                          <br /> {meal.mealName} <br />
-                          <br /> Energy:{meal.totalEnergy} <br />
-                          <br /> Potassium:{meal.totalPotassium} <br />
-                          {/* <br /> ServingSize:{meal.servingSize}
+                        <Card key={meal._id}>
+                          <strong>
+                            <br /> {meal.mealName} <br />
+                            <br /> Energy:{meal.totalEnergy} <br />
+                            <br /> Potassium:{meal.totalPotassium} <br />
+                            {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                          <br /> Efficiency:need to get virtual
+                            <br /> Efficiency:need to get virtual
                           {meal.efficiency} <br />
-                        </strong>
-                        <Button
-                          className="btn btn-danger"
-                          onClick={() => this.removeFromDailyPlan(meal._id)}
-                        >
-                          Remove
+                          </strong>
+                          <Button
+                            className="btn btn-danger"
+                            onClick={() => this.removeFromDailyPlan(meal._id)}
+                          >
+                            Remove
                         </Button>
-                      </Card>
-                    ))}
+                        </Card>
+                      ))}
                   </List>
                 ) : (
-                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                )}
+                    <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+                  )}
               </div>
             </Row>
           </Col>
@@ -339,8 +338,8 @@ class DailyPlan extends Component {
                   ))}
                 </List>
               ) : (
-                <h6>Click Add to add a meal to the dailyPlan</h6>
-              )}
+                  <h6>Click Add to add a meal to the dailyPlan</h6>
+                )}
             </Row>
           </Col>
         </Row>
