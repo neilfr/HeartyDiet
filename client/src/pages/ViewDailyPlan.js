@@ -124,7 +124,7 @@ class DailyPlan extends Component {
         //   potassium: a.potassium + b.potassium
         // }));
         console.log("data.data is:", data.data);
-        const tempMealList = data.data.mealList;
+        let tempMealList = data.data.mealList;
         console.log("tempMealList is:", tempMealList);
         let totalPotassium = 0;
         let totalEnergy = 0;
@@ -144,10 +144,25 @@ class DailyPlan extends Component {
             "dailyPlan data after meal ADD, with updated totals",
             data.data
           );
+
           this.setState({
-            currentDailyPlan: data.data,
-            dailyPlanMealList: data.data.mealList
+            currentDailyPlan: data.data
           });
+
+          var mealListArray = [];
+          data.data.mealList.map(mealID =>
+            API.getMealByID(mealID)
+              .then(res => {
+                console.log("mealListArray element is: ", res.data);
+
+                mealListArray.push(res.data);
+
+                this.setState({
+                  dailyPlanMealList: mealListArray
+                });
+              })
+              .catch(err => console.log(err))
+          );
         });
       })
       .catch(err => console.log(err));
@@ -260,6 +275,7 @@ class DailyPlan extends Component {
                         DailyPlan Name: {dailyPlan.dailyPlanName} <br />
                         Energy: {dailyPlan.totalEnergy} <br />
                         Potassium: {dailyPlan.totalPotassium} <br />
+                        Efficiency: {dailyPlan.efficiency} <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
@@ -291,9 +307,7 @@ class DailyPlan extends Component {
                 {this.state.dailyPlanMealList.length + " meals"}
                 {this.state.dailyPlanMealList.length > 0 ? (
                   <List>
-                    {this.state.dailyPlanMealList.map((
-                      meal // console.log("MEAL IS: " + meal)
-                    ) => (
+                    {this.state.dailyPlanMealList.map(meal => (
                       <Card key={meal._id}>
                         <strong>
                           <br /> {meal.mealName} <br />
