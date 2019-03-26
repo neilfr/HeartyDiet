@@ -405,7 +405,7 @@ class Meal extends Component {
                       >
                         <div>
                           <strong>
-                            {/* <h5 style={{ fontWeight: 'bolder' }}>{food.food.foodName}</h5> */}
+                                                      {/* <h5 style={{ fontWeight: 'bolder' }}>{food.food.foodName}</h5> */}
                             <span className="spanIt">Energy1:</span>
                             {food.food.energy} <br />
                             <span className="spanIt">Potassium1:</span>
@@ -413,8 +413,13 @@ class Meal extends Component {
                             <span className="spanIt"> ServingSize1:</span>
                             {food.food.servingSize}
                             <br />
-                            <span className="spanIt"> Efficiency1:</span>{" "}
-                            {food.food.energy / food.food.potassium}
+                            <span className="spanIt"> Efficiency1:</span>
+                            {/* {food.food.efficiency} */}{" "}
+                            {/* {food.food.energy / food.food.potassium} */}
+                            {parseFloat(
+                              parseInt(food.food.energy) /
+                                parseInt(food.food.potassium)
+                            ).toFixed(2)}
                             <br />
                           </strong>
                         </div>

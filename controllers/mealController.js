@@ -35,9 +35,9 @@ module.exports = {
       { new: true }
     )
       .populate("foodList.food") // changed from foodList to foodList.food
-      .exec(function(err, found1) {
-        console.log("found1 is:", found1);
-        res.json(found1);
+      .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .catch(err => {
+        res.json(err);
       });
   },
   // todo fix remove with the new model
@@ -53,8 +53,9 @@ module.exports = {
       { new: true }
     )
       .populate("foodList.food") // changed from foodList to foodList.food
-      .exec(function(err, found) {
-        res.json(found);
+      .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .catch(err => {
+        res.json(err);
       });
   },
   // removeFoodById: function(req, res) {
@@ -80,9 +81,9 @@ module.exports = {
       { new: true }
     )
       .populate("foodList.food") // changed from foodList to foodList.food
-      .exec(function(err, found) {
-        console.log(found, err);
-        res.json(found);
+      .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .catch(err => {
+        res.json(err);
       });
   },
 
@@ -117,7 +118,6 @@ module.exports = {
       // })
       .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
       .catch(err => {
-        console.error(err);
         res.json(err);
       });
   },
@@ -177,6 +177,5 @@ module.exports = {
     //   res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
     // );
     // .catch(err => res.status(422).json(err));
-
   }
 };
