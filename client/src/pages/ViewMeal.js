@@ -33,7 +33,7 @@ class Meal extends Component {
   loadFoodFavorites = userName => {
     API.getFoodByUser(userName)
       .then(res => {
-        console.log("foodFavoriteList is: ", res.data);
+        console.log("FOODFAVORITES LIST IS: ", res.data);
         this.setState({
           foodFavoriteList: res.data
         });
@@ -44,7 +44,7 @@ class Meal extends Component {
   loadMeals = userName => {
     API.getMealByUser(userName)
       .then(res => {
-        console.log("getMealByUser returned: ", res.data);
+        console.log("GETMEALBYUSER RETURNED: ", res.data);
         this.setState({
           mealList: res.data,
           currentMeal: res.data[0]
