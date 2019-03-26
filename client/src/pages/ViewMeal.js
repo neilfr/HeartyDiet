@@ -53,34 +53,16 @@ class Meal extends Component {
       .catch(err => console.log(err));
   };
 
-  selectMeal = meal => {
-    console.log("JUST GOT INTO SELECT MEAL AND MEAL IS:", meal);
-    this.setState({ currentMeal: meal });
-    console.log(
-      "selected meal... now current meal state is:",
-      this.state.currentMeal
-    );
-
-    var foodListArray = [];
-    meal.foodList.map(food => {
-      console.log("MAPPING OVER FOOD AND FOOD IS:", food);
-      API.getFoodByID(food.food)
-        .then(res => {
-          console.log("getFoodByMealID returned: ", res);
-
-          res.data.map(foodObject => {
-            console.log(
-              "PUSHING THIS FOODOBJECT ONTO FOODLIST ARRAY: ",
-              foodObject
-            );
-            foodListArray.push(foodObject);
-            this.setState({
-              foodList: foodListArray
-            });
-          });
-        })
-        .catch(err => console.log(err));
-    });
+  selectMeal = mealId => {
+    console.log("JUST GOT INTO SELECT MEAL AND MEALID IS:", mealId);
+    API.getMealByID(mealId)
+      .then(res => {
+        console.log("GETMEALBYID RETURNED: ", res.data);
+        this.setState({
+          currentMeal: res.data
+        });
+      })
+      .catch(err => console.log(err));
   };
 
   removeFromMeal = foodID => {
@@ -197,7 +179,6 @@ class Meal extends Component {
         //todo this refreshes the screen... or should i update state?
         .then(res => (window.location.href = "/ViewMeal"))
         // .then(res => (window.location.href = "/AddMeal"))
-        //.then(res => this.loadMeals())
         .catch(err => console.log(err));
     }
   };
@@ -210,13 +191,13 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col size="sm-12">
             <Jumbotron>
               <h1>View Meal</h1>
             </Jumbotron>
           </Col>
-        </Row>
+        </Row> */}
         {/* the charts and details should show here */}
         {this.state.currentMeal ? (
           <div>
@@ -352,7 +333,7 @@ class Meal extends Component {
                                   // style={{ border: 0 }}
                                   role="button"
                                   className="btn px-3 text-center blue-gradient "
-                                  onClick={() => this.selectMeal(meal)}
+                                  onClick={() => this.selectMeal(meal._id)}
                                 >
                                   <div style={{ textAlign: "center" }}>
                                     <i className="fa fa-plus-circle fa-2x" />

@@ -30,18 +30,44 @@ module.exports = {
         res.json(found1);
       });
   },
+  // removeMealById: function(req, res) {
+  //   db.DailyPlan.findByIdAndUpdate(
+  //     req.params.dailyPlanId,
+  //     {
+  //       $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
+  //     },
+  //     { new: true }
+  //   )
+  //     .populate("foodList")
+  //     .exec(function(err, found) {
+  //       res.json(found);
+  //     });
+  // },
+
   removeMealById: function(req, res) {
+    console.log("req.params.dailyPlanId is:", req.params.dailyPlanId);
+    console.log("req.params.mealId is:", req.params.mealId);
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
-        $pullAll: { foodList: [new mongoose.Types.ObjectId(req.params.foodId)] }
+        $pull: {
+          mealList: { _id: new mongoose.Types.ObjectId(req.params.mealId) }
+          // foodList: [req.params.foodId]
+        }
       },
       { new: true }
     )
-      .populate("foodList")
-      .exec(function(err, found) {
-        res.json(found);
-      });
+      .populate("mealList") // changed from foodList to foodList.food
+      .exec()
+      .then(dbModel => {
+        console.log("REMOVEMEALBYID DBMODEL IS:", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
+      .catch(err => console.log(err));
+    // .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+    // .catch(err => {
+    //   res.json(err);
+    // });
   },
   updateKCalTotals: function(req, res) {
     db.DailyPlan.findByIdAndUpdate(
@@ -80,12 +106,12 @@ module.exports = {
         res.json(err);
       });
   },
-  // remove: function(req, res) {
-  //   db.DailyPlan.findById({ _id: req.params.id })
-  //     .then(dbModel => dbModel.remove())
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+  remove: function(req, res) {
+    db.DailyPlan.findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .catch(err => res.status(422).json(err));
+  },
 
   //   findByUser: function(req, res) {
   //     db.DailyPlan.find({

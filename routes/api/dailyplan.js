@@ -11,7 +11,8 @@ router
 router
   .route("/:id")
   .get(dailyPlanController.findById)
-  .put(dailyPlanController.update);
+  .put(dailyPlanController.update)
+  .delete(dailyPlanController.remove);
 
 // .post(dailyPlanController.addFoodById)
 // .delete(dailyPlanController.remove);
@@ -24,8 +25,8 @@ router
 
 router
   .route("/meal/:dailyPlanId/:mealId")
-.delete(dailyPlanController.removeMealById)
-.post(dailyPlanController.addMealById);
+  .delete(dailyPlanController.removeMealById)
+  .post(dailyPlanController.addMealById);
 
 router
   .route("/KCalTotals/:dailyPlanId")

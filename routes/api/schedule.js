@@ -10,7 +10,8 @@ router
   //Create or Update uses a mongo .update method with the keyword "upsert"
   //to insert if it doesn't exist or update.
   .post(scheduleController.createOrUpdate)
-  .put(scheduleController.update);
+  // .put(scheduleController.update);
+  .put(scheduleController.createOrUpdate);
 
 // Matches with "/api/schedule/:id"
 router

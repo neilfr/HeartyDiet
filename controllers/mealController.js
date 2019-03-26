@@ -112,13 +112,12 @@ module.exports = {
   findById: function(req, res) {
     db.Meal.findById(req.params.id)
       .populate("foodList.food") // changed from foodList to foodList.food
-      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
-
-      .catch(err => {
-        console.log(err);
-
-        res.status(422).json(err);
-      });
+      .exec()
+      .then(dbModel => {
+        console.log("FINDBYID DBMODEL IS:", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
+      .catch(err => console.log(err));
   },
 
   create: function(req, res) {
