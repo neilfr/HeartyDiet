@@ -14,7 +14,8 @@ module.exports = {
   },
   //! 2 new functions
   addFoodById: function(req, res) {
-    console.log("IN ADDFOODBYID servingSize: ", req.body);
+    console.log("inside AddFoodById and");
+    console.log("req.body should be servingSize: ", req.body);
     console.log("meal id is: ", req.params.mealId);
     console.log("food id is: ", req.params.foodId);
 
@@ -34,7 +35,20 @@ module.exports = {
       { new: true }
     )
       .populate("foodList.food") // changed from foodList to foodList.food
-      .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      // .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .exec()
+      .then(dbModel => {
+        //foodlist array
+        console.log(dbModel);
+
+        dbModel.foodList = dbModel.foodList.map(model =>
+          model.toJSON({ virtuals: true })
+        );
+
+        //meal model
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
+
       .catch(err => {
         res.json(err);
       });
@@ -165,8 +179,12 @@ module.exports = {
       .exec(function(err, meals) {
         console.log("found in findByUser returned:", meals);
 
-        meals.map(meal => {
-          meal.toJSON({ virtuals: true }); //todo check if Chris put this in... and if so, is it still doing what he needs it to
+        meals = meals.map(meal => {
+          meal.foodList = meal.foodList.map(model =>
+            model.toJSON({ virtuals: true })
+          );
+
+          return meal.toJSON({ virtuals: true }); //todo check if Chris put this in... and if so, is it still doing what he needs it to
         });
 
         console.log("meals before return:", meals);
