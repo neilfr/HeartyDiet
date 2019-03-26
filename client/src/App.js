@@ -6,17 +6,13 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import AddFood from "./pages/AddFood";
 import ViewFood from "./pages/ViewFood";
+import ViewSchedule from "./pages/ViewSchedule";
 import AddMeal from "./pages/AddMeal";
 import ViewMeal from "./pages/ViewMeal";
+import ViewDailyPlan from "./pages/ViewDailyPlan";
 import HomeContainer from "./pages/HomeContainer";
 import ViewFoodFavorite from "./pages/ViewFoodFavorite";
 import AddFoodGroup from "./pages/AddFoodGroup";
-// for font awesome
-// import { library } from '@fortawesome/fontawesome-svg-core'
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { faIgloo } from '@fortawesome/free-solid-svg-icons'
-
-// library.add(faIgloo)
 import Register from "./pages/Register";
 
 function App() {
@@ -32,6 +28,8 @@ function App() {
           <Route exact path="/AddFoodGroup" component={AddFoodGroup} />
           <Route exact path="/AddMeal" component={AddMeal} />
           <Route exact path="/ViewMeal" component={ViewMeal} />
+          <Route exact path="/ViewDailyPlan" component={ViewDailyPlan} />
+          <Route exact path="/ViewSchedule" component={ViewSchedule} />
           <Route exact path="/ViewFoodFavorite" component={ViewFoodFavorite} />
           <Route exact path="/Register" component={Register} />
           <Route exact path="/Logout" component={Logout} />

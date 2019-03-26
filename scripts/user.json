@@ -1,5 +1,5 @@
 [
-  { "userName": "master", "favoriteFoods": [] },
-  { "userName": "JohnSmith", "favoriteFoods": [] },
-  { "userName": "JaneDoe", "favoriteFoods": [] }
+  { "userName": "master" },
+  { "userName": "JohnSmith" },
+  { "userName": "JaneDoe" }
 ]

@@ -2,18 +2,26 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const DailyPlanSchema = new Schema({
-  //mealName: any friendly string the user wants to use to refer to this collection of foods IE. meal
-  dailyPlanName: { type: String, required: true },
-  //mealCategory: any friendly string the user wants to use to categorize a group of meals Ex. breakfast, lunch, dinner, snack
-  dailyPlanMeals: [
+  dailyPlanName: { type: String, required: false },
+  userName: { type: String, required: false },
+  totalEnergy: { type: Number, required: false },
+  totalPotassium: { type: Number, required: false },
+  mealList: [
     {
       type: Schema.Types.ObjectId,
       ref: "Meal"
     }
-  ],
-  userId: { type: Schema.Types.ObjectId, ref: "User" }
+  ]
 });
 
 const DailyPlan = mongoose.model("DailyPlan", DailyPlanSchema);
+
+DailyPlanSchema.virtual("efficiency").get(function() {
+  return parseInt(this.totalPotassium) === 0
+    ? 0
+    : parseFloat(
+        parseInt(this.totalEnergy) / parseInt(this.totalPotassium)
+      ).toFixed(2);
+});
 
 module.exports = DailyPlan;
