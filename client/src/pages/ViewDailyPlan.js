@@ -309,7 +309,7 @@ class DailyPlan extends Component {
             <div className="container">
               <Row>
                 <h3 align="center" className=" pl-4">
-                  DailyPlan List
+                  Daily Plan List
                 </h3>
               </Row>
               <Row>
@@ -318,16 +318,21 @@ class DailyPlan extends Component {
                     <ul className="list-group">
                       <>
                         {this.state.dailyPlanList.map(dailyPlan => (
-                          <li
-                            className="list-group-item text-center"
-                            key={dailyPlan._id}
-                          >
+                          <li className="list-group-item" key={dailyPlan._id}>
                             {/* <Link to={"/meal/" + meal._id}></Link> */}
                             <strong>
-                              DailyPlan Name: {dailyPlan.dailyPlanName} <br />
-                              Energy: {dailyPlan.totalEnergy} <br />
-                              Potassium: {dailyPlan.totalPotassium} <br />
-                              Efficiency: {dailyPlan.efficiency} <br />
+                              <h5 style={{ fontWeight: "bolder" }}>
+                                {" "}
+                                Daily Plan Name:{" "}
+                                <span className="meal-selected">
+                                  {dailyPlan.dailyPlanName}
+                                </span>{" "}
+                              </h5>
+                              <span className="spanIt">Energy:</span>{" "}
+                              {dailyPlan.totalEnergy} kCal <br />
+                              <span className="spanIt"> Potassium:</span>{" "}
+                              {dailyPlan.totalPotassium} mg
+                              <br /> <br />
                             </strong>
                             <button
                               className="btn px-3 text-center blue-gradient "
@@ -376,11 +381,13 @@ class DailyPlan extends Component {
                         >
                           <strong>
                             {meal.mealName} <br />
-                            Energy:{meal.totalEnergy} <br />
-                            Potassium:{meal.totalPotassium} <br />
+                            Energy: {meal.totalEnergy} kCal
+                            <br />
+                            Potassium: {meal.totalPotassium} mg
+                            <br />
                             {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                            <br /> Efficiency: {meal.efficiency} <br />
+                            Efficiency: {meal.efficiency} <br />
                           </strong>
                           <Button
                             className="btn btn-danger"
@@ -413,9 +420,11 @@ class DailyPlan extends Component {
                       >
                         <strong>
                           {meal.mealName} <br />
-                          Energy:{meal.totalEnergy} <br />
-                          Potassium:{meal.totalPotassium} <br />
-                          Efficiency:{meal.efficiency} <br />
+                          Energy: {meal.totalEnergy} kCal
+                          <br />
+                          Potassium: {meal.totalPotassium} mg
+                          <br />
+                          Efficiency: {meal.efficiency} <br />
                         </strong>
                         <button
                           className="btn px-3 text-center blue-gradient"

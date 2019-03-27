@@ -273,7 +273,7 @@ class Meal extends Component {
                   alt="icon"
                   src="https://i.imgur.com/hbX14ue.jpg"
                 />{" "}
-                {this.state.currentMeal.totalPotassium}gm
+                {this.state.currentMeal.totalPotassium} mg
               </div>
               <div className="p-3  pr-5 dotted-div">
                 <img
@@ -326,7 +326,7 @@ class Meal extends Component {
                               <strong>
                                 <h5 style={{ fontWeight: "bolder" }}>
                                   {" "}
-                                  Meal Name:
+                                  Meal Name:{" "}
                                   <span className="meal-selected">
                                     {meal.mealName}
                                   </span>{" "}
@@ -334,7 +334,7 @@ class Meal extends Component {
                                 <span className="spanIt">Energy:</span>{" "}
                                 {meal.totalEnergy} kCal <br />
                                 <span className="spanIt"> Potassium:</span>{" "}
-                                {meal.totalPotassium} mgm
+                                {meal.totalPotassium} mg
                                 <br />
                                 {/* {parseInt(meal.totalPotassium) === 0
                                   ? 0
@@ -407,14 +407,15 @@ class Meal extends Component {
                             <h5 style={{ fontWeight: "bolder" }}>
                               {food.food.foodName}
                             </h5>
-                            <span className="spanIt">Energy:</span>
-                            {food.food.energy} <br />
-                            <span className="spanIt">Potassium:</span>
-                            {food.food.potassium} <br />
-                            <span className="spanIt"> ServingSize:</span>
-                            {food.servingSize}
+                            <span className="spanIt">Energy:</span>{" "}
+                            {food.food.energy} kCal
                             <br />
-                            <span className="spanIt"> Efficiency:</span>
+                            <span className="spanIt">Potassium:</span>{" "}
+                            {food.food.potassium} mg <br />
+                            <span className="spanIt"> ServingSize:</span>{" "}
+                            {food.servingSize} g
+                            <br />
+                            <span className="spanIt"> Efficiency:</span>{" "}
                             {food.food.efficiency}{" "}
                             {/* {food.food.energy / food.food.potassium} */}
                             {/* {parseFloat(
@@ -474,11 +475,11 @@ class Meal extends Component {
                               <h5 style={{ fontWeight: "bolder" }}>
                                 {food.foodName}{" "}
                               </h5>
-                              <span className="spanIt">Energy:</span>
-                              {food.energy} <br />
+                              <span className="spanIt">Energy:</span>{" "}
+                              {food.energy} kCal <br />
                               <span className="spanIt">Potassium:</span>{" "}
-                              {food.potassium} <br />
-                              <span className="spanIt">Efficiency:</span>
+                              {food.potassium} mg <br />
+                              <span className="spanIt">Efficiency:</span>{" "}
                               {food.efficiency} <br />
                             </strong>
                           </div>

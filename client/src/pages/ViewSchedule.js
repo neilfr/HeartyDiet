@@ -293,8 +293,8 @@ class Schedule extends Component {
                 <br />
                 <h5>
                   Use this screen to create and edit a custom daily schedule
-                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
-                  Meatloaf Monday. <br />
+                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 could be
+                  "Meatloaf Monday", etc.. <br />
                   Start by selecting a Schedule Date.
                   <br />
                   <br />
@@ -333,9 +333,9 @@ class Schedule extends Component {
                 "YYYY-MM-DD"
               ) + " "}
               <strong>Total Energy: </strong>
-              {this.state.currentSchedule.totalEnergy}{" "}
+              {this.state.currentSchedule.totalEnergy} kCal
               <strong>Total Potassium: </strong>
-              {this.state.currentSchedule.totalPotassium}
+              {this.state.currentSchedule.totalPotassium} mg
             </Col>
           </Row>
         ) : (
@@ -344,12 +344,13 @@ class Schedule extends Component {
 
         <Row>
           <Col size="md-4 sm-4">
-            <h3>DailyPlan List</h3>
+            <h3>Daily Plan List</h3>
 
             {/* <Row>
               <Col> */}
             {this.state.dailyPlanList.length ? (
               <>
+              
                 {this.state.dailyPlanList.map(dailyPlan => (
                   <Card
                     key={dailyPlan._id}
@@ -359,8 +360,9 @@ class Schedule extends Component {
                     {/* <Link to={"/food/" + food._id}></Link> */}
                     <strong>
                       DailyPlan Name: {dailyPlan.dailyPlanName} <br />
-                      Energy: {dailyPlan.totalEnergy} <br />
-                      Potassium: {dailyPlan.totalPotassium} <br />
+                      Energy: {dailyPlan.totalEnergy} kCal
+                      <br />
+                      Potassium: {dailyPlan.totalPotassium} mg <br />
                     </strong>
 
                     <Button
@@ -409,9 +411,11 @@ class Schedule extends Component {
                   <Card key={food.data._id}>
                     <strong>
                       <br /> {food.data.foodName} <br />
-                      <br /> Energy:{food.data.energy} <br />
-                      <br /> Potassium:{food.data.potassium} <br />
-                      <br /> Efficiency:{food.data.efficiency}
+                     Energy: {food.data.energy} kCal
+                
+                      <br /> Potassium: {food.data.potassium} mg
+                     
+                      <br /> Efficiency: {food.data.efficiency}
                       {food.efficiency} <br />
                     </strong>
                   </Card>
