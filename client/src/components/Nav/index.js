@@ -51,7 +51,7 @@ class Nav extends Component {
     //console.log(this.state.user);
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark #ef5350 red lighten-1">
+      <nav className="navbar navbar-expand-lg navbar-dark navbar-fixed #ef5350 red lighten-1">
         <a className="navbar-brand" href="./">
           Hearty Diet
         </a>
@@ -101,7 +101,7 @@ class Nav extends Component {
                   : "text-dark grey-lighter-hover"
               }
             >
-              View Food
+              Foods
             </Link>
           </li>
           <li className="nav-item m-2">
@@ -113,7 +113,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              Add Food Group
+              Food Groups
             </Link>
           </li>
 
@@ -126,7 +126,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              View Meal
+              Meals
             </Link>
           </li>
 
@@ -139,7 +139,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              View Daily Plan
+              Daily Plans
             </Link>
           </li>
 
@@ -152,7 +152,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              View Schedule
+              Schedule
             </Link>
           </li>
           <li className="nav-item m-2">
@@ -164,7 +164,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              View Favorite Foods
+              Favorite Foods
             </Link>
           </li>
           <li className="nav-item m-2">

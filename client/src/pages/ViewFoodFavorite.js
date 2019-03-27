@@ -117,11 +117,11 @@ class FoodFavorite extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>View Favorite Foods</h2>
-                <br />
+                {/* <h2>View Favorite Foods</h2>
+                <br /> */}
                 <h5>
-                  Use this screen to view your favorite foods. Favorite foods
-                  wil be used to create meals, etc. <br />
+                  View your favorite foods. Favorite foods wil be used to create
+                  meals, etc. <br />
                   <br />
                 </h5>
               </div>
@@ -141,7 +141,6 @@ class FoodFavorite extends Component {
                     energy={foodFavoriteList.energy}
                     potassium={foodFavoriteList.potassium}
                     efficiency={foodFavoriteList.efficiency}
-                    username={foodFavoriteList.userID}
                   />
                 </div>
               </Col>

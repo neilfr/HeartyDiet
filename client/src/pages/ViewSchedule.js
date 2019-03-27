@@ -280,14 +280,14 @@ class Schedule extends Component {
         <Row>
           <Col size="md-12 sm-12">
             <div className="text-center wow fadeInUp mt-5">
-              <h2>View Schedule</h2>
-              <br />
+              {/* <h2>View Schedule</h2>
+              <br /> */}
               <h5>
                 {/* Use this screen to create and edit a custom daily schedule
                 made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
                   Meatloaf Monday. <br /> */}
-                Use this screen to create and edit a custom daily schedule made
-                up of one daily plan. <br />
+                Create and edit a custom daily schedule made up of one daily
+                plan. <br />
                 Start by selecting a Schedule Date.
                 <br />
                 <br />
@@ -318,7 +318,6 @@ class Schedule extends Component {
 
         <Container>
           <Row>
-            <Col size="md-4" align="center" />
             <Col size="md-4" align="center">
               <form>
                 Schedule Date

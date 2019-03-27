@@ -116,7 +116,7 @@ class Meal extends Component {
         // const totalPotassium = data.data.foodList.reduce((a, b) => ({
         //   potassium: a.potassium + b.potassium
         // }));
-        console.log("data.data is:", data.data);
+        console.log("FROM ADDFOODTOMEALBYID data.data is:", data.data);
         const tempFoodList = data.data.foodList;
         console.log("tempFoodList is:", tempFoodList);
         let totalPotassium = 0;
@@ -206,11 +206,11 @@ class Meal extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>View Meal</h2>
-                <br />
+                {/* <h2>View Meal</h2>
+                <br /> */}
                 <h5>
-                  Use this screen to create and edit a custom meal made up of
-                  food item(s). i.e. Breakfast, Lunch, Dinner, etc. <br />
+                  Create and edit a custom meal made up of food items. i.e.
+                  Breakfast, Lunch, Dinner, etc. <br />
                   <br />
                 </h5>
               </div>
@@ -227,7 +227,7 @@ class Meal extends Component {
               value={this.state.mealName}
               onChange={this.handleInputChange}
               name="mealName"
-              placeholder="Enter meal name to create new meal"
+              placeholder="Enter a meal name to create a new meal"
             />
             <div className="input-group-append">
               {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
