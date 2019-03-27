@@ -5,7 +5,10 @@ const foodGroupData = require("./foodGroup.json");
 
 // This file empties the Books collection and inserts the books below
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/heartydiet");
+mongoose.connect(
+  "mongodb://heartydiet:Pumpkin1m@ds157057.mlab.com:57057/heroku_3p40dv3w"
+);
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/heartydiet");
 
 const foodSeed = foodData.map(x => {
   delete x._id;
