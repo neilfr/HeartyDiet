@@ -71,7 +71,7 @@ module.exports = {
   //     { scheduleDate: req.body.scheduleDate },
   //     {
   //       scheduleDate: req.body.scheduleDate,
-  //       userName: req.body.userName
+  //       userID: req.body.userID
   //     },
   //     { upsert: true }
   //   )
@@ -126,7 +126,7 @@ module.exports = {
 
   findByUser: function(req, res) {
     db.Schedule.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ scheduleDate: 1 })
       .then(dbModel =>

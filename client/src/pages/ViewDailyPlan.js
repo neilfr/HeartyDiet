@@ -9,6 +9,8 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class DailyPlan extends Component {
   state = {
@@ -20,11 +22,11 @@ class DailyPlan extends Component {
   };
 
   componentDidMount() {
-    this.loadDailyPlans("JohnSmith");
-    this.loadMealList("JohnSmith");
+    this.loadDailyPlans(userID);
+    this.loadMealList(userID);
   }
-  loadMealList = userName => {
-    API.getMealByUser(userName)
+  loadMealList = userID => {
+    API.getMealByUser(userID)
       .then(res => {
         console.log("mealList is: ", res.data);
         this.setState({
@@ -34,8 +36,8 @@ class DailyPlan extends Component {
       .catch(err => console.log(err));
   };
 
-  loadDailyPlans = userName => {
-    API.getDailyPlanByUser(userName)
+  loadDailyPlans = userID => {
+    API.getDailyPlanByUser(userID)
       .then(res => {
         console.log("getDailyPlanByUser returned: ", res.data);
         this.setState({
@@ -82,9 +84,11 @@ class DailyPlan extends Component {
         const tempMealList = data.data.mealList;
         let totalPotassium = 0;
         let totalEnergy = 0;
+
+        console.log("tempMealList", tempMealList);
         tempMealList.map(meal => {
-          totalPotassium += meal.meal.totalPotassium;
-          totalEnergy += meal.meal.totalEnergy;
+          totalPotassium += meal.totalPotassium;
+          totalEnergy += meal.totalEnergy;
         });
         console.log("total energy is:", totalEnergy);
         console.log("total potassium is:", totalPotassium);
@@ -196,7 +200,7 @@ class DailyPlan extends Component {
     if (this.state.dailyPlanName) {
       API.saveDailyPlan({
         dailyPlanName: this.state.dailyPlanName,
-        userName: "JohnSmith",
+        userID: userID,
         totalEnergy: 0,
         totalPotassium: 0
       })
@@ -217,7 +221,7 @@ class DailyPlan extends Component {
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
               name="dailyPlanName"
-              placeholder="Enter dailyPlan name to create new dailyPlan"
+              placeholder="Enter a name for your daily plan"
             />
           </Col>
           <Col size="md-3 sm-3">

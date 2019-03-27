@@ -151,7 +151,7 @@ module.exports = {
 
   // findByUser: function(req, res) {
   //   db.Meal.find({
-  //     userName: req.params.userName
+  //     userID: req.params.userID
   //   })
   //     .sort({ mealName: 1 })
   //     //!new lines to include all the related food list data for each of the meals
@@ -176,7 +176,7 @@ module.exports = {
 
   findByUser: function(req, res) {
     db.Meal.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ mealName: 1 })
       .populate("foodList.food")
@@ -185,9 +185,13 @@ module.exports = {
           meal.foodList = meal.foodList.map(food => {
             return food.toJSON({ virtuals: true });
           });
+
           return meal.toJSON({ virtuals: true });
         });
         res.json(meals);
+
+        //res.json();
       });
+    // .catch(err => res.status(422).json(err));
   }
 };

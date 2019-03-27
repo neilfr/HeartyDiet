@@ -12,7 +12,8 @@ import "./viewFoodStyle.css";
 import SearchResults from "./SearchResults";
 import "font-awesome/css/font-awesome.min.css";
 //import { MDBMask, MDBView, MDBContainer, MDBRow, MDBCol } from "mdbreact";
-
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 class Food extends Component {
   state = {
     foodList: [],
@@ -28,7 +29,7 @@ class Food extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupMasterAndUser("master");
+    this.loadFoodGroupMasterAndUser(userID);
   }
 
   loadFood = () => {
@@ -46,8 +47,8 @@ class Food extends Component {
       .catch(err => console.log(err));
   };
 
-  loadFoodGroupMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  loadFoodGroupMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodList: [],
@@ -98,7 +99,7 @@ class Food extends Component {
           foodGroupName: res.data.foodGroupName,
           energy: res.data.energy,
           potassium: res.data.potassium,
-          userName: "JohnSmith"
+          userID: userID
         })
           .then(alert(res.data.foodName + " saved as favorite food"))
           .catch(err => console.log(err));
@@ -273,7 +274,7 @@ class Food extends Component {
                       Energy: {foodList.energy}kCal <br />
                       Potassium: {foodList.potassium}gm <br />
                       Efficiency: {foodList.efficiency} <br />
-                      Username: {foodList.userName} <br />
+                      Username: {foodList.userID} <br />
                     </strong>
                   </div>
                   <div className="text-right">

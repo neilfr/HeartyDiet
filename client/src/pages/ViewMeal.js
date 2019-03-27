@@ -14,6 +14,8 @@ import "font-awesome/css/font-awesome.min.css";
 // import '../node_modules/react-vis/dist/style.css';
 //import 'C:\Users\gurne\OneDrive\Documents\Project3\project3\client\node_modules/'
 //import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries } from 'react-vis';
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Meal extends Component {
   state = {
@@ -26,12 +28,12 @@ class Meal extends Component {
   };
 
   componentDidMount() {
-    this.loadMeals("JohnSmith");
-    this.loadFoodFavorites("JohnSmith");
+    this.loadMeals(userID);
+    this.loadFoodFavorites(userID);
   }
 
-  loadFoodFavorites = userName => {
-    API.getFoodByUser(userName)
+  loadFoodFavorites = userID => {
+    API.getFoodByUser(userID)
       .then(res => {
         console.log("FOODFAVORITES LIST IS: ", res.data);
         this.setState({
@@ -41,8 +43,8 @@ class Meal extends Component {
       .catch(err => console.log(err));
   };
 
-  loadMeals = userName => {
-    API.getMealByUser(userName)
+  loadMeals = userID => {
+    API.getMealByUser(userID)
       .then(res => {
         console.log("GETMEALBYUSER RETURNED: ", res.data);
         this.setState({
@@ -172,7 +174,7 @@ class Meal extends Component {
     if (this.state.mealName) {
       API.saveMeal({
         mealName: this.state.mealName,
-        userName: "JohnSmith",
+        userID: userID,
         totalEnergy: 0,
         totalPotassium: 0
       })

@@ -1,4 +1,5 @@
 {
+
   "main.css": "/static/css/main.f82c067a.chunk.css",
   "main.js": "/static/js/main.af2b4476.chunk.js",
   "main.js.map": "/static/js/main.af2b4476.chunk.js.map",
@@ -9,9 +10,10 @@
   "static/js/2.94029bb3.chunk.js.map": "/static/js/2.94029bb3.chunk.js.map",
   "index.html": "/index.html",
   "precache-manifest.175cc6364a52e98e820f9bd30fc55352.js": "/precache-manifest.175cc6364a52e98e820f9bd30fc55352.js",
+
   "service-worker.js": "/service-worker.js",
-  "static/css/2.792a9777.chunk.css.map": "/static/css/2.792a9777.chunk.css.map",
-  "static/css/main.f82c067a.chunk.css.map": "/static/css/main.f82c067a.chunk.css.map",
+  "static/css/2.4c7046a6.chunk.css.map": "/static/css/2.4c7046a6.chunk.css.map",
+  "static/css/main.63ce05dc.chunk.css.map": "/static/css/main.63ce05dc.chunk.css.map",
   "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.fee66e71.woff",
   "static/media/style.css": "/static/media/fruit.60b3cfce.jpg"
 }

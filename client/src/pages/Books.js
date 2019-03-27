@@ -8,13 +8,19 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import SearchResults from "./SearchResults";
 import foods from "./food.json";
 import { FoodPic, FoodContainer } from "./FoodPic";
-
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 class FoodItem extends Component {
   state = {
     results: "",
     foodSearch: "",
     pics: null
   };
+
+  componentDidMount() {
+       
+   
+  }
 
   handleInputChange = event => {
     this.setState({ foodSearch: event.target.value });
