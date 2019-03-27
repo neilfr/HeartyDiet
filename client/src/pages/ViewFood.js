@@ -165,8 +165,6 @@ class Food extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>View Foods / Select Favorite Foods</h2>
-                <br />
                 <h5>
                   Use this screen to add items as favorite foods. You can search
                   food items, or use the Food Group buttons below to see food
