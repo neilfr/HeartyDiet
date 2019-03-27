@@ -11,8 +11,10 @@ const DailyPlanSchema = new Schema({
   totalPotassium: { type: Number, required: false },
   mealList: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Meal"
+      meal: {
+        type: Schema.Types.ObjectId,
+        ref: "Meal"
+      }
     }
   ]
 });

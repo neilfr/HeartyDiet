@@ -8,7 +8,7 @@ import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 import axios from "axios";
 import { setInStorage, getFromStorage } from "../utils/storage";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import './viewFoodStyle.css'
+import "./viewFoodStyle.css";
 
 class Login extends Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class Login extends Component {
           window.location.href = "/AddFood";
         }
       })
-      .catch(err => { });
+      .catch(err => {});
   };
 
   render() {
@@ -119,13 +119,12 @@ class Login extends Component {
 
     const mainBg = {
       backgroundImage: 'url("./heart_2.png")',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    };
 
     return (
-
       <Container fluid>
         {/* <Row>
           <Col size="md-12">
@@ -142,7 +141,7 @@ class Login extends Component {
                   <div className="wow fadeInUp mt-3 hedaing-div">
                     <h2 className="landing-head">
                       Hearty Diet
-                       <hr />
+                      <hr />
                       <h3>Meal Management and Potassium Nutrient Tracker</h3>
                     </h2>
                     <br />
@@ -154,18 +153,21 @@ class Login extends Component {
                     </h5>
 
                     <h6>
-                      This Web application was developed as a part of the University
-                  of Toronto Full Stack Web Development Bootcamp program. <br />
-                      This Web application allows meal planning and specifically
-                      focused on potassium instake. Functionality to support other
-                      nutrients can be added in he future.
-                  <br />
+                      This Web application was developed as a part of the
+                      University of Toronto Full Stack Web Development Bootcamp
+                      program. <br />
+                      This Web application allows meal planning specifically
+                      focused on potassium intake. Functionality to support
+                      other nutrients can be added in the future. Nutrient data
+                      sourced from Health Canada Nutrient database
+                      <br />
+                      <br />
                       <br />
                     </h6>
                   </div>
                 </Col>
               </Row>
-            </div >
+            </div>
 
             <div className="col-lg-4 col-sm-12 mt-3 offset-1">
               <Row>
@@ -173,14 +175,14 @@ class Login extends Component {
                   <div className="login-div">
                     <form>
                       Email
-              <Input
+                      <Input
                         type="email"
                         placeholder="Email"
                         value={signInEmail}
                         onChange={this.onTextboxChangeSignInEmail}
                       />
                       Password
-              <Input
+                      <Input
                         type="password"
                         placeholder="Password"
                         value={signInPassword}
@@ -192,9 +194,7 @@ class Login extends Component {
                         }
                         onClick={this.onSignIn}
                       >
-                        <div style={{ textAlign: "center" }}>
-                          Login
-                        </div>
+                        <div style={{ textAlign: "center" }}>Login</div>
                       </FormBtn>
                       <br />
                       <Link to="/register">Register New User</Link>
@@ -207,7 +207,6 @@ class Login extends Component {
           </div>
         </div>
       </Container>
-
     );
   }
 }

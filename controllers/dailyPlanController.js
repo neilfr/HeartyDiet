@@ -14,20 +14,36 @@ module.exports = {
   },
   //! 2 new functions
   addMealById: function(req, res) {
+    console.log("inside AddMealById and");
+    console.log("DAILYPLAN ID IS:", req.params.dailyPlanId);
+    console.log("MEAL ID IS: ", req.params.mealId);
+
+    //!check back here - compare with this
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
-        $push: { mealList: req.params.mealId }
+        $push: {
+          mealList: {
+            meal: req.params.mealId
+          }
+        }
         // ,
         // totalEnergy: 50,
         // totalPotassium: 50
       },
       { new: true }
     )
-      .populate("mealList")
-      .exec(function(err, found1) {
-        console.log("found1 is:", found1);
-        res.json(found1);
+      .populate("mealList.meal")
+      .exec()
+      .then(dbModel => {
+        console.log(dbModel);
+        dbModel.mealList = dbModel.mealList.map(model =>
+          model.toJSON({ virtuals: true })
+        );
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
+      .catch(err => {
+        res.json(err);
       });
   },
   // removeMealById: function(req, res) {
@@ -57,10 +73,10 @@ module.exports = {
       },
       { new: true }
     )
-      .populate("mealList") 
+      .populate("mealList")
       .exec()
       .then(dbModel => {
-            res.json(dbModel.toJSON({ virtuals: true }));
+        res.json(dbModel.toJSON({ virtuals: true }));
       })
       .catch(err => console.log(err));
   },
@@ -71,7 +87,7 @@ module.exports = {
       { $set: req.body },
       { new: true }
     )
-      .populate("mealList") // changed from foodList to foodList.food
+      .populate("mealList.meal") // changed from foodList to foodList.food
       // .exec(function(err, found) {
       //   console.log(found, err);
       //   res.json(found);
@@ -80,14 +96,19 @@ module.exports = {
       .then(dbModel => {
         console.log("UPDATEKCALTOTALS DBMODEL IS:", dbModel);
         res.json(dbModel.toJSON({ virtuals: true }));
-      });
+      })
+      .catch(err => console.log(err));
   },
-
+  //!check back here - compare this
   findById: function(req, res) {
     db.DailyPlan.findById(req.params.id)
-      .populate("foodList")
+      .populate("mealList.meal")
+      .exec()
       // .then(dbModel => res.json(dbModel))
-      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .then(dbModel => {
+        console.log("FINDBYID DBMODEL IS:", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
@@ -130,9 +151,22 @@ module.exports = {
       userID: req.params.userID
     })
       // .sort({ foodName: 1 })
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
-      .catch(err => res.status(422).json(err));
+      .populate("mealList.meal")
+      .exec(function(err, dailyPlans) {
+        dailyPlans = dailyPlans.map(dailyPlan => {
+          dailyPlan.mealList = dailyPlan.mealList.map(meal => {
+            return meal.toJSON({ virtuals: true });
+          });
+          return dailyPlan.toJSON({ virtuals: true });
+        });
+        res.json(dailyPlans);
+      });
   }
 };
+
+//         then(dbModel =>
+//         res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+//       )
+//       .catch(err => res.status(422).json(err));
+//   }
+// };

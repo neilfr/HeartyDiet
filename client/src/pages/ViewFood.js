@@ -294,8 +294,8 @@ class Food extends Component {
                       <h5 style={foodDisplay}>{foodList.foodName}</h5>
                       <br />
                       Food Group: {foodList.foodGroupName} <br />
-                      Energy: {foodList.energy}kCal <br />
-                      Potassium: {foodList.potassium}gm <br />
+                      Energy: {foodList.energy} kCal <br />
+                      Potassium: {foodList.potassium} mg <br />
                       Efficiency: {foodList.efficiency} <br />
                       Username: {foodList.userID} <br />
                     </strong>

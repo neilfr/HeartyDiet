@@ -89,11 +89,11 @@ class FoodGroup extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>Add Food Group</h2>
-                <br />
+                {/* <h2>Add Food Group</h2>
+                <br /> */}
                 <h5>
-                  Use this screen to create a custom food group that is not part
-                  of the original master list. <br />
+                  Create a custom food group that is not part of the original
+                  master list. <br />
                   <br />
                 </h5>
               </div>
@@ -128,9 +128,9 @@ class FoodGroup extends Component {
                 <Container>
                   <div
                     className="container card mt-2 mb-3"
-                    onClick={() =>
-                      this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                    }
+                    // onClick={() =>
+                    //   this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                    // }
                   >
                     {/* {console.log(foodGroupList.image)} */}
                     {/* <div className="card" style={{ width: 35 }}> */}
