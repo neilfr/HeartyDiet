@@ -16,11 +16,11 @@ router
   // .post(mealController.addFoodById)
   .delete(mealController.remove);
 
-router.route("/mealByID/:id").get(mealController.findById2);
+router.route("/mealByID/:id").get(mealController.findById);
 
 //just added
 router
-  .route("/mealByUser/:userName")
+  .route("/mealByUser/:userID")
   .post(mealController.create)
   .get(mealController.findByUser);
 

@@ -6,6 +6,9 @@ import { Col, Row, Container } from "../components/Grid";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
+
 class Food extends Component {
   state = {
     foodName: "",
@@ -16,11 +19,24 @@ class Food extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupByMasterAndUser("JohnSmith");
+    this.loadFoodGroupByMasterAndUser(userID);
   }
 
-  loadFoodGroupByMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  // verifyLogin = () => {
+  //   let userObj = JSON.parse(localStorage.getItem("userObj"));
+  //   if (userObj === null || userObj.Token === null || userObj.Token === "") {
+  //     //REDIRCT THEM TO LOGIN
+  //     window.location.href = "./";
+  //   }
+  //   {
+  //     this.setState({
+  //       userID: userObj.Token
+  //     });
+  //   }
+  // };
+
+  loadFoodGroupByMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodGroupList: res.data
@@ -55,7 +71,7 @@ class Food extends Component {
         foodGroupName: this.state.foodGroupName,
         energy: this.state.energy,
         potassium: this.state.potassium,
-        userName: "JohnSmith"
+        userID: userID
       })
         .then(
           this.setState({
@@ -86,6 +102,7 @@ class Food extends Component {
                   name="foodName"
                   placeholder="Food Name (required)"
                 />
+
 
                 <Dropdown
                   name="foodGroupName"

@@ -13,15 +13,25 @@ module.exports = {
       )
       .catch(err => res.status(422).json(err));
   },
+  // findById: function(req, res) {
+  //   // db.Food.findById(req.params.id)
+  //   db.Food.find({ _id: req.params.id })
+  //     // .then(dbModel => res.json(dbModel))
+  //     // .then(dbModel =>
+  //     //   res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+  //     // )
+  //     .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+  //     .catch(err => res.status(422).json(err));
+  // },
+
   findById: function(req, res) {
-    // db.Food.findById(req.params.id)
-    db.Food.find({ _id: req.params.id })
+    db.Food.findById(req.params.id)
+      //.populate("foodList")
       // .then(dbModel => res.json(dbModel))
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
+      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
       .catch(err => res.status(422).json(err));
   },
+
   findByFoodName: function(req, res) {
     // db.Food.findById(req.params.id)
     db.Food.find({ foodName: { $regex: new RegExp(req.params.foodName, "i") } })
@@ -45,7 +55,7 @@ module.exports = {
   findByFoodGroupNameAndUser: function(req, res) {
     db.Food.find({
       foodGroupName: req.params.foodGroupName,
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ foodName: 1 })
       .then(dbModel =>
@@ -55,8 +65,9 @@ module.exports = {
   },
 
   findByUser: function(req, res) {
+    console.log("findByUser userID:", req.params.userID);
     db.Food.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ foodName: 1 })
       .then(dbModel =>

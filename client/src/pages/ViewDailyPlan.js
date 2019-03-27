@@ -9,6 +9,8 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class DailyPlan extends Component {
   state = {
@@ -20,11 +22,11 @@ class DailyPlan extends Component {
   };
 
   componentDidMount() {
-    this.loadDailyPlans("JohnSmith");
-    this.loadMealList("JohnSmith");
+    this.loadDailyPlans(userID);
+    this.loadMealList(userID);
   }
-  loadMealList = userName => {
-    API.getMealByUser(userName)
+  loadMealList = userID => {
+    API.getMealByUser(userID)
       .then(res => {
         console.log("mealList is: ", res.data);
         this.setState({
@@ -34,8 +36,8 @@ class DailyPlan extends Component {
       .catch(err => console.log(err));
   };
 
-  loadDailyPlans = userName => {
-    API.getDailyPlanByUser(userName)
+  loadDailyPlans = userID => {
+    API.getDailyPlanByUser(userID)
       .then(res => {
         console.log("getDailyPlanByUser returned: ", res.data);
         this.setState({
@@ -82,9 +84,11 @@ class DailyPlan extends Component {
         const tempMealList = data.data.mealList;
         let totalPotassium = 0;
         let totalEnergy = 0;
+
+        console.log("tempMealList", tempMealList);
         tempMealList.map(meal => {
-          totalPotassium += meal.meal.potassium;
-          totalEnergy += meal.meal.energy;
+          totalPotassium += meal.totalPotassium;
+          totalEnergy += meal.totalEnergy;
         });
         console.log("total energy is:", totalEnergy);
         console.log("total potassium is:", totalPotassium);
@@ -98,8 +102,11 @@ class DailyPlan extends Component {
             data.data
           );
           this.setState({
-            currentDailyPlan: data.data
+            currentDailyPlan: data.data,
+            dailyPlanMealList: data.data.mealList
           });
+
+          console.log(this.state.dailyPlanMealList);
         });
       })
       .catch(err => console.log(err));
@@ -121,7 +128,7 @@ class DailyPlan extends Component {
         //   potassium: a.potassium + b.potassium
         // }));
         console.log("data.data is:", data.data);
-        const tempMealList = data.data.mealList;
+        let tempMealList = data.data.mealList;
         console.log("tempMealList is:", tempMealList);
         let totalPotassium = 0;
         let totalEnergy = 0;
@@ -136,13 +143,30 @@ class DailyPlan extends Component {
           totalEnergy,
           totalPotassium
         ).then(data => {
+          console.log(data);
           console.log(
             "dailyPlan data after meal ADD, with updated totals",
             data.data
           );
+
           this.setState({
             currentDailyPlan: data.data
           });
+
+          var mealListArray = [];
+          data.data.mealList.map(mealID =>
+            API.getMealByID(mealID)
+              .then(res => {
+                console.log("mealListArray element is: ", res.data);
+
+                mealListArray.push(res.data);
+
+                this.setState({
+                  dailyPlanMealList: mealListArray
+                });
+              })
+              .catch(err => console.log(err))
+          );
         });
       })
       .catch(err => console.log(err));
@@ -176,7 +200,7 @@ class DailyPlan extends Component {
     if (this.state.dailyPlanName) {
       API.saveDailyPlan({
         dailyPlanName: this.state.dailyPlanName,
-        userName: "JohnSmith",
+        userID: userID,
         totalEnergy: 0,
         totalPotassium: 0
       })
@@ -201,7 +225,7 @@ class DailyPlan extends Component {
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
               name="dailyPlanName"
-              placeholder="Enter dailyPlan name to create new dailyPlan"
+              placeholder="Enter a name for your daily plan"
             />
           </Col>
           <Col size="md-3 ">
@@ -254,6 +278,7 @@ class DailyPlan extends Component {
                         DailyPlan Name: {dailyPlan.dailyPlanName} <br />
                         Energy: {dailyPlan.totalEnergy} <br />
                         Potassium: {dailyPlan.totalPotassium} <br />
+                        Efficiency: {dailyPlan.efficiency} <br />
                       </strong>
                       <Button
                         className="btn btn-primary"
@@ -285,24 +310,21 @@ class DailyPlan extends Component {
                 {this.state.dailyPlanMealList.length + " meals"}
                 {this.state.dailyPlanMealList.length > 0 ? (
                   <List>
-                    {this.state.dailyPlanMealList.map((
-                      meal // console.log("MEAL IS: " + meal)
-                    ) => (
-                        <Card key={meal._id}>
-                          <strong>
-                            <br /> {meal.mealName} <br />
-                            <br /> Energy:{meal.totalEnergy} <br />
-                            <br /> Potassium:{meal.totalPotassium} <br />
-                            {/* <br /> ServingSize:{meal.servingSize}
+                    {this.state.dailyPlanMealList.map(meal => (
+                      <Card key={meal._id}>
+                        <strong>
+                          <br /> {meal.mealName} <br />
+                          <br /> Energy:{meal.totalEnergy} <br />
+                          <br /> Potassium:{meal.totalPotassium} <br />
+                          {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                            <br /> Efficiency:need to get virtual
-                          {meal.efficiency} <br />
-                          </strong>
-                          <Button
-                            className="btn btn-danger"
-                            onClick={() => this.removeFromDailyPlan(meal._id)}
-                          >
-                            Remove
+                          <br /> Efficiency: {meal.efficiency} <br />
+                        </strong>
+                        <Button
+                          className="btn btn-danger"
+                          onClick={() => this.removeFromDailyPlan(meal._id)}
+                        >
+                          Remove
                         </Button>
                         </Card>
                       ))}
@@ -319,24 +341,22 @@ class DailyPlan extends Component {
             </Row>
             <Row>
               {this.state.mealList.length ? (
-                <List>
-                  {this.state.mealList.map(meal => (
-                    <ListItem key={meal._id}>
-                      <strong>
-                        <br /> {meal.mealName} <br />
-                        <br /> Energy:{meal.energy} <br />
-                        <br /> Potassium:{meal.potassium} <br />
-                        <br /> Efficiency:{meal.efficiency} <br />
-                      </strong>
-                      <Button
-                        className="btn btn-primary"
-                        onClick={() => this.addToDailyPlan(meal._id)}
-                      >
-                        Add
-                      </Button>
-                    </ListItem>
-                  ))}
-                </List>
+                this.state.mealList.map(meal => (
+                  <Card key={meal._id}>
+                    <strong>
+                      <br /> {meal.mealName} <br />
+                      <br /> Energy:{meal.totalEnergy} <br />
+                      <br /> Potassium:{meal.totalPotassium} <br />
+                      <br /> Efficiency:{meal.efficiency} <br />
+                    </strong>
+                    <Button
+                      className="btn btn-primary"
+                      onClick={() => this.addToDailyPlan(meal._id)}
+                    >
+                      Add
+                    </Button>
+                  </Card>
+                ))
               ) : (
                   <h6>Click Add to add a meal to the dailyPlan</h6>
                 )}

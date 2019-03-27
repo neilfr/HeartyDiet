@@ -12,6 +12,8 @@ import Button from "../components/Button";
 //import Calendar from "../components/Calendar";
 import Date from "../components/Date";
 var moment = require("moment");
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Schedule extends Component {
   state = {
@@ -31,15 +33,15 @@ class Schedule extends Component {
   };
 
   componentDidMount() {
-    // this.loadSchedule("JohnSmith");
-    this.loadDailyPlan("JohnSmith");
+    // this.loadSchedule(userID);
+    this.loadDailyPlan(userID);
 
     this.setState({
       scheduleDate: moment().format("YYYY-MM-DD")
     });
   }
-  // loadFoodFavorites = userName => {
-  //   API.getFoodByUser(userName)
+  // loadFoodFavorites = userID => {
+  //   API.getFoodByUser(userID)
   //     .then(res => {
   //       console.log("foodFavoriteList is: ", res.data);
   //       this.setState({
@@ -49,8 +51,8 @@ class Schedule extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  loadSchedule = userName => {
-    API.getScheduleByUser(userName)
+  loadSchedule = userID => {
+    API.getScheduleByUser(userID)
       .then(res => {
         this.setState({
           scheduleList: res.data
@@ -59,8 +61,8 @@ class Schedule extends Component {
       .catch(err => console.log(err));
   };
 
-  loadDailyPlan = userName => {
-    API.getDailyPlanByUser(userName)
+  loadDailyPlan = userID => {
+    API.getDailyPlanByUser(userID)
       .then(res => {
         this.setState({
           dailyPlanList: res.data
@@ -74,30 +76,35 @@ class Schedule extends Component {
 
     API.getScheduleByScheduleDate(scheduleDate)
       .then(scheduleObject => {
-        // this.setState({
-        //   scheduleObject: scheduleObject.data
-        // });
+        console.log("scheduleObject is:", scheduleObject);
+        this.setState({
+          currentSchedule: scheduleObject.data[0]
+        });
 
-        scheduleObject.data.map(scheduleElement =>
-          API.getDailyPlanByID(scheduleElement.dailyPlanID)
-            .then(dailyPlanObject => {
-              // this.setState({
-              //   dailyPlanObject: dailyPlanObject.data
-              // });
+        if (scheduleObject.data.length !== 0) {
+          console.log("scheduleObject.data.length is greater than zero");
+          scheduleObject.data.map(scheduleElement =>
+            API.getDailyPlanByID(scheduleElement.dailyPlanID)
+              .then(dailyPlanObject => {
+                // this.setState({
+                //   dailyPlanObject: dailyPlanObject.data
+                // });
+                console.log("dailyPlanObject is:", dailyPlanObject);
+                dailyPlanObject.data.mealList.map(mealListID =>
+                  API.getMealByID(mealListID)
+                    .then(mealObject => {
+                      console.log("mealObject is:", mealObject);
+                      // this.setState({
+                      //   mealObject: mealObject.data
+                      // });
 
-              dailyPlanObject.data.mealList.map(mealListID =>
-                API.getMealByID(mealListID)
-                  .then(mealObject => {
-                    // this.setState({
-                    //   mealObject: mealObject.data
-                    // });
+                      // scheduleContent += mealObject.data.mealName;
 
-                    // scheduleContent += mealObject.data.mealName;
-
-                    mealObject.data.foodList.map(foodListID =>
-                      API.getFoodByID(foodListID)
-                        .then(foodObject => {
-                          foodObject.data.map(food =>
+                      mealObject.data.foodList.map(foodList =>
+                        API.getFoodByID(foodList.food._id)
+                          .then(foodObject => {
+                            //  console.log("foodObject is:", foodObject);
+                            // foodObject.data.map(food =>
                             // let scheduleDailyPlanListObject = {
                             //   scheduleObject: {
                             //     dailyPlanObject: {
@@ -107,27 +114,25 @@ class Schedule extends Component {
                             //     }
                             //   }
                             // };
-                            scheduleFoodArray.push(food)
-                          );
+                            console.log("foodObject is:", foodObject);
+                            scheduleFoodArray.push(foodObject);
+                            //);
 
-                          this.setState({
-                            scheduleContent: scheduleFoodArray
-                          });
-                        })
-                        .catch(err => console.log(err))
-                    );
-                  })
-                  .catch(err => console.log(err))
-              );
-            })
-            .catch(err => console.log(err))
-        );
+                            this.setState({
+                              scheduleContent: scheduleFoodArray
+                            });
+                          })
+                          .catch(err => console.log(err))
+                      );
+                    })
+                    .catch(err => console.log(err))
+                );
+              })
+              .catch(err => console.log(err))
+          );
+        } //if statement
       })
       .catch(err => console.log(err));
-  };
-
-  selectSchedule = schedule => {
-    this.setState({ currentSchedule: schedule });
   };
 
   removeFromSchedule = dailyPlanID => {
@@ -182,7 +187,7 @@ class Schedule extends Component {
 
     let scheduleData = {
       scheduleDate: this.state.scheduleDate,
-      userName: "JohnSmith",
+      userID: userID,
       totalEnergy: dailyPlanTotalEnergy,
       totalPotassium: dailyPlanTotalPotassium,
       dailyPlanID: dailyPlan_id
@@ -234,35 +239,51 @@ class Schedule extends Component {
 
     this.loadDailyPlanByScheduleDate(event.target.value);
 
-    if (event.target.value) {
-      API.saveSchedule({
+    console.log(
+      "this.state.scheduleObject.dailyPlanID",
+      this.state.scheduleObject.dailyPlanID
+    );
+    if (
+      this.state.scheduleObject.dailyPlanID === null ||
+      this.state.scheduleObject.dailyPlanID === undefined
+    ) {
+      var defaultData = {
         scheduleDate: event.target.value,
-        userName: "JohnSmith"
-        //dailyPlanList: this.state.dailyPlanList,
-        // userName: "JohnSmith"
-        //totalEnergy: this.state.totalEnergy,
-        //totalPotassium: this.state.totalPotassium
-      })
-        //todo this refreshes the screen... or should i update state?
-        .then
-        //res => (window.location.href = "/ViewSchedule")
-        ()
-        // .then(res => (window.location.href = "/AddDailyPlan"))
-        //.then(res => this.loadDailyPlans())
-        .catch(err => console.log(err));
+        userID: userID,
+        dailyPlanID: null,
+        totalEnergy: 0,
+        totalPotassium: 0
+      };
+
+      if (event.target.value) {
+        API.saveSchedule(defaultData)
+          //todo this refreshes the screen... or should i update state?
+          .then(
+            //res => (window.location.href = "/ViewSchedule")
+            //res =>
+            this.setState({
+              currentSchedule: defaultData
+            })
+
+            //  console.log(res.data)
+          )
+          // .then(res => (window.location.href = "/AddDailyPlan"))
+          //.then(res => this.loadDailyPlans())
+          .catch(err => console.log(err));
+      }
     }
   };
 
   render() {
     return (
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col size="md-12 sm-12">
             <Jumbotron>
               <h1>View Schedule</h1>
             </Jumbotron>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row>
           <Col size="md-12">
@@ -278,26 +299,24 @@ class Schedule extends Component {
           </Col>
         </Row>
 
+        {console.log(this.state.currentSchedule)}
         {this.state.currentSchedule ? (
           <Row>
             <Col size="md-12 sm-12">
               {/* <strong>Selected DailyPlan: </strong>{" "}
               {this.state.currentDailyPlan.dailyPlanName} */}
+              <strong>Schedule Date: </strong>
+              {moment(this.state.currentSchedule.scheduleDate).format(
+                "YYYY-MM-DD"
+              ) + " "}
               <strong>Total Energy: </strong>
-              {this.state.currentSchedule.totalEnergy}
+              {this.state.currentSchedule.totalEnergy}{" "}
               <strong>Total Potassium: </strong>
               {this.state.currentSchedule.totalPotassium}
             </Col>
           </Row>
         ) : (
-          <Row>
-            <Col size="md-12 sm-12">
-              <h6>
-                Select a DailyPlan from the dailyPlan list to see what foods it
-                contains and to make changes
-              </h6>
-            </Col>
-          </Row>
+          ""
         )}
 
         <Row>
@@ -343,18 +362,37 @@ class Schedule extends Component {
 
           <Col size="md-4 sm-4">
             <h3>Foods in your Schedule</h3>
+            {console.log(
+              "this.state.scheduleContent is",
+              this.state.scheduleContent
+            )}
 
-            {this.state.scheduleContent.map(food => (
-              <Card key={food._id}>
+            {/* {this.state.scheduleContent.map(food => (
+              <Card key={food.data._id}>
                 <strong>
-                  <br /> {food.foodName} <br />
-                  <br /> Energy:{food.energy} <br />
-                  <br /> Potassium:{food.potassium} <br />
-                  <br /> Efficiency:need to get virtual
+                  <br /> {food.data.foodName} <br />
+                  <br /> Energy:{food.data.energy} <br />
+                  <br /> Potassium:{food.data.potassium} <br />
+                  <br /> Efficiency:{food.data.efficiency}
                   {food.efficiency} <br />
                 </strong>
               </Card>
-            ))}
+            ))} */}
+
+            {this.state.currentSchedule &&
+            this.state.currentSchedule.dailyPlanID === null
+              ? "Please add a Daily Plan to your schedule"
+              : this.state.scheduleContent.map(food => (
+                  <Card key={food.data._id}>
+                    <strong>
+                      <br /> {food.data.foodName} <br />
+                      <br /> Energy:{food.data.energy} <br />
+                      <br /> Potassium:{food.data.potassium} <br />
+                      <br /> Efficiency:{food.data.efficiency}
+                      {food.efficiency} <br />
+                    </strong>
+                  </Card>
+                ))}
           </Col>
         </Row>
       </Container>

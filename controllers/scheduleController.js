@@ -65,18 +65,42 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.json(err));
   },
+  // createOrUpdate: function(req, res) {
+  //   console.log(req.body);
+  //   db.Schedule.update(
+  //     { scheduleDate: req.body.scheduleDate },
+  //     {
+  //       scheduleDate: req.body.scheduleDate,
+  //       userID: req.body.userID
+  //     },
+  //     { upsert: true }
+  //   )
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.json(err));
+  // },
+
   createOrUpdate: function(req, res) {
     console.log(req.body);
     db.Schedule.update(
       { scheduleDate: req.body.scheduleDate },
-      {
-        scheduleDate: req.body.scheduleDate,
-        userName: req.body.userName
-      },
-      { upsert: true }
+      { $set: req.body },
+      { new: true, upsert: true }
+      //,{  }
     )
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.json(err));
+
+      .exec()
+      .then(dbModel => {
+        console.log(dbModel);
+        res.json(dbModel);
+      })
+      .catch(err => console.log(err));
+    // .then(dbModel => res.json(dbModel))
+    // .catch(err => res.json(err));
+
+    // .exec(function(err, dbModel) {
+    //   console.log("Create or update schedule dbmodbl: ", dbModel);
+    //   res.json(dbModel);
+    // });
   },
 
   update: function(req, res) {
@@ -102,7 +126,7 @@ module.exports = {
 
   findByUser: function(req, res) {
     db.Schedule.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ scheduleDate: 1 })
       .then(dbModel =>

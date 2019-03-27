@@ -1,112 +1,112 @@
 [
   {
     "foodGroupName": "Baked Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/lz5ozcw.jpg"
   },
   {
     "foodGroupName": "Spices and Herbs",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/SSFNvqN.jpg"
   },
   {
     "foodGroupName": "Dairy and Egg Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/WS9s8dH.jpg"
   },
   {
     "foodGroupName": "Beverages",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/MUgXmcU.jpg"
   },
   {
     "foodGroupName": "Sweets",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/4gNU4MJ.jpg"
   },
   {
     "foodGroupName": "Cereals| Grains and Pasta",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/tAX318A.jpg"
   },
   {
     "foodGroupName": "Babyfoods",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/hzkF7C1.jpg"
   },
   {
     "foodGroupName": "Fats and Oils",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/6nLJrwl.jpg"
   },
   {
     "foodGroupName": "Poultry Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/vlahHGf.jpg"
   },
   {
     "foodGroupName": "Soups| Sauces and Gravies",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/vyWQZRj.jpg"
   },
   {
     "foodGroupName": "Sausages and Luncheon meats",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/RA4shJp.jpg"
   },
   {
     "foodGroupName": "Breakfast cereals",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/LUfs6NB.jpg"
   },
   {
     "foodGroupName": "Fruits and fruit juices",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/VrwDcLU.jpg"
   },
   {
     "foodGroupName": "Pork Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/57tXrRk.jpg"
   },
   {
     "foodGroupName": "Vegetables and Vegetable Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/D6qPatL.jpg"
   },
   {
     "foodGroupName": "Nuts and Seeds",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/g21Akvp.jpg"
   },
   {
     "foodGroupName": "Legumes and Legume Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/6gs0Fex.jpg"
   },
   {
     "foodGroupName": "Beef Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/3K7Ykvp.jpg"
   },
   {
     "foodGroupName": "Finfish and Shellfish Products",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/4JhLdgS.jpg"
   },
   {
     "foodGroupName": "Lamb| Veal and Game",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/JEvdF1w.jpg"
   },
   {
     "foodGroupName": "Snacks",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/KrUdxz1.jpg"
   },
   {
     "foodGroupName": "Fast Foods",
-    "userName": "master",
+    "masterUserID": 123456,
     "image": "https://i.imgur.com/rgOlz6P.jpg"
   }
 ]

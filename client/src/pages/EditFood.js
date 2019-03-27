@@ -5,6 +5,8 @@ import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Food extends Component {
   state = {
@@ -16,11 +18,12 @@ class Food extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupByMasterAndUser("JohnSmith");
+     
+    this.loadFoodGroupByMasterAndUser(userID);
   }
 
-  loadFoodGroupByMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  loadFoodGroupByMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodGroupList: res.data
@@ -55,7 +58,7 @@ class Food extends Component {
         foodGroupName: this.state.foodGroupName,
         energy: this.state.energy,
         potassium: this.state.potassium,
-        userName: "JohnSmith"
+        userID: userID
       })
         .then(
           this.setState({
