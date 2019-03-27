@@ -38,8 +38,8 @@ class FoodFavorite extends Component {
     if (
       window.confirm(
         "Are you sure you would like to delete " +
-          foodName +
-          " from your Favorite Foods?"
+        foodName +
+        " from your Favorite Foods?"
       )
     ) {
       API.deleteFoodByID(id)
@@ -147,107 +147,107 @@ class FoodFavorite extends Component {
               </Col>
 
               {this.state.customize &&
-              this.state.editFoodID === foodFavoriteList._id ? (
-                <Col size="md-4">
-                  <div className="mt-5">
-                    <Dropdown
-                      name="foodGroupName"
-                      onChange={this.handleInputChange}
-                      label="Food Group"
-                      defaultValue={this.state.foodGroupName}
-                    >
-                      {this.state.foodGroupList.map(foodGroupList => (
-                        <option value={foodGroupList.foodGroupName}>
-                          {foodGroupList.foodGroupName}
-                        </option>
-                      ))}
-                    </Dropdown>
-                  </div>
-                  <Input
-                    defaultValue={foodFavoriteList.energy}
-                    onChange={this.handleInputChange}
-                    name="energy"
-                    placeholder="Energy (required)"
-                    type="text"
-                  />
-
-                  <Input
-                    defaultValue={foodFavoriteList.potassium}
-                    onChange={this.handleInputChange}
-                    name="potassium"
-                    placeholder="Potassium (required)"
-                    type="text"
-                  />
-
-                  <FormBtn
-                    className="btn peach-gradient"
-                    // disabled={!(this.state.energy && this.state.potassium)}
-                    onClick={this.edit}
-                  >
-                    <a style={{ fontWeight: "bolder" }}>
-                      {" "}
-                      CANCEL <i class="fa fa-remove" />
-                    </a>
-                  </FormBtn>
-
-                  <FormBtn
-                    className="btn blue-gradient"
-                    // disabled={!(this.state.energy && this.state.potassium)}
-                    onClick={this.handleFormSubmit}
-                  >
-                    <a style={{ fontWeight: "bolder" }}>
-                      {" "}
-                      SUBMIT <i class="fa fa-paper-plane" />
-                    </a>
-                  </FormBtn>
-                </Col>
-              ) : (
-                <div className="conatiner button-container">
+                this.state.editFoodID === foodFavoriteList._id ? (
                   <Col size="md-4">
                     <div className="mt-5">
+                      <Dropdown
+                        name="foodGroupName"
+                        onChange={this.handleInputChange}
+                        label="Food Group"
+                        defaultValue={this.state.foodGroupName}
+                      >
+                        {this.state.foodGroupList.map(foodGroupList => (
+                          <option value={foodGroupList.foodGroupName}>
+                            {foodGroupList.foodGroupName}
+                          </option>
+                        ))}
+                      </Dropdown>
+                    </div>
+                    <Input
+                      defaultValue={foodFavoriteList.energy}
+                      onChange={this.handleInputChange}
+                      name="energy"
+                      placeholder="Energy (required)"
+                      type="text"
+                    />
+
+                    <Input
+                      defaultValue={foodFavoriteList.potassium}
+                      onChange={this.handleInputChange}
+                      name="potassium"
+                      placeholder="Potassium (required)"
+                      type="text"
+                    />
+
+                    <FormBtn
+                      className="btn peach-gradient"
+                      // disabled={!(this.state.energy && this.state.potassium)}
+                      onClick={this.edit}
+                    >
+                      <a style={{ fontWeight: "bolder" }}>
+                        {" "}
+                        CANCEL <i class="fa fa-remove" />
+                      </a>
+                    </FormBtn>
+
+                    <FormBtn
+                      className="btn blue-gradient"
+                      // disabled={!(this.state.energy && this.state.potassium)}
+                      onClick={this.handleFormSubmit}
+                    >
+                      <a style={{ fontWeight: "bolder" }}>
+                        {" "}
+                        SUBMIT <i class="fa fa-paper-plane" />
+                      </a>
+                    </FormBtn>
+                  </Col>
+                ) : (
+                  <div className="conatiner button-container">
+                    <Col size="md-4">
+                      <div className="mt-5">
+                        <button
+                          key={foodFavoriteList._id}
+                          onClick={() =>
+                            this.edit(
+                              foodFavoriteList._id,
+                              foodFavoriteList.energy,
+                              foodFavoriteList.potassium,
+                              foodFavoriteList.foodGroupName
+                            )
+                          }
+                          className="btn btn-outline-mdb-color waves-effect edit-button"
+                        >
+                          <a style={{ fontWeight: "bolder", fontSize: 15 }}>
+                            EDIT
+                          <i class="fa fa-pencil-square-o" />
+                          </a>
+                        </button>
+                      </div>
+                    </Col>
+                    <Col size="md-4">
                       <button
                         key={foodFavoriteList._id}
                         onClick={() =>
-                          this.edit(
+                          this.deleteFood(
                             foodFavoriteList._id,
-                            foodFavoriteList.energy,
-                            foodFavoriteList.potassium,
-                            foodFavoriteList.foodGroupName
+                            foodFavoriteList.foodName
                           )
                         }
-                        className="btn btn-outline-mdb-color waves-effect edit-button"
+                        className=" btn btn-outline-mdb-color waves-effect remove-button"
                       >
                         <a style={{ fontWeight: "bolder", fontSize: 15 }}>
-                          EDIT
-                          <i class="fa fa-pencil-square-o" />
+                          REMOVE
+                        <i class="fa fa-remove" />
                         </a>
                       </button>
-                    </div>
-                  </Col>
-                  <Col size="md-4">
-                    <button
-                      key={foodFavoriteList._id}
-                      onClick={() =>
-                        this.deleteFood(
-                          foodFavoriteList._id,
-                          foodFavoriteList.foodName
-                        )
-                      }
-                      className=" btn btn-outline-mdb-color waves-effect remove-button"
-                    >
-                      <a style={{ fontWeight: "bolder", fontSize: 15 }}>
-                        REMOVE
-                        <i class="fa fa-remove" />
-                      </a>
-                    </button>
-                  </Col>
-                </div>
-              )}
+                    </Col>
+                  </div>
+                )}
             </Row>
           ))
         ) : (
-          <h3>No Results to Display</h3>
-        )}
+            <h3>No Results to Display</h3>
+          )}
       </Container>
     );
   }
