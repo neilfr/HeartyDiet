@@ -55,7 +55,7 @@ module.exports = {
   findByFoodGroupNameAndUser: function(req, res) {
     db.Food.find({
       foodGroupName: req.params.foodGroupName,
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ foodName: 1 })
       .then(dbModel =>
@@ -65,8 +65,9 @@ module.exports = {
   },
 
   findByUser: function(req, res) {
+    console.log("findByUser userID:", req.params.userID);
     db.Food.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ foodName: 1 })
       .then(dbModel =>

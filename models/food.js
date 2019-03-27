@@ -9,9 +9,12 @@ const FoodSchema = new Schema({
   energy: { type: Number, required: true },
   // note that potassium is measured in g
   potassium: { type: Number, required: true },
-  // userName that created this food.  Master represents the original db.
+  // userID that created this food.  Master represents the original db.
   // userId: [{ type: Schema.Types.ObjectId, ref: "User" }]
-  userName: { type: String, required: true }
+  userID: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 const Food = mongoose.model("Food", FoodSchema);

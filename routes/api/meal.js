@@ -20,7 +20,7 @@ router.route("/mealByID/:id").get(mealController.findById);
 
 //just added
 router
-  .route("/mealByUser/:userName")
+  .route("/mealByUser/:userID")
   .post(mealController.create)
   .get(mealController.findByUser);
 

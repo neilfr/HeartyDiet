@@ -15,11 +15,9 @@ module.exports = {
   //! 2 new functions
   addFoodById: function(req, res) {
     console.log("inside AddFoodById and");
-    console.log("req.body should be servingSize: ", req.body);
-    console.log("meal id is: ", req.params.mealId);
-    console.log("food id is: ", req.params.foodId);
+    console.log("MEAL ID IS: ", req.params.mealId);
+    console.log("FOOD ID IS: ", req.params.foodId);
 
-    // let newMealData = {};
     db.Meal.findByIdAndUpdate(
       req.params.mealId,
       {
@@ -151,7 +149,7 @@ module.exports = {
 
   // findByUser: function(req, res) {
   //   db.Meal.find({
-  //     userName: req.params.userName
+  //     userID: req.params.userID
   //   })
   //     .sort({ mealName: 1 })
   //     //!new lines to include all the related food list data for each of the meals
@@ -176,7 +174,7 @@ module.exports = {
 
   findByUser: function(req, res) {
     db.Meal.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       .sort({ mealName: 1 })
       .populate("foodList.food")
@@ -185,9 +183,13 @@ module.exports = {
           meal.foodList = meal.foodList.map(food => {
             return food.toJSON({ virtuals: true });
           });
+
           return meal.toJSON({ virtuals: true });
         });
         res.json(meals);
+
+        //res.json();
       });
+    // .catch(err => res.status(422).json(err));
   }
 };

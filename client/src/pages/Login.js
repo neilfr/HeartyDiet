@@ -8,6 +8,7 @@ import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 import axios from "axios";
 import { setInStorage, getFromStorage } from "../utils/storage";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import "./viewFoodStyle.css";
 
 class Login extends Component {
   constructor(props) {
@@ -116,6 +117,13 @@ class Login extends Component {
       signInPassword
     } = this.state;
 
+    const mainBg = {
+      backgroundImage: 'url("./heart_2.png")',
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    };
+
     return (
       <Container fluid>
         {/* <Row>
@@ -125,38 +133,79 @@ class Login extends Component {
             </Jumbotron>
           </Col>
         </Row> */}
-        <Row>
-          <Col size="md-4" />
-          <Col size="md-4">
-            <form>
-              Email
-              <Input
-                type="email"
-                placeholder="Email"
-                value={signInEmail}
-                onChange={this.onTextboxChangeSignInEmail}
-              />
-              Password
-              <Input
-                type="password"
-                placeholder="Password"
-                value={signInPassword}
-                onChange={this.onTextboxChangeSignInPassword}
-              />
-              <FormBtn
-                disabled={
-                  !(this.state.signInEmail && this.state.signInPassword)
-                }
-                onClick={this.onSignIn}
-              >
-                Login
-              </FormBtn>
-              <br />
-              <Link to="/register">Register New User</Link>
-            </form>
-          </Col>
-          <Col size="md-4" />
-        </Row>
+        <div style={mainBg} className="pb-5 mb-3">
+          <div className="row justify-content-right">
+            <div className="col-lg-3 col-sm-12 offset-4 pr-0">
+              <Row>
+                <Col size="md-12 sm-12">
+                  <div className="wow fadeInUp mt-3 hedaing-div">
+                    <h2 className="landing-head">
+                      Hearty Diet
+                      <hr />
+                      <h3>Meal Management and Potassium Nutrient Tracker</h3>
+                    </h2>
+                    <br />
+                    <h5>
+                      Please login or register to begin. <br />
+                      <br />
+                      <b> Registration is free!</b>
+                      <br />
+                    </h5>
+
+                    <h6>
+                      This Web application was developed as a part of the
+                      University of Toronto Full Stack Web Development Bootcamp
+                      program. <br />
+                      This Web application allows meal planning specifically
+                      focused on potassium intake. Functionality to support
+                      other nutrients can be added in the future. Nutrient data
+                      sourced from Health Canada Nutrient database
+                      <br />
+                      <br />
+                      <br />
+                    </h6>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+
+            <div className="col-lg-4 col-sm-12 mt-3 offset-1">
+              <Row>
+                <Col size="md-9">
+                  <div className="login-div">
+                    <form>
+                      Email
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        value={signInEmail}
+                        onChange={this.onTextboxChangeSignInEmail}
+                      />
+                      Password
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        value={signInPassword}
+                        onChange={this.onTextboxChangeSignInPassword}
+                      />
+                      <FormBtn
+                        disabled={
+                          !(this.state.signInEmail && this.state.signInPassword)
+                        }
+                        onClick={this.onSignIn}
+                      >
+                        <div style={{ textAlign: "center" }}>Login</div>
+                      </FormBtn>
+                      <br />
+                      <Link to="/register">Register New User</Link>
+                    </form>
+                  </div>
+                </Col>
+                <Col size="md-4" />
+              </Row>
+            </div>
+          </div>
+        </div>
       </Container>
     );
   }

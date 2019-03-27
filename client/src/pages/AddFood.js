@@ -6,6 +6,9 @@ import { Col, Row, Container } from "../components/Grid";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
+
 class Food extends Component {
   state = {
     foodName: "",
@@ -16,11 +19,24 @@ class Food extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupByMasterAndUser("JohnSmith");
+    this.loadFoodGroupByMasterAndUser(userID);
   }
 
-  loadFoodGroupByMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  // verifyLogin = () => {
+  //   let userObj = JSON.parse(localStorage.getItem("userObj"));
+  //   if (userObj === null || userObj.Token === null || userObj.Token === "") {
+  //     //REDIRCT THEM TO LOGIN
+  //     window.location.href = "./";
+  //   }
+  //   {
+  //     this.setState({
+  //       userID: userObj.Token
+  //     });
+  //   }
+  // };
+
+  loadFoodGroupByMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodGroupList: res.data
@@ -55,7 +71,7 @@ class Food extends Component {
         foodGroupName: this.state.foodGroupName,
         energy: this.state.energy,
         potassium: this.state.potassium,
-        userName: "JohnSmith"
+        userID: userID
       })
         .then(
           this.setState({
@@ -73,62 +89,79 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
-            {/* <Jumbotron>
-              <h1>Add Custom Food</h1>
-            </Jumbotron> */}
-            <form>
-              <Input
-                value={this.state.foodName}
-                onChange={this.handleInputChange}
-                name="foodName"
-                placeholder="Food Name (required)"
-              />
+          <Col size="md-12 sm-12">
+            <Container>
+              <Container fluid>
+                <Row>
+                  <Col size="md-12 sm-12">
+                    <div className="text-center wow fadeInUp mt-5">
+                      {/* <h2>Add a Food Item Here</h2>
+                      <br /> */}
+                      <h5>
+                        Create a food item that is not part of the original
+                        master list. <br />
+                      </h5>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
 
-              <Dropdown
-                name="foodGroupName"
-                onChange={this.handleInputChange}
-                label="Food Group"
-                value={this.state.foodGroupName}
-              >
-                {this.state.foodGroupList.map(foodGroupList => (
-                  <option value={foodGroupList.foodGroupName}>
-                    {foodGroupList.foodGroupName}
-                  </option>
-                ))}
-              </Dropdown>
-              <Input
-                value={this.state.energy}
-                onChange={this.handleInputChange}
-                name="energy"
-                placeholder="Energy (required)"
-              />
-              <Input
-                value={this.state.potassium}
-                onChange={this.handleInputChange}
-                name="potassium"
-                placeholder="Potassium (required)"
-              />
-              {/* <TextArea
+              <form style={{ marginTop: 25 }}>
+                Food Name
+                <Input
+                  value={this.state.foodName}
+                  onChange={this.handleInputChange}
+                  name="foodName"
+                  placeholder="Enter Food Name (required)"
+                />
+                <Dropdown
+                  name="foodGroupName"
+                  onChange={this.handleInputChange}
+                  label="Food Group"
+                  value={this.state.foodGroupName}
+                >
+                  {this.state.foodGroupList.map(foodGroupList => (
+                    <option value={foodGroupList.foodGroupName}>
+                      {foodGroupList.foodGroupName}
+                    </option>
+                  ))}
+                </Dropdown>
+                Energy (kCal)
+                <Input
+                  value={this.state.energy}
+                  onChange={this.handleInputChange}
+                  name="energy"
+                  placeholder="Enter Energy in kCal (required)"
+                />
+                Potassium (mg)
+                <Input
+                  value={this.state.potassium}
+                  onChange={this.handleInputChange}
+                  name="potassium"
+                  placeholder="Enter Potassium in mg (required)"
+                />
+                {/* <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}
                 name="synopsis"
                 placeholder="Synopsis (Optional)"
               /> */}
-              <FormBtn
-                disabled={
-                  !(
-                    this.state.foodName &&
-                    this.state.foodGroupName &&
-                    this.state.energy &&
-                    this.state.potassium
-                  )
-                }
-                onClick={this.handleFormSubmit}
-              >
-                Submit Food
-              </FormBtn>
-            </form>
+                <FormBtn
+                  className="btn blue-gradient p-3"
+                  disabled={
+                    !(
+                      this.state.foodName &&
+                      this.state.foodGroupName &&
+                      this.state.energy &&
+                      this.state.potassium
+                    )
+                  }
+                  onClick={this.handleFormSubmit}
+                >
+                  <h6>Submit Food</h6>
+                </FormBtn>
+              </form>
+            </Container>
           </Col>
         </Row>
       </Container>

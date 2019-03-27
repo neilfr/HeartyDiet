@@ -12,7 +12,8 @@ import "./viewFoodStyle.css";
 import SearchResults from "./SearchResults";
 import "font-awesome/css/font-awesome.min.css";
 //import { MDBMask, MDBView, MDBContainer, MDBRow, MDBCol } from "mdbreact";
-
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 class Food extends Component {
   state = {
     foodList: [],
@@ -28,7 +29,7 @@ class Food extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupMasterAndUser("master");
+    this.loadFoodGroupMasterAndUser(userID);
   }
 
   loadFood = () => {
@@ -46,8 +47,8 @@ class Food extends Component {
       .catch(err => console.log(err));
   };
 
-  loadFoodGroupMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  loadFoodGroupMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodList: [],
@@ -98,7 +99,7 @@ class Food extends Component {
           foodGroupName: res.data.foodGroupName,
           energy: res.data.energy,
           potassium: res.data.potassium,
-          userName: "JohnSmith"
+          userID: userID
         })
           .then(alert(res.data.foodName + " saved as favorite food"))
           .catch(err => console.log(err));
@@ -160,8 +161,27 @@ class Food extends Component {
 
     return (
       <Container fluid>
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Foods / Select Favorite Foods</h2>
+                <br />
+                <h5>
+                  Use this screen to add items as favorite foods. You can search
+                  food items, or use the Food Group buttons below to see food
+                  under the specific food group. Click on the food item to add
+                  the food item to your favorite food list. <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
         <Row>
           <div className="col-6 search-bar offset-6">
+            Search by Food Name
             <div className="input-group mt-3 form-sm form-2 pl-0">
               <input
                 className="form-control my-0 py-1 red-border"
@@ -173,7 +193,7 @@ class Food extends Component {
                 name="foodSearch"
               />
               <div className="input-group-append">
-                {/* <span className="input-group-text red lighten-3" id="basic-text1"><i className="fa fa-search" aria-hidden="true"></i></span> */}
+                {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
                 <button
                   className="input-group-text red lighten-3"
                   onClick={this.handleFormSubmit}
@@ -182,7 +202,6 @@ class Food extends Component {
                 </button>
               </div>
             </div>
-
             {/* <form>
               <Input
                 value={this.state.foodSearch}
@@ -201,7 +220,7 @@ class Food extends Component {
           /> */}
         </Row>
         <div className="container">
-          <h4>Browse Common Foods</h4>
+          <h4>Browse Common Foods By Food Group</h4>
           <hr />
           <Row>
             {this.state.foodGroupList.length ? (
@@ -251,7 +270,13 @@ class Food extends Component {
                 </Col>
               ))
             ) : (
-              <h3>No Results to Display1</h3>
+              <Container>
+                <Row>
+                  <Col size="lg-12">
+                    <h3>No Food Groups to Display</h3>
+                  </Col>
+                </Row>
+              </Container>
             )}
             {/* </Col> */}
           </Row>
@@ -270,10 +295,10 @@ class Food extends Component {
                       <h5 style={foodDisplay}>{foodList.foodName}</h5>
                       <br />
                       Food Group: {foodList.foodGroupName} <br />
-                      Energy: {foodList.energy}kCal <br />
-                      Potassium: {foodList.potassium}gm <br />
+                      Energy: {foodList.energy} kCal <br />
+                      Potassium: {foodList.potassium} mg <br />
                       Efficiency: {foodList.efficiency} <br />
-                      Username: {foodList.userName} <br />
+                      Username: {foodList.userID} <br />
                     </strong>
                   </div>
                   <div className="text-right">
@@ -285,7 +310,13 @@ class Food extends Component {
               </Col>
             ))
           ) : (
-            <h3>No Results to Display</h3>
+            <Container>
+              <Row>
+                <Col size="lg-12">
+                  <h3>No Foods To Display</h3>
+                </Col>
+              </Row>
+            </Container>
           )}
         </Row>
       </Container>

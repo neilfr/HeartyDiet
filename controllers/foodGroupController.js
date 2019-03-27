@@ -16,13 +16,27 @@ module.exports = {
   },
 
   findByMasterAndUser: function(req, res) {
+    console.log("findByMasterAndUser masterUserID: ", req.params.masterUserID);
+    console.log("findByMasterAndUser userID : ", req.params.userID);
     db.FoodGroup.find({
-      $or: [{ userName: "master" }, { userName: req.params.userName }]
+      $or: [
+        { masterUserID: req.params.masterUserID },
+        { userID: req.params.userID }
+      ]
     })
       .sort({ foodGroupName: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  findByMaster: function(req, res) {
+    console.log("findByMasterAndUser masterUserID: ", req.params.masterUserID);
+    db.FoodGroup.find({ masterUserID: req.params.masterUserID })
+      .sort({ foodGroupName: 1 })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
   findById: function(req, res) {
     db.FoodGroup.findById(req.params.id)
       .then(dbModel => res.json(dbModel))

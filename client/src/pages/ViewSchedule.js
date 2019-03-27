@@ -12,6 +12,8 @@ import Button from "../components/Button";
 //import Calendar from "../components/Calendar";
 import Date from "../components/Date";
 var moment = require("moment");
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Schedule extends Component {
   state = {
@@ -31,15 +33,15 @@ class Schedule extends Component {
   };
 
   componentDidMount() {
-    // this.loadSchedule("JohnSmith");
-    this.loadDailyPlan("JohnSmith");
+    // this.loadSchedule(userID);
+    this.loadDailyPlan(userID);
 
     this.setState({
       scheduleDate: moment().format("YYYY-MM-DD")
     });
   }
-  // loadFoodFavorites = userName => {
-  //   API.getFoodByUser(userName)
+  // loadFoodFavorites = userID => {
+  //   API.getFoodByUser(userID)
   //     .then(res => {
   //       console.log("foodFavoriteList is: ", res.data);
   //       this.setState({
@@ -49,8 +51,8 @@ class Schedule extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  loadSchedule = userName => {
-    API.getScheduleByUser(userName)
+  loadSchedule = userID => {
+    API.getScheduleByUser(userID)
       .then(res => {
         this.setState({
           scheduleList: res.data
@@ -59,8 +61,8 @@ class Schedule extends Component {
       .catch(err => console.log(err));
   };
 
-  loadDailyPlan = userName => {
-    API.getDailyPlanByUser(userName)
+  loadDailyPlan = userID => {
+    API.getDailyPlanByUser(userID)
       .then(res => {
         this.setState({
           dailyPlanList: res.data
@@ -185,7 +187,7 @@ class Schedule extends Component {
 
     let scheduleData = {
       scheduleDate: this.state.scheduleDate,
-      userName: "JohnSmith",
+      userID: userID,
       totalEnergy: dailyPlanTotalEnergy,
       totalPotassium: dailyPlanTotalPotassium,
       dailyPlanID: dailyPlan_id
@@ -237,10 +239,17 @@ class Schedule extends Component {
 
     this.loadDailyPlanByScheduleDate(event.target.value);
 
-    if (this.state.scheduleObject.dailyPlanID === null) {
+    console.log(
+      "this.state.scheduleObject.dailyPlanID",
+      this.state.scheduleObject.dailyPlanID
+    );
+    if (
+      this.state.scheduleObject.dailyPlanID === null ||
+      this.state.scheduleObject.dailyPlanID === undefined
+    ) {
       var defaultData = {
         scheduleDate: event.target.value,
-        userName: "JohnSmith",
+        userID: userID,
         dailyPlanID: null,
         totalEnergy: 0,
         totalPotassium: 0
@@ -268,42 +277,91 @@ class Schedule extends Component {
   render() {
     return (
       <Container fluid>
-        {/* <Row>
-          <Col size="md-12 sm-12">
-            <Jumbotron>
-              <h1>View Schedule</h1>
-            </Jumbotron>
-          </Col>
-        </Row> */}
-
         <Row>
-          <Col size="md-12">
-            <form>
-              <Input
-                value={this.state.scheduleDate}
-                onChange={this.handleInputChangeScheduleDate}
-                name="scheduleDate"
-                type="date"
-                defaultValue={this.state.scheduleDate}
-              />
-            </form>
+          <Col size="md-12 sm-12">
+            <div className="text-center wow fadeInUp mt-5">
+              {/* <h2>View Schedule</h2>
+              <br /> */}
+              <h5>
+                {/* Use this screen to create and edit a custom daily schedule
+                made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
+                  Meatloaf Monday. <br /> */}
+                Create and edit a custom daily schedule made up of one daily
+                plan. <br />
+                Start by selecting a Schedule Date.
+                <br />
+                <br />
+              </h5>
+            </div>
           </Col>
         </Row>
+
+        {/* 
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Schedule</h2>
+                <br />
+                <h5>
+                  Use this screen to create and edit a custom daily schedule
+                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 could be
+                  "Meatloaf Monday", etc.. <br />
+                  Start by selecting a Schedule Date.
+                  <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container> */}
+
+        <Container>
+          <Row>
+            <Col size="md-4" align="center">
+              <form>
+                Schedule Date
+                <Input
+                  value={this.state.scheduleDate}
+                  onChange={this.handleInputChangeScheduleDate}
+                  name="scheduleDate"
+                  type="date"
+                  defaultValue={this.state.scheduleDate}
+                />
+              </form>
+            </Col>
+          </Row>
+        </Container>
 
         {console.log(this.state.currentSchedule)}
         {this.state.currentSchedule ? (
           <Row>
             <Col size="md-12 sm-12">
-              {/* <strong>Selected DailyPlan: </strong>{" "}
+              <div className="d-flex justify-content-center mb-5">
+                {/* <strong>Selected DailyPlan: </strong>{" "}
               {this.state.currentDailyPlan.dailyPlanName} */}
-              <strong>Schedule Date: </strong>
-              {moment(this.state.currentSchedule.scheduleDate).format(
-                "YYYY-MM-DD"
-              ) + " "}
-              <strong>Total Energy: </strong>
-              {this.state.currentSchedule.totalEnergy}{" "}
-              <strong>Total Potassium: </strong>
-              {this.state.currentSchedule.totalPotassium}
+
+                <div className="p-2">
+                  <i className="fa fa-calendar" />{" "}
+                  <strong>Scheduled Date: </strong>
+                </div>
+                <div className="p-2">
+                  {moment(this.state.currentSchedule.scheduleDate).format(
+                    "YYYY-MM-DD"
+                  ) + " "}
+                </div>
+                <div className="p-2 pl-5">
+                  {" "}
+                  <i className="fa fa-bolt" />
+                  <strong>Total Energy: </strong>
+                  {this.state.currentSchedule.totalEnergy}{" "}
+                </div>
+                <div className="p-2 pl-5">
+                  <i className="fa fa-kaggle" />
+                  <strong>Total Potassium: </strong>
+                  {this.state.currentSchedule.totalPotassium} mg{" "}
+                </div>
+              </div>
             </Col>
           </Row>
         ) : (
@@ -311,54 +369,65 @@ class Schedule extends Component {
         )}
 
         <Row>
-          <Col size="md-4 sm-4">
-            <h3>DailyPlan List</h3>
+          <Col size="md-6 sm-6">
+            <div className="justify-content-left">
+              <h3 className="text-center">DailyPlan List</h3>
 
-            {/* <Row>
+              {/* <Row>
               <Col> */}
-            {this.state.dailyPlanList.length ? (
-              <>
-                {this.state.dailyPlanList.map(dailyPlan => (
-                  <Card
-                    key={dailyPlan._id}
-                    //todo: clicking on card isn't working...need to fix
-                    // onClick={() => this.selectDailyPlan(dailyPlan)}
-                  >
-                    {/* <Link to={"/food/" + food._id}></Link> */}
-                    <strong>
-                      DailyPlan Name: {dailyPlan.dailyPlanName} <br />
-                      Energy: {dailyPlan.totalEnergy} <br />
-                      Potassium: {dailyPlan.totalPotassium} <br />
-                    </strong>
 
-                    <Button
-                      className="btn btn-primary"
-                      onClick={() =>
-                        this.addToSchedule(
-                          dailyPlan._id,
-                          dailyPlan.totalEnergy,
-                          dailyPlan.totalPotassium
-                        )
-                      }
-                    >
-                      Add
-                    </Button>
-                  </Card>
-                ))}
-              </>
-            ) : (
-              <h6>No DailyPlans, Add a dailyPlan first</h6>
-            )}
+              {this.state.dailyPlanList.length ? (
+                <ul className="list-group list-group-flush">
+                  <ul className="list-group">
+                    <>
+                      {this.state.dailyPlanList.map(dailyPlan => (
+                        <li
+                          className="list-group-item text-center"
+                          key={dailyPlan._id}
+                          //todo: clicking on li isn't working...need to fix
+                          // onClick={() => this.selectDailyPlan(dailyPlan)}
+                        >
+                          {/* <Link to={"/food/" + food._id}></Link> */}
+                          <strong>
+                            DailyPlan Name: {dailyPlan.dailyPlanName} <br />
+                            Energy: {dailyPlan.totalEnergy} <br />
+                            Potassium: {dailyPlan.totalPotassium} <br />
+                          </strong>
+
+                          <button
+                            className="btn px-3 text-center blue-gradient"
+                            onClick={() =>
+                              this.addToSchedule(
+                                dailyPlan._id,
+                                dailyPlan.totalEnergy,
+                                dailyPlan.totalPotassium
+                              )
+                            }
+                          >
+                            <div style={{ textAlign: "center" }}>
+                              <i className="fa fa-plus-circle fa-2x" />
+                            </div>
+                          </button>
+                        </li>
+                      ))}
+                    </>
+                  </ul>
+                </ul>
+              ) : (
+                <h6>No DailyPlans, Add a dailyPlan first</h6>
+              )}
+            </div>
           </Col>
 
-          <Col size="md-4 sm-4">
-            <h3>Foods in your Schedule</h3>
-            {console.log(
-              "this.state.scheduleContent is",
-              this.state.scheduleContent
-            )}
+          <Col size="md-6 sm-6">
+            <div className="justify-content-right">
+              <h3>Foods in your Schedule</h3>
+              {console.log(
+                "this.state.scheduleContent is",
+                this.state.scheduleContent
+              )}
 
-            {/* {this.state.scheduleContent.map(food => (
+              {/* {this.state.scheduleContent.map(food => (
               <Card key={food.data._id}>
                 <strong>
                   <br /> {food.data.foodName} <br />
@@ -370,20 +439,21 @@ class Schedule extends Component {
               </Card>
             ))} */}
 
-            {this.state.currentSchedule &&
-            this.state.currentSchedule.dailyPlanID === null
-              ? "Please add a Daily Plan to your schedule"
-              : this.state.scheduleContent.map(food => (
-                  <Card key={food.data._id}>
-                    <strong>
-                      <br /> {food.data.foodName} <br />
-                      <br /> Energy:{food.data.energy} <br />
-                      <br /> Potassium:{food.data.potassium} <br />
-                      <br /> Efficiency:{food.data.efficiency}
-                      {food.efficiency} <br />
-                    </strong>
-                  </Card>
-                ))}
+              {this.state.currentSchedule &&
+              this.state.currentSchedule.dailyPlanID === null
+                ? "Please add a Daily Plan to your schedule"
+                : this.state.scheduleContent.map(food => (
+                    <Card key={food.data._id}>
+                      <strong>
+                        <br /> {food.data.foodName} <br />
+                        Energy: {food.data.energy} kCal
+                        <br /> Potassium: {food.data.potassium} mg
+                        <br /> Efficiency: {food.data.efficiency}
+                        {food.efficiency} <br />
+                      </strong>
+                    </Card>
+                  ))}
+            </div>
           </Col>
         </Row>
       </Container>

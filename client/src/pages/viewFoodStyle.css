@@ -51,4 +51,19 @@ width:150px;
     color:#ef5350;
     font-weight: bold;
 }
+.custom-container > h3{
+justify-content:center;
+}
+/* .landing-head{
+    background-color: #ef5350;
+    border: 1px;
+} */
 
+/* .heading-div{
+    margin-left: 20px;
+} */
+.login-div{
+    border:1px solid black;
+    padding: 20px;
+    box-shadow: 5px 8px;
+}

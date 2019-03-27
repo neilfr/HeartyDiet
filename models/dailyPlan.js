@@ -3,13 +3,18 @@ const Schema = mongoose.Schema;
 
 const DailyPlanSchema = new Schema({
   dailyPlanName: { type: String, required: false },
-  userName: { type: String, required: false },
+  userID: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   totalEnergy: { type: Number, required: false },
   totalPotassium: { type: Number, required: false },
   mealList: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Meal"
+      meal: {
+        type: Schema.Types.ObjectId,
+        ref: "Meal"
+      }
     }
   ]
 });
