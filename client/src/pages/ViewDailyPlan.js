@@ -237,11 +237,11 @@ class DailyPlan extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>View Daily Plan</h2>
-                <br />
+                {/* <h2>View Daily Plan</h2>
+                <br /> */}
                 <h5>
-                  Use this screen to create and edit a custom daily plan made up
-                  of meal(s). i.e. Meatloaf Monday, Taco Tuesday, etc. <br />
+                  Create and edit a custom daily plan made up of meal(s). i.e.
+                  Meatloaf Monday, Taco Tuesday, etc. <br />
                   <br />
                 </h5>
               </div>
@@ -258,7 +258,7 @@ class DailyPlan extends Component {
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
               name="dailyPlanName"
-              placeholder="Enter a name for your daily plan"
+              placeholder="Enter a name to create a new daily plan"
             />
             <div className="input-group-append">
               {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}

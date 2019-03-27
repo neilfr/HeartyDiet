@@ -95,11 +95,11 @@ class Food extends Component {
                 <Row>
                   <Col size="md-12 sm-12">
                     <div className="text-center wow fadeInUp mt-5">
-                      <h2>Add a Food Item Here</h2>
-                      <br />
+                      {/* <h2>Add a Food Item Here</h2>
+                      <br /> */}
                       <h5>
-                        Use this screen to create a food item that is not part
-                        of the original master list. <br />
+                        Create a food item that is not part of the original
+                        master list. <br />
                       </h5>
                     </div>
                   </Col>
