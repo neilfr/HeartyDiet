@@ -54,6 +54,8 @@ class Schedule extends Component {
   loadSchedule = userID => {
     API.getScheduleByUser(userID)
       .then(res => {
+        console.log("load scheudle");
+        console.log(res);
         this.setState({
           scheduleList: res.data
         });
