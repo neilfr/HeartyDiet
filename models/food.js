@@ -14,7 +14,8 @@ const FoodSchema = new Schema({
   userID: {
     type: Schema.Types.ObjectId,
     ref: "User"
-  }
+  },
+  masterUserID: { type: Number, required: false }
 });
 
 const Food = mongoose.model("Food", FoodSchema);
