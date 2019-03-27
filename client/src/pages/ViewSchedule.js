@@ -318,7 +318,6 @@ class Schedule extends Component {
 
         <Container>
           <Row>
-            <Col size="md-4" align="center" />
             <Col size="md-4" align="center">
               <form>
                 Schedule Date
