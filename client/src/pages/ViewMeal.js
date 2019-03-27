@@ -202,9 +202,28 @@ class Meal extends Component {
         </Row> */}
         {/* the charts and details should show here */}
 
-        <div className="col-6 offset-6 mb-5" >
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Meal</h2>
+                <br />
+                <h5>
+                  Use this screen to create and edit a custom meal made up of
+                  food item(s). i.e. Breakfast, Lunch, Dinner, etc. <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+        <div className="col-6 offset-6 mb-5">
           <div className="input-group mt-3 form-sm form-2 pl-0">
-            <input className="form-control my-0 py-1 blue-border" type="text" aria-label="Search"
+            <input
+              className="form-control my-0 py-1 blue-border"
+              type="text"
+              aria-label="Search"
               value={this.state.mealName}
               onChange={this.handleInputChange}
               name="mealName"
@@ -214,9 +233,7 @@ class Meal extends Component {
               {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
               <button
                 className="input-group-text blue"
-                disabled={
-                  !this.state.mealName
-                }
+                disabled={!this.state.mealName}
                 onClick={this.handleFormSubmit}
               >
                 <i className=" fa fa-plus" />
@@ -255,7 +272,7 @@ class Meal extends Component {
                   style={thumbnail}
                   alt="icon"
                   src="https://i.imgur.com/hbX14ue.jpg"
-                /> {" "}
+                />{" "}
                 {this.state.currentMeal.totalPotassium}gm
               </div>
               <div className="p-3  pr-5 dotted-div">
@@ -269,13 +286,13 @@ class Meal extends Component {
             </div>
           </div>
         ) : (
-            <div className="row ml-5">
-              <h6>
-                Select a Meal from the meal list to see what foods it contains and
-                to make changes
+          <div className="row ml-5">
+            <h6>
+              Select a Meal from the meal list to see what foods it contains and
+              to make changes
             </h6>
-            </div>
-          )}
+          </div>
+        )}
 
         {/* end of add meal section */}
         {/* <Col size="md-4 sm-4">
@@ -361,10 +378,10 @@ class Meal extends Component {
                   </ul>
                 </>
               ) : (
-                  <div className="justify-content-center">
-                    <h6 className="text-center">No Meals, Add a meal first</h6>
-                  </div>
-                )}
+                <div className="justify-content-center">
+                  <h6 className="text-center">No Meals, Add a meal first</h6>
+                </div>
+              )}
             </Row>
           </div>
 
@@ -377,51 +394,51 @@ class Meal extends Component {
 
             <Row>
               {this.state.currentMeal &&
-                this.state.currentMeal.foodList.length > 0 ? (
-                  <ul className="list-group list-group-flush">
-                    <ul className="list-group">
-                      {this.state.currentMeal.foodList.map(food => (
-                        <li
-                          className="list-group-item text-center"
-                          key={food._id}
-                        >
-                          <div>
-                            <strong>
-                              <h5 style={{ fontWeight: "bolder" }}>
-                                {food.food.foodName}
-                              </h5>
-                              <span className="spanIt">Energy:</span>
-                              {food.food.energy} <br />
-                              <span className="spanIt">Potassium:</span>
-                              {food.food.potassium} <br />
-                              <span className="spanIt"> ServingSize:</span>
-                              {food.servingSize}
-                              <br />
-                              <span className="spanIt"> Efficiency:</span>
-                              {food.food.efficiency}{" "}
-                              {/* {food.food.energy / food.food.potassium} */}
-                              {/* {parseFloat(
+              this.state.currentMeal.foodList.length > 0 ? (
+                <ul className="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.currentMeal.foodList.map(food => (
+                      <li
+                        className="list-group-item text-center"
+                        key={food._id}
+                      >
+                        <div>
+                          <strong>
+                            <h5 style={{ fontWeight: "bolder" }}>
+                              {food.food.foodName}
+                            </h5>
+                            <span className="spanIt">Energy:</span>
+                            {food.food.energy} <br />
+                            <span className="spanIt">Potassium:</span>
+                            {food.food.potassium} <br />
+                            <span className="spanIt"> ServingSize:</span>
+                            {food.servingSize}
+                            <br />
+                            <span className="spanIt"> Efficiency:</span>
+                            {food.food.efficiency}{" "}
+                            {/* {food.food.energy / food.food.potassium} */}
+                            {/* {parseFloat(
                               parseInt(food.food.energy) /
                                 parseInt(food.food.potassium)
                             ).toFixed(2)} */}
-                              <br />
-                            </strong>
+                            <br />
+                          </strong>
+                        </div>
+                        <button
+                          className="btn px-3 text-center peach-gradient "
+                          onClick={() => this.removeFromMeal(food._id)}
+                        >
+                          <div style={{ textAlign: "center" }}>
+                            <i className="fa fa-minus-circle fa-2x" />
                           </div>
-                          <button
-                            className="btn px-3 text-center peach-gradient "
-                            onClick={() => this.removeFromMeal(food._id)}
-                          >
-                            <div style={{ textAlign: "center" }}>
-                              <i className="fa fa-minus-circle fa-2x" />
-                            </div>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
+                        </button>
+                      </li>
+                    ))}
                   </ul>
-                ) : (
-                  <h6>Click Add on a food item to add it to your meal</h6>
-                )}
+                </ul>
+              ) : (
+                <h6>Click Add on a food item to add it to your meal</h6>
+              )}
             </Row>
           </div>
 
@@ -471,10 +488,10 @@ class Meal extends Component {
                   </ul>
                 </ul>
               ) : (
-                  <div className="justify-content-center ml-5">
-                    <h6>Click Add to add a food to the meal</h6>
-                  </div>
-                )}
+                <div className="justify-content-center ml-5">
+                  <h6>Click Add to add a food to the meal</h6>
+                </div>
+              )}
             </Row>
           </div>
         </div>

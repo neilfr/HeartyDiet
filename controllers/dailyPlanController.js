@@ -57,17 +57,12 @@ module.exports = {
       },
       { new: true }
     )
-      .populate("mealList") // changed from foodList to foodList.food
+      .populate("mealList") 
       .exec()
       .then(dbModel => {
-        console.log("REMOVEMEALBYID DBMODEL IS:", dbModel);
-        res.json(dbModel.toJSON({ virtuals: true }));
+            res.json(dbModel.toJSON({ virtuals: true }));
       })
       .catch(err => console.log(err));
-    // .exec(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
-    // .catch(err => {
-    //   res.json(err);
-    // });
   },
 
   updateKCalTotals: function(req, res) {

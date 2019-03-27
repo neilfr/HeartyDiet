@@ -276,21 +276,42 @@ class Schedule extends Component {
 
   render() {
     return (
-      <Container fluid>
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Schedule</h2>
+                <br />
+                <h5>
+                  Use this screen to create and edit a custom daily schedule
+                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
+                  Meatloaf Monday. <br />
+                  Start by selecting a Schedule Date.
+                  <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
 
-        <Row>
-          <Col size="md-9">
-            <form className="mt-5">
-              <Input
-                value={this.state.scheduleDate}
-                onChange={this.handleInputChangeScheduleDate}
-                name="scheduleDate"
-                type="date"
-                defaultValue={this.state.scheduleDate}
-              />
-            </form>
-          </Col>
-        </Row>
+        <Container>
+          <Row>
+            <Col size="md-4" align="center" />
+            <Col size="md-4" align="center">
+              <form>
+                Schedule Date
+                <Input
+                  value={this.state.scheduleDate}
+                  onChange={this.handleInputChangeScheduleDate}
+                  name="scheduleDate"
+                  type="date"
+                  defaultValue={this.state.scheduleDate}
+                />
+              </form>
+            </Col>
+          </Row>
+        </Container>
 
         {console.log(this.state.currentSchedule)}
         {this.state.currentSchedule ? (

@@ -52,7 +52,7 @@ class Nav extends Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark #ef5350 red lighten-1">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="./">
           Hearty Diet
         </a>
         {/* <button
