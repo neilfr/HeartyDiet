@@ -105,6 +105,7 @@ class FoodGroup extends Component {
           <div className="col-lg-6 offset-6 ">
             <div className="input-group mt-3 form-sm form-2 p-5">
               <input
+                className="form-control my-0 py-1 red-border"
                 value={this.state.foodGroupName}
                 onChange={this.handleInputChange}
                 name="foodGroupName"
@@ -112,11 +113,11 @@ class FoodGroup extends Component {
               />
               <div className="input-group-append">
                 <button
-                  className="btn text-center blue-gradient p-2"
+                  className="input-group-text red lighten-3"
                   disabled={!this.state.foodGroupName}
                   onClick={this.handleFormSubmit}
                 >
-                  <div style={{ textAlign: "center" }}>Add Food Group</div>
+                  <i className=" fa fa-plus" />
                 </button>
               </div>
             </div>
@@ -143,13 +144,13 @@ class FoodGroup extends Component {
                             src={foodGroupList.image}
                           />
                         ) : (
-                          <img
-                            className="card-img-left"
-                            style={{ width: 95, height: 95 }}
-                            alt="groupImg"
-                            src="https://via.placeholder.com/95"
-                          />
-                        )}
+                            <img
+                              className="card-img-left"
+                              style={{ width: 95, height: 95 }}
+                              alt="groupImg"
+                              src="https://via.placeholder.com/95"
+                            />
+                          )}
 
                         {/* <Col size="md-6" className="card-body"> */}
                       </div>
@@ -174,8 +175,8 @@ class FoodGroup extends Component {
               </Col>
             ))
           ) : (
-            <h3>No Results to Display1</h3>
-          )}
+              <h3>No Results to Display1</h3>
+            )}
           {/* </Col> */}
         </Row>
       </Container>

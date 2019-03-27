@@ -169,9 +169,8 @@ class Food extends Component {
                 <br />
                 <h5>
                   Use this screen to add items as favorite foods. You can search
-                  food items, or use the Food Group buttons below to see food
-                  under the specific food group. Click on the food item to add
-                  the food item to your favorite food list. <br />
+                  food items, or click the Food Group buttons below to see food
+                  under the clicked group and add them to your favourites. <br />
                   <br />
                 </h5>
               </div>
@@ -270,14 +269,14 @@ class Food extends Component {
                 </Col>
               ))
             ) : (
-              <Container>
-                <Row>
-                  <Col size="lg-12">
-                    <h3>No Food Groups to Display</h3>
-                  </Col>
-                </Row>
-              </Container>
-            )}
+                <Container>
+                  <Row>
+                    <Col size="lg-12">
+                      <h3>No Food Groups to Display</h3>
+                    </Col>
+                  </Row>
+                </Container>
+              )}
             {/* </Col> */}
           </Row>
         </div>
@@ -310,14 +309,14 @@ class Food extends Component {
               </Col>
             ))
           ) : (
-            <Container>
-              <Row>
-                <Col size="lg-12">
-                  <h3>No Foods To Display</h3>
-                </Col>
-              </Row>
-            </Container>
-          )}
+              <Container>
+                <Row>
+                  <Col size="lg-12">
+                    <h3>No Foods To Display</h3>
+                  </Col>
+                </Row>
+              </Container>
+            )}
         </Row>
       </Container>
     );

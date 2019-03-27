@@ -141,7 +141,7 @@ class FoodFavorite extends Component {
                     energy={foodFavoriteList.energy}
                     potassium={foodFavoriteList.potassium}
                     efficiency={foodFavoriteList.efficiency}
-                    username={foodFavoriteList.userID}
+                    username={foodFavoriteList.use}
                   />
                 </div>
               </Col>
