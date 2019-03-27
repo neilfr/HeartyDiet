@@ -276,24 +276,24 @@ class Schedule extends Component {
 
   render() {
     return (
-        <Container fluid>
-          <Row>
-            <Col size="md-12 sm-12">
-              <div className="text-center wow fadeInUp mt-5">
-                <h2>View Schedule</h2>
+      <Container fluid>
+        <Row>
+          <Col size="md-12 sm-12">
+            <div className="text-center wow fadeInUp mt-5">
+              <h2>View Schedule</h2>
+              <br />
+              <h5>
+                {/* Use this screen to create and edit a custom daily schedule
+                made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
+                  Meatloaf Monday. <br /> */}
+                Start by selecting a Schedule Date.
+                  <br />
                 <br />
-                <h5>
-                  Use this screen to create and edit a custom daily schedule
-                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 will be
-                  Meatloaf Monday. <br />
-                  Start by selecting a Schedule Date.
-                  <br />
-                  <br />
-                </h5>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+              </h5>
+            </div>
+          </Col>
+        </Row>
+
 
         <Container>
           <Row>
@@ -317,7 +317,7 @@ class Schedule extends Component {
         {this.state.currentSchedule ? (
           <Row>
             <Col size="md-12 sm-12">
-              <div className='d-flex mb-3'>
+              <div className='d-flex justify-content-center mb-5'>
                 {/* <strong>Selected DailyPlan: </strong>{" "}
               {this.state.currentDailyPlan.dailyPlanName} */}
                 <div className='p-2'><i className="fa fa-calendar" /> <strong>Scheduled Date: </strong></div>
@@ -336,61 +336,64 @@ class Schedule extends Component {
           )}
 
         <Row>
-          <Col size="md-4 sm-4">
-            <h3 className='text-center'>DailyPlan List</h3>
+          <Col size="md-6 sm-6">
+            <div className="justify-content-left">
+              <h3 className='text-center'>DailyPlan List</h3>
 
-            {/* <Row>
+              {/* <Row>
               <Col> */}
-            {this.state.dailyPlanList.length ? (
-              <ul className="list-group list-group-flush">
-                <ul className="list-group">
-                  <>
-                    {this.state.dailyPlanList.map(dailyPlan => (
-                      <li
-                        className="list-group-item text-center"
-                        key={dailyPlan._id}
-                      //todo: clicking on li isn't working...need to fix
-                      // onClick={() => this.selectDailyPlan(dailyPlan)}
-                      >
-                        {/* <Link to={"/food/" + food._id}></Link> */}
-                        <strong>
-                          DailyPlan Name: {dailyPlan.dailyPlanName} <br />
-                          Energy: {dailyPlan.totalEnergy} <br />
-                          Potassium: {dailyPlan.totalPotassium} <br />
-                        </strong>
-
-                        <button
-                          className="btn px-3 text-center blue-gradient"
-                          onClick={() =>
-                            this.addToSchedule(
-                              dailyPlan._id,
-                              dailyPlan.totalEnergy,
-                              dailyPlan.totalPotassium
-                            )
-                          }
+              {this.state.dailyPlanList.length ? (
+                <ul className="list-group list-group-flush">
+                  <ul className="list-group">
+                    <>
+                      {this.state.dailyPlanList.map(dailyPlan => (
+                        <li
+                          className="list-group-item text-center"
+                          key={dailyPlan._id}
+                        //todo: clicking on li isn't working...need to fix
+                        // onClick={() => this.selectDailyPlan(dailyPlan)}
                         >
-                          <div style={{ textAlign: "center" }}>
-                            <i className="fa fa-plus-circle fa-2x" />
-                          </div>
-                        </button>
-                      </li>
-                    ))}
-                  </>
+                          {/* <Link to={"/food/" + food._id}></Link> */}
+                          <strong>
+                            DailyPlan Name: {dailyPlan.dailyPlanName} <br />
+                            Energy: {dailyPlan.totalEnergy} <br />
+                            Potassium: {dailyPlan.totalPotassium} <br />
+                          </strong>
+
+                          <button
+                            className="btn px-3 text-center blue-gradient"
+                            onClick={() =>
+                              this.addToSchedule(
+                                dailyPlan._id,
+                                dailyPlan.totalEnergy,
+                                dailyPlan.totalPotassium
+                              )
+                            }
+                          >
+                            <div style={{ textAlign: "center" }}>
+                              <i className="fa fa-plus-circle fa-2x" />
+                            </div>
+                          </button>
+                        </li>
+                      ))}
+                    </>
+                  </ul>
                 </ul>
-              </ul>
-            ) : (
-                <h6>No DailyPlans, Add a dailyPlan first</h6>
-              )}
+              ) : (
+                  <h6>No DailyPlans, Add a dailyPlan first</h6>
+                )}
+            </div>
           </Col>
 
-          <Col size="md-4 sm-4">
-            <h3>Foods in your Schedule</h3>
-            {console.log(
-              "this.state.scheduleContent is",
-              this.state.scheduleContent
-            )}
+          <Col size="md-6 sm-6">
+            <div className="justify-content-right">
+              <h3>Foods in your Schedule</h3>
+              {console.log(
+                "this.state.scheduleContent is",
+                this.state.scheduleContent
+              )}
 
-            {/* {this.state.scheduleContent.map(food => (
+              {/* {this.state.scheduleContent.map(food => (
               <Card key={food.data._id}>
                 <strong>
                   <br /> {food.data.foodName} <br />
@@ -402,20 +405,21 @@ class Schedule extends Component {
               </Card>
             ))} */}
 
-            {this.state.currentSchedule &&
-              this.state.currentSchedule.dailyPlanID === null
-              ? "Please add a Daily Plan to your schedule"
-              : this.state.scheduleContent.map(food => (
-                <Card key={food.data._id}>
-                  <strong>
-                    <br /> {food.data.foodName} <br />
-                    <br /> Energy:{food.data.energy} <br />
-                    <br /> Potassium:{food.data.potassium} <br />
-                    <br /> Efficiency:{food.data.efficiency}
-                    {food.efficiency} <br />
-                  </strong>
-                </Card>
-              ))}
+              {this.state.currentSchedule &&
+                this.state.currentSchedule.dailyPlanID === null
+                ? "Please add a Daily Plan to your schedule"
+                : this.state.scheduleContent.map(food => (
+                  <Card key={food.data._id}>
+                    <strong>
+                      <br /> {food.data.foodName} <br />
+                      <br /> Energy:{food.data.energy} <br />
+                      <br /> Potassium:{food.data.potassium} <br />
+                      <br /> Efficiency:{food.data.efficiency}
+                      {food.efficiency} <br />
+                    </strong>
+                  </Card>
+                ))}
+            </div>
           </Col>
         </Row>
       </Container>
