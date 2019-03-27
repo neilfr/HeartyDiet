@@ -295,6 +295,26 @@ class Schedule extends Component {
         </Row>
 
 
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Schedule</h2>
+                <br />
+                <h5>
+                  Use this screen to create and edit a custom daily schedule
+                  made up of one daily plan(s). i.e. Mon, Mar 4, 2019 could be
+                  "Meatloaf Monday", etc.. <br />
+                  Start by selecting a Schedule Date.
+                  <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+
         <Container>
           <Row>
             <Col size="md-4" align="center" />
@@ -320,15 +340,17 @@ class Schedule extends Component {
               <div className='d-flex justify-content-center mb-5'>
                 {/* <strong>Selected DailyPlan: </strong>{" "}
               {this.state.currentDailyPlan.dailyPlanName} */}
+
                 <div className='p-2'><i className="fa fa-calendar" /> <strong>Scheduled Date: </strong></div>
                 <div className='p-2'>{moment(this.state.currentSchedule.scheduleDate).format(
                   "YYYY-MM-DD"
                 ) + " "}</div>
                 <div className='p-2 pl-5'> <i className="fa fa-bolt" /><strong>Total Energy: </strong>
-                  {this.state.currentSchedule.totalEnergy}{" "}</div>
+                  {this.state.currentSchedule.totalEnergy} {" "}</div>
                 <div className='p-2 pl-5'><i className="fa fa-kaggle" /><strong>Total Potassium: </strong>
-                  {this.state.currentSchedule.totalPotassium}</div>
+                  {this.state.currentSchedule.totalPotassium} mg </div>
               </div>
+
             </Col>
           </Row>
         ) : (
@@ -336,12 +358,15 @@ class Schedule extends Component {
           )}
 
         <Row>
+
           <Col size="md-6 sm-6">
             <div className="justify-content-left">
               <h3 className='text-center'>DailyPlan List</h3>
 
+
               {/* <Row>
               <Col> */}
+
               {this.state.dailyPlanList.length ? (
                 <ul className="list-group list-group-flush">
                   <ul className="list-group">
@@ -383,6 +408,7 @@ class Schedule extends Component {
                   <h6>No DailyPlans, Add a dailyPlan first</h6>
                 )}
             </div>
+
           </Col>
 
           <Col size="md-6 sm-6">
@@ -412,9 +438,11 @@ class Schedule extends Component {
                   <Card key={food.data._id}>
                     <strong>
                       <br /> {food.data.foodName} <br />
-                      <br /> Energy:{food.data.energy} <br />
-                      <br /> Potassium:{food.data.potassium} <br />
-                      <br /> Efficiency:{food.data.efficiency}
+                     Energy: {food.data.energy} kCal
+                
+                      <br /> Potassium: {food.data.potassium} mg
+                     
+                      <br /> Efficiency: {food.data.efficiency}
                       {food.efficiency} <br />
                     </strong>
                   </Card>

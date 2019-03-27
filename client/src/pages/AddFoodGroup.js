@@ -127,9 +127,9 @@ class FoodGroup extends Component {
                 <Container>
                   <div
                     className="container card mt-2 mb-3"
-                    onClick={() =>
-                      this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                    }
+                    // onClick={() =>
+                    //   this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                    // }
                   >
                     {/* {console.log(foodGroupList.image)} */}
                     {/* <div className="card" style={{ width: 35 }}> */}
