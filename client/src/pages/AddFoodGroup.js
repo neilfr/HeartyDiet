@@ -108,7 +108,9 @@ class FoodGroup extends Component {
             this.state.foodGroupList.map(foodGroupList => (
               <Col size="lg-4">
                 <Container >
-                  <div className="container card m-2"
+
+                  <div className="container card mt-2 mb-3"
+
                     onClick={() =>
                       this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
                     }>

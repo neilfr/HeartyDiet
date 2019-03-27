@@ -51,4 +51,7 @@ width:150px;
     color:#ef5350;
     font-weight: bold;
 }
+.custom-container > h3{
+justify-content:center;
+}
 
