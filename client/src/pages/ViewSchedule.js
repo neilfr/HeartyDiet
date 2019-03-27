@@ -12,6 +12,8 @@ import Button from "../components/Button";
 //import Calendar from "../components/Calendar";
 import Date from "../components/Date";
 var moment = require("moment");
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Schedule extends Component {
   state = {
@@ -31,15 +33,15 @@ class Schedule extends Component {
   };
 
   componentDidMount() {
-    // this.loadSchedule("JohnSmith");
-    this.loadDailyPlan("JohnSmith");
+    // this.loadSchedule(userID);
+    this.loadDailyPlan(userID);
 
     this.setState({
       scheduleDate: moment().format("YYYY-MM-DD")
     });
   }
-  // loadFoodFavorites = userName => {
-  //   API.getFoodByUser(userName)
+  // loadFoodFavorites = userID => {
+  //   API.getFoodByUser(userID)
   //     .then(res => {
   //       console.log("foodFavoriteList is: ", res.data);
   //       this.setState({
@@ -49,8 +51,8 @@ class Schedule extends Component {
   //     .catch(err => console.log(err));
   // };
 
-  loadSchedule = userName => {
-    API.getScheduleByUser(userName)
+  loadSchedule = userID => {
+    API.getScheduleByUser(userID)
       .then(res => {
         this.setState({
           scheduleList: res.data
@@ -59,8 +61,8 @@ class Schedule extends Component {
       .catch(err => console.log(err));
   };
 
-  loadDailyPlan = userName => {
-    API.getDailyPlanByUser(userName)
+  loadDailyPlan = userID => {
+    API.getDailyPlanByUser(userID)
       .then(res => {
         this.setState({
           dailyPlanList: res.data
@@ -185,7 +187,7 @@ class Schedule extends Component {
 
     let scheduleData = {
       scheduleDate: this.state.scheduleDate,
-      userName: "JohnSmith",
+      userID: userID,
       totalEnergy: dailyPlanTotalEnergy,
       totalPotassium: dailyPlanTotalPotassium,
       dailyPlanID: dailyPlan_id
@@ -237,10 +239,17 @@ class Schedule extends Component {
 
     this.loadDailyPlanByScheduleDate(event.target.value);
 
-    if (this.state.scheduleObject.dailyPlanID === null) {
+    console.log(
+      "this.state.scheduleObject.dailyPlanID",
+      this.state.scheduleObject.dailyPlanID
+    );
+    if (
+      this.state.scheduleObject.dailyPlanID === null ||
+      this.state.scheduleObject.dailyPlanID === undefined
+    ) {
       var defaultData = {
         scheduleDate: event.target.value,
-        userName: "JohnSmith",
+        userID: userID,
         dailyPlanID: null,
         totalEnergy: 0,
         totalPotassium: 0

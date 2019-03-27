@@ -24,7 +24,7 @@ router
 
 //just added
 router
-  .route("/scheduleByUser/:userName")
+  .route("/scheduleByUser/:userID")
   .post(scheduleController.create)
   .get(scheduleController.findByUser);
 

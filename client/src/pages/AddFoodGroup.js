@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import Jumbotron from "../components/Jumbotron";
+//import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 // import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
-import Button from "../components/Button";
+//import Button from "../components/Button";
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class FoodGroup extends Component {
   state = {
@@ -15,11 +17,24 @@ class FoodGroup extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodGroupByMasterAndUser("JohnSmith");
+    this.loadFoodGroupByMasterAndUser(userID);
   }
 
-  loadFoodGroupByMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  verifyLogin = () => {
+    let userObj = JSON.parse(localStorage.getItem("userObj"));
+    if (userObj === null || userObj.Token === null || userObj.Token === "") {
+      //REDIRCT THEM TO LOGIN
+      window.location.href = "./";
+    }
+    {
+      this.setState({
+        userID: userObj.Token
+      });
+    }
+  };
+
+  loadFoodGroupByMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodGroupName: "",
@@ -48,10 +63,10 @@ class FoodGroup extends Component {
       this.findPic(this.state.foodGroupName);
       API.saveFoodGroup({
         foodGroupName: this.state.foodGroupName,
-        userName: "JohnSmith"
+        userID: userID
       })
 
-        .then(res => this.loadFoodGroupByMasterAndUser("JohnSmith"))
+        .then(res => this.loadFoodGroupByMasterAndUser(userID))
         .catch(err => console.log(err));
     }
   };
@@ -84,11 +99,22 @@ class FoodGroup extends Component {
                   {/* <Link to={"/food/" + food._id}></Link> */}
                   <div>
                     {foodGroupList.image ? (
-                      <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
-                        src={foodGroupList.image} />) : (
-                        <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
-                          src={this.state.pics} />)}
-                    <h4> {foodGroupList.foodGroupName}</h4><br />
+                      <img
+                        className="card-img-left"
+                        style={{ width: 95, height: 95 }}
+                        alt="groupImg"
+                        src={foodGroupList.image}
+                      />
+                    ) : (
+                      <img
+                        className="card-img-left"
+                        style={{ width: 95, height: 95 }}
+                        alt="groupImg"
+                        src={this.state.pics}
+                      />
+                    )}
+                    <h4> {foodGroupList.foodGroupName}</h4>
+                    <br />
                   </div>
 
                   {/* <DeleteBtn  /> */}
@@ -98,8 +124,8 @@ class FoodGroup extends Component {
               </ul> */}
             </div>
           ) : (
-              <h3>No Results to Display</h3>
-            )}
+            <h3>No Results to Display</h3>
+          )}
         </Row>
 
         <Row>

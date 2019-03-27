@@ -27,11 +27,11 @@ router
   .post(foodController.create);
 
 router
-  .route("/foodByFoodGroupNameAndUser/:foodGroupName/:userName")
+  .route("/foodByFoodGroupNameAndUser/:foodGroupName/:userID")
   .get(foodController.findByFoodGroupNameAndUser);
 
 router
-  .route("/foodByUser/:userName")
+  .route("/foodByUser/:userID")
   .post(foodController.create)
   .get(foodController.findByUser);
 

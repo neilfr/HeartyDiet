@@ -7,6 +7,8 @@ import Card from "../components/Card";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 import DeleteBtn from "../components/DeleteBtn";
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class Meal extends Component {
   state = {
@@ -19,7 +21,7 @@ class Meal extends Component {
   }
 
   loadMeals = () => {
-    API.getMealByUser("JohnSmith")
+    API.getMealByUser(userID)
       .then(res => {
         this.setState({
           mealList: res.data
@@ -42,7 +44,7 @@ class Meal extends Component {
 
   // loadFood = () => {
   //   API.getFoodByFoodGroupNameAndUser("Sweets", "master")
-  //     // API.getFoodByFoodGroupAndUser("Sweets", "JohnSmith")
+  //     // API.getFoodByFoodGroupAndUser("Sweets", userID)
   //     .then(res =>
   //       this.setState({
   //         foodList: res.data,
@@ -74,7 +76,7 @@ class Meal extends Component {
     if (this.state.mealName) {
       API.saveMeal({
         mealName: this.state.mealName,
-        userName: "JohnSmith",
+        userID: userID,
         totalEnergy: 0,
         totalPotassium: 0
       })

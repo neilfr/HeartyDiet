@@ -21,7 +21,7 @@ export default {
   //   updateMealByID: function (id, updatedMeal) {
   //     return axios.put("/api/meal/" + id, updatedMeal);
   //   },
-  //   getMealByUser: function (userName) {
+  //   getMealByUser: function (userID) {
   removeFoodFromMealByID: function(mealId, foodId) {
     console.log("inside client api removeFoodFromMealById");
     console.log("mealId is:", mealId); //this is right
@@ -103,16 +103,16 @@ export default {
   //   return axios.post("/api/schedule" + scheduleData);
   // },
 
-  getMealByUser: function(userName) {
+  getMealByUser: function(userID) {
     console.log(
       "I'm inside getMealByUser in the API... looking for meals for:",
-      userName
+      userID
     );
-    return axios.get("/api/meal/mealByUser/" + userName);
+    return axios.get("/api/meal/mealByUser/" + userID);
   },
 
-  getDailyPlanByUser: function(userName) {
-    return axios.get("/api/dailyPlan/dailyPlanByUser/" + userName);
+  getDailyPlanByUser: function(userID) {
+    return axios.get("/api/dailyPlan/dailyPlanByUser/" + userID);
   },
 
   getMealByID: function(id) {
@@ -127,8 +127,8 @@ export default {
     return axios.get("/api/schedule/dailyPlanByScheduleDate/" + scheduleDate);
   },
 
-  getScheduleByUser: function(userName) {
-    return axios.get("/api/schedule/scheduleByUser/" + userName);
+  getScheduleByUser: function(userID) {
+    return axios.get("/api/schedule/scheduleByUser/" + userID);
   },
 
   deleteMeal: function(id) {
@@ -141,16 +141,21 @@ export default {
   getFoodByFoodGroupName: function(foodGroupName) {
     return axios.get("/api/food/foodByFoodGroupName/" + foodGroupName);
   },
-  getFoodByFoodGroupNameAndUser: function(foodGroupName, userName) {
+  getFoodByFoodGroupNameAndUser: function(foodGroupName, userID) {
     return axios.get(
-      "/api/food/foodByFoodGroupNameAndUser/" + foodGroupName + "/" + userName
+      "/api/food/foodByFoodGroupNameAndUser/" + foodGroupName + "/" + userID
     );
   },
-  getFoodByUser: function(userName) {
-    return axios.get("/api/food/foodByUser/" + userName);
+  getFoodByUser: function(userID) {
+    return axios.get("/api/food/foodByUser/" + userID);
   },
-  getFoodGroupByMasterAndUser: function(userName) {
-    return axios.get("/api/foodgroup/foodGroupByMasterAndUser/" + userName);
+  getFoodGroupByMasterAndUser: function(userID) {
+    return axios.get(
+      "/api/foodgroup/foodGroupByMasterAndUser/" + "123456/" + userID
+    );
+  },
+  getFoodGroupByMaster: function(userID) {
+    return axios.get("/api/foodgroup/foodGroupByMaster/" + "123456");
   },
   // Gets the food with the given id
   getFoodByID: function(id) {

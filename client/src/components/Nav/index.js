@@ -48,7 +48,7 @@ class Nav extends Component {
   };
 
   render() {
-    console.log(this.state.user);
+    //console.log(this.state.user);
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark #ef5350 red lighten-1">

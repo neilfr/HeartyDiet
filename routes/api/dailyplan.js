@@ -19,7 +19,7 @@ router
 
 //just added
 router
-  .route("/dailyPlanByUser/:userName")
+  .route("/dailyPlanByUser/:userID")
   .post(dailyPlanController.create)
   .get(dailyPlanController.findByUser);
 

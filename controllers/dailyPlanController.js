@@ -69,16 +69,22 @@ module.exports = {
     //   res.json(err);
     // });
   },
+
   updateKCalTotals: function(req, res) {
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       { $set: req.body },
       { new: true }
     )
-      //   .populate("foodList.food") // changed from foodList to foodList.food
-      .exec(function(err, found) {
-        console.log(found, err);
-        res.json(found);
+      .populate("mealList") // changed from foodList to foodList.food
+      // .exec(function(err, found) {
+      //   console.log(found, err);
+      //   res.json(found);
+      // });
+      .exec()
+      .then(dbModel => {
+        console.log("UPDATEKCALTOTALS DBMODEL IS:", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
       });
   },
 
@@ -115,7 +121,7 @@ module.exports = {
 
   //   findByUser: function(req, res) {
   //     db.DailyPlan.find({
-  //       userName: req.params.userName
+  //       userID: req.params.userID
   //     })
   //       .sort({ dailyPlanName: 1 })
   //       //!new lines to include all the related food list data for each of the dailyPlans
@@ -126,7 +132,7 @@ module.exports = {
 
   findByUser: function(req, res) {
     db.DailyPlan.find({
-      userName: req.params.userName
+      userID: req.params.userID
     })
       // .sort({ foodName: 1 })
       .then(dbModel =>

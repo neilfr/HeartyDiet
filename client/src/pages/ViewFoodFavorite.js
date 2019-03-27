@@ -5,6 +5,8 @@ import { Col, Row, Container } from "../components/Grid";
 import Card from "../components/Card";
 import { Input, TextArea, FormBtn, Dropdown } from "../components/Form";
 import CustomCard from "../components/CustomCard"
+const VerifyLogin = require("../utils/VerifyLogin");
+const userID = VerifyLogin.verifyUserObj();
 
 class FoodFavorite extends Component {
   state = {
@@ -18,12 +20,13 @@ class FoodFavorite extends Component {
   };
 
   componentDidMount() {
-    this.loadFoodFavorite("JohnSmith");
-    this.loadFoodGroupByMasterAndUser("JohnSmith");
+       
+    this.loadFoodFavorite(userID);
+    this.loadFoodGroupByMasterAndUser(userID);
   }
 
-  loadFoodFavorite = userName => {
-    API.getFoodByUser(userName)
+  loadFoodFavorite = userID => {
+    API.getFoodByUser(userID)
       .then(res => {
         this.setState({
           foodFavoriteList: res.data
@@ -41,7 +44,7 @@ class FoodFavorite extends Component {
       )
     ) {
       API.deleteFoodByID(id)
-        .then(res => this.loadFoodFavorite("JohnSmith"))
+        .then(res => this.loadFoodFavorite(userID))
         .catch(err => console.log(err));
     }
   };
@@ -72,7 +75,7 @@ class FoodFavorite extends Component {
         )
         .catch(err => console.log(err));
 
-      this.loadFoodFavorite("JohnSmith");
+      this.loadFoodFavorite(userID);
     }
   };
 
@@ -86,8 +89,8 @@ class FoodFavorite extends Component {
     });
   };
 
-  loadFoodGroupByMasterAndUser = userName => {
-    API.getFoodGroupByMasterAndUser(userName)
+  loadFoodGroupByMasterAndUser = userID => {
+    API.getFoodGroupByMasterAndUser(userID)
       .then(res =>
         this.setState({
           foodGroupList: res.data
@@ -124,7 +127,7 @@ class FoodFavorite extends Component {
                     energy={foodFavoriteList.energy}
                     potassium={foodFavoriteList.potassium}
                     efficiency={foodFavoriteList.efficiency}
-                    username={foodFavoriteList.userName}
+                    username={foodFavoriteList.userID}
                   >
                   </CustomCard>
                 </div>

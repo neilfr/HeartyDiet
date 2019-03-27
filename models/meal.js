@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const MealSchema = new Schema({
   mealName: { type: String, required: false },
-  userName: { type: String, required: false },
+  userID: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   totalEnergy: { type: Number, required: false },
   totalPotassium: { type: Number, required: false },
   foodList: [
