@@ -47,31 +47,38 @@ class DailyPlan extends Component {
       .catch(err => console.log(err));
   };
 
-  selectDailyPlan = dailyPlan => {
-    console.log("selectDailyPlan dailyplan is : " + dailyPlan);
-    console.log(dailyPlan);
-
-    this.setState({ currentDailyPlan: dailyPlan });
-    console.log(
-      "selected dailyPlan... now current dailyPlan state is:",
-      this.state.currentDailyPlan
-    );
-
-    var mealListArray = [];
-    dailyPlan.mealList.map(mealID =>
-      API.getMealByID(mealID)
-        .then(res => {
-          console.log("mealListArray element is: ", res.data);
-
-          mealListArray.push(res.data);
-
-          this.setState({
-            dailyPlanMealList: mealListArray
-          });
-        })
-        .catch(err => console.log(err))
-    );
+  selectDailyPlan = dailyPlanId => {
+    console.log("SELECTDAILYPLAN DAILYPLANID IS : ", dailyPlanId);
+    // this.setState({ currentDailyPlan: dailyPlan });
+    API.getDailyPlanByID(dailyPlanId)
+      .then(res => {
+        console.log("GETDAILYPLANBYID RETURNED: ", res.data.mealList);
+        this.setState({
+          dailyPlanMealList: res.data.mealList
+        });
+      })
+      .catch(err => console.log(err));
   };
+  //   console.log(
+  //     "selected dailyPlan... now current dailyPlan state is:",
+  //     this.state.currentDailyPlan
+  //   );
+
+  //   var mealListArray = [];
+  //   dailyPlan.mealList.map(mealID =>
+  //     API.getMealByID(mealID)
+  //       .then(res => {
+  //         console.log("mealListArray element is: ", res.data);
+
+  //         mealListArray.push(res.data);
+
+  //         this.setState({
+  //           dailyPlanMealList: mealListArray
+  //         });
+  //       })
+  //       .catch(err => console.log(err))
+  //   );
+  // };
 
   removeFromDailyPlan = mealID => {
     console.log("remove meal:", mealID);
@@ -329,34 +336,31 @@ class DailyPlan extends Component {
               <h3>Meals in your DailyPlan</h3>
             </Row>
             <Row>
-              <div>
-                {/* this.state.currentDailyPlan && */}
-                {this.state.dailyPlanMealList.length + " meals"}
-                {this.state.dailyPlanMealList.length > 0 ? (
-                  <List>
-                    {this.state.dailyPlanMealList.map(meal => (
-                      <Card key={meal._id}>
-                        <strong>
-                          <br /> {meal.mealName} <br />
-                          <br /> Energy:{meal.totalEnergy} <br />
-                          <br /> Potassium:{meal.totalPotassium} <br />
-                          {/* <br /> ServingSize:{meal.servingSize}
+              {this.state.dailyPlanMealList &&
+              this.state.dailyPlanMealList.length > 0 ? (
+                <List>
+                  {this.state.dailyPlanMealList.map(meal => (
+                    <Card key={meal._id}>
+                      <strong>
+                        <br /> {meal.mealName} <br />
+                        <br /> Energy:{meal.totalEnergy} <br />
+                        <br /> Potassium:{meal.totalPotassium} <br />
+                        {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                          <br /> Efficiency: {meal.efficiency} <br />
-                        </strong>
-                        <Button
-                          className="btn btn-danger"
-                          onClick={() => this.removeFromDailyPlan(meal._id)}
-                        >
-                          Remove
-                        </Button>
-                      </Card>
-                    ))}
-                  </List>
-                ) : (
-                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                )}
-              </div>
+                        <br /> Efficiency: {meal.efficiency} <br />
+                      </strong>
+                      <Button
+                        className="btn btn-danger"
+                        onClick={() => this.removeFromDailyPlan(meal._id)}
+                      >
+                        Remove
+                      </Button>
+                    </Card>
+                  ))}
+                </List>
+              ) : (
+                <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+              )}
             </Row>
           </Col>
           <Col size="md-4 sm-4">

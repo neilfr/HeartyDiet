@@ -91,7 +91,7 @@ module.exports = {
 
   findById: function(req, res) {
     db.DailyPlan.findById(req.params.id)
-      .populate("foodList")
+      .populate("mealList")
       // .then(dbModel => res.json(dbModel))
       .exec()
       .then(dbModel => {
