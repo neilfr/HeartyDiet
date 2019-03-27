@@ -51,7 +51,7 @@ class Nav extends Component {
     //console.log(this.state.user);
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark #ef5350 red lighten-1">
+      <nav className="navbar navbar-expand-lg navbar-dark navbar-fixed #ef5350 red lighten-1">
         <a className="navbar-brand" href="./">
           Hearty Diet
         </a>
