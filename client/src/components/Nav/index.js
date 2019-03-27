@@ -77,7 +77,7 @@ class Nav extends Component {
                   : "text-dark"
               }
             >
-              Home
+              Login
             </Link>
           </li>
           <li className="nav-item m-2">

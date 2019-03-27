@@ -90,9 +90,10 @@ class Food extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron>
+            {/* <Jumbotron>
               <h1>Add Custom Food</h1>
-            </Jumbotron>
+
+            </Jumbotron> */}
 
             <form>
               <Input

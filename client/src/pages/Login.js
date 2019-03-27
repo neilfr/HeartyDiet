@@ -118,13 +118,13 @@ class Login extends Component {
 
     return (
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col size="md-12">
             <Jumbotron>
               <h1>Please Login to plan your Hearty Diet.</h1>
             </Jumbotron>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col size="md-4" />
           <Col size="md-4">
