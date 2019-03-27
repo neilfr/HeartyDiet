@@ -9,7 +9,7 @@ import Card from "../components/Card";
 import DeleteBtn from "../components/DeleteBtn";
 import AddBtn from "../components/AddBtn";
 import Button from "../components/Button";
-import "./viewFoodStyle.css"
+import "./viewFoodStyle.css";
 
 const VerifyLogin = require("../utils/VerifyLogin");
 const userID = VerifyLogin.verifyUserObj();
@@ -222,9 +222,29 @@ class DailyPlan extends Component {
     return (
       <Container fluid>
         {/* end of add dailyPlan section */}
-        <div className="col-4 offset-8 mb-2" >
+
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Daily Plan</h2>
+                <br />
+                <h5>
+                  Use this screen to create and edit a custom daily plan made up
+                  of meal(s). i.e. Meatloaf Monday, Taco Tuesday, etc. <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+        <div className="col-4 offset-8 mb-2">
           <div className="input-group mt-3 form-sm form-2 pl-0">
-            <input className="form-control my-0 py-1 blue-border" type="text" aria-label="Search"
+            <input
+              className="form-control my-0 py-1 blue-border"
+              type="text"
+              aria-label="Search"
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
               name="dailyPlanName"
@@ -234,9 +254,7 @@ class DailyPlan extends Component {
               {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
               <button
                 className="input-group-text blue"
-                disabled={
-                  !this.state.dailyPlanName
-                }
+                disabled={!this.state.dailyPlanName}
                 onClick={this.handleFormSubmit}
               >
                 <i className=" fa fa-plus" />
@@ -246,28 +264,53 @@ class DailyPlan extends Component {
         </div>
 
         {this.state.currentDailyPlan ? (
-          <div className='col-lg-12'>
+          <div className="col-lg-12">
             <div className="d-flex flex-row justify-content-center mb-3 ">
-              <div className='p-3 flex-fill dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentDailyPlan.dailyPlanName}</span></div>
-              <div className='p-3 flex-fill dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentDailyPlan.totalEnergy}</div>
-              <div className='p-3 flex-fill pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" />{this.state.currentDailyPlan.totalPotassium}</div>
+              <div className="p-3 flex-fill dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/ftEWZYQ.png"
+                />
+                <span className="meal-selected">
+                  {" "}
+                  {this.state.currentDailyPlan.dailyPlanName}
+                </span>
+              </div>
+              <div className="p-3 flex-fill dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/iCAG80W.png"
+                />
+                {this.state.currentDailyPlan.totalEnergy}
+              </div>
+              <div className="p-3 flex-fill pr-5 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/rK4wz3p.jpg"
+                />
+                {this.state.currentDailyPlan.totalPotassium}
+              </div>
             </div>
           </div>
-
         ) : (
-            <div className="row">
-              <h6 className="col-4 offset-8 mb-3 text-justify">
-                Select a Meal from the meal list to see what foods it contains
-                and to make changes
+          <div className="row">
+            <h6 className="col-4 offset-8 mb-3 text-justify">
+              Select a Meal from the meal list to see what foods it contains and
+              to make changes
             </h6>
-            </div>
-          )}
+          </div>
+        )}
 
         <Row>
           <Col size="md-4 sm-4">
             <div className="container">
               <Row>
-                <h3 align="center" className=" pl-4">DailyPlan List</h3>
+                <h3 align="center" className=" pl-4">
+                  DailyPlan List
+                </h3>
               </Row>
               <Row>
                 {this.state.dailyPlanList.length ? (
@@ -277,7 +320,8 @@ class DailyPlan extends Component {
                         {this.state.dailyPlanList.map(dailyPlan => (
                           <li
                             className="list-group-item text-center"
-                            key={dailyPlan._id}>
+                            key={dailyPlan._id}
+                          >
                             {/* <Link to={"/meal/" + meal._id}></Link> */}
                             <strong>
                               DailyPlan Name: {dailyPlan.dailyPlanName} <br />
@@ -295,7 +339,9 @@ class DailyPlan extends Component {
                             </button>
                             <button
                               className="btn px-3 text-center peach-gradient "
-                              onClick={() => this.deleteDailyPlan(dailyPlan._id)}
+                              onClick={() =>
+                                this.deleteDailyPlan(dailyPlan._id)
+                              }
                             >
                               <div style={{ textAlign: "center" }}>
                                 <i className="fa fa-minus-circle fa-2x" />
@@ -307,8 +353,8 @@ class DailyPlan extends Component {
                     </ul>
                   </ul>
                 ) : (
-                    <h6>No DailyPlans, Add a dailyPlan first</h6>
-                  )}
+                  <h6>No DailyPlans, Add a dailyPlan first</h6>
+                )}
               </Row>
             </div>
           </Col>
@@ -326,7 +372,8 @@ class DailyPlan extends Component {
                       {this.state.dailyPlanMealList.map(meal => (
                         <li
                           className="list-group-item text-center"
-                          key={meal._id}>
+                          key={meal._id}
+                        >
                           <strong>
                             {meal.mealName} <br />
                             Energy:{meal.totalEnergy} <br />
@@ -340,20 +387,20 @@ class DailyPlan extends Component {
                             onClick={() => this.removeFromDailyPlan(meal._id)}
                           >
                             Remove
-                        </Button>
+                          </Button>
                         </li>
                       ))}
                     </ul>
                   </ul>
                 ) : (
-                    <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                  )}
+                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+                )}
               </div>
             </Row>
           </Col>
           <Col size="md-4 sm-4">
             <Row>
-              <h3 className='pl-5'>Meals</h3>
+              <h3 className="pl-5">Meals</h3>
             </Row>
             <Row>
               {this.state.mealList.length ? (
@@ -362,7 +409,8 @@ class DailyPlan extends Component {
                     {this.state.mealList.map(meal => (
                       <li
                         className="list-group-item text-center"
-                        key={meal._id}>
+                        key={meal._id}
+                      >
                         <strong>
                           {meal.mealName} <br />
                           Energy:{meal.totalEnergy} <br />
@@ -382,8 +430,8 @@ class DailyPlan extends Component {
                   </ul>
                 </ul>
               ) : (
-                  <h6>Click Add to add a meal to the dailyPlan</h6>
-                )}
+                <h6>Click Add to add a meal to the dailyPlan</h6>
+              )}
             </Row>
           </Col>
         </Row>

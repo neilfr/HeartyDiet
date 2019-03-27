@@ -91,19 +91,29 @@ class Food extends Component {
         <Row>
           <Col size="md-12 sm-12">
             <Container>
-              <div className="text-center wow fadeInUp mt-5">
-                <h2>Add a Food Item Here</h2>
-                <br />
-              </div>
+              <Container fluid>
+                <Row>
+                  <Col size="md-12 sm-12">
+                    <div className="text-center wow fadeInUp mt-5">
+                      <h2>Add a Food Item Here</h2>
+                      <br />
+                      <h5>
+                        Use this screen to create a food item that is not part
+                        of the original master list. <br />
+                      </h5>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+
               <form style={{ marginTop: 25 }}>
+                Food Name
                 <Input
                   value={this.state.foodName}
                   onChange={this.handleInputChange}
                   name="foodName"
-                  placeholder="Food Name (required)"
+                  placeholder="Enter Food Name (required)"
                 />
-
-
                 <Dropdown
                   name="foodGroupName"
                   onChange={this.handleInputChange}
@@ -116,17 +126,19 @@ class Food extends Component {
                     </option>
                   ))}
                 </Dropdown>
+                Energy (kCal)
                 <Input
                   value={this.state.energy}
                   onChange={this.handleInputChange}
                   name="energy"
-                  placeholder="Energy (required)"
+                  placeholder="Enter Energy in kCal (required)"
                 />
+                Potassium (mg)
                 <Input
                   value={this.state.potassium}
                   onChange={this.handleInputChange}
                   name="potassium"
-                  placeholder="Potassium (required)"
+                  placeholder="Enter Potassium in mg (required)"
                 />
                 {/* <TextArea
                 value={this.state.synopsis}
