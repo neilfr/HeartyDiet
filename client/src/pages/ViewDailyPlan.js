@@ -42,6 +42,7 @@ class DailyPlan extends Component {
     API.getDailyPlanByUser(userID)
       .then(res => {
         console.log("GETDAILYPLANBYUSER RETURNED: ", res.data);
+        console.log("CURRENTDAILYPLAN STATE WILL BE SET TO: ", res.data[0]);
         this.setState({
           dailyPlanList: res.data,
           currentDailyPlan: res.data[0]

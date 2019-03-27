@@ -18,6 +18,7 @@ module.exports = {
     console.log("DAILYPLAN ID IS:", req.params.dailyPlanId);
     console.log("MEAL ID IS: ", req.params.mealId);
 
+    //!check back here - compare with this
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
@@ -98,12 +99,16 @@ module.exports = {
       })
       .catch(err => console.log(err));
   },
-
+  //!check back here - compare this
   findById: function(req, res) {
     db.DailyPlan.findById(req.params.id)
-      .populate("foodList")
+      .populate("mealList.meal")
+      .exec()
       // .then(dbModel => res.json(dbModel))
-      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .then(dbModel => {
+        console.log("FINDBYID DBMODEL IS:", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
@@ -146,9 +151,22 @@ module.exports = {
       userID: req.params.userID
     })
       // .sort({ foodName: 1 })
-      .then(dbModel =>
-        res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
-      )
-      .catch(err => res.status(422).json(err));
+      .populate("mealList.meal")
+      .exec(function(err, dailyPlans) {
+        dailyPlans = dailyPlans.map(dailyPlan => {
+          dailyPlan.mealList = dailyPlan.mealList.map(meal => {
+            return meal.toJSON({ virtuals: true });
+          });
+          return dailyPlan.toJSON({ virtuals: true });
+        });
+        res.json(dailyPlans);
+      });
   }
 };
+
+//         then(dbModel =>
+//         res.json(dbModel.map(model => model.toJSON({ virtuals: true })))
+//       )
+//       .catch(err => res.status(422).json(err));
+//   }
+// };

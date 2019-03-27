@@ -147,7 +147,7 @@ class Login extends Component {
                   of Toronto Full Stack Web Development Bootcamp program. <br />
                   This Web application allows meal planning and specifically
                   focused on potassium instake. Functionality to support other
-                  nutrients can be added in he future.
+                  nutrients can be added in the future.
                   <br />
                   <br />
                 </h6>
