@@ -172,6 +172,7 @@ class Nav extends Component {
               Logout
             </a>
           </li>
+
           {/* <li className="nav-item m-2">
               <a className="text-dark disabled" href="#">
                 Disabled
@@ -179,6 +180,8 @@ class Nav extends Component {
             </li> */}
         </ul>
         {/* </div> */}
+
+
 
         {this.state.user ? this.userInfoButton() : ""}
       </nav>
