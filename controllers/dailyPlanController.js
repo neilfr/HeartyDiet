@@ -85,14 +85,19 @@ module.exports = {
       .then(dbModel => {
         console.log("UPDATEKCALTOTALS DBMODEL IS:", dbModel);
         res.json(dbModel.toJSON({ virtuals: true }));
-      });
+      })
+      .catch(err => console.log(err));
   },
 
   findById: function(req, res) {
     db.DailyPlan.findById(req.params.id)
       .populate("foodList")
       // .then(dbModel => res.json(dbModel))
-      .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
+      .exec()
+      .then(dbModel => {
+        console.log("DAILYPLAN FINDBYID DBMODEL IS: ", dbModel);
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
@@ -116,7 +121,10 @@ module.exports = {
     db.DailyPlan.findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel.toJSON({ virtuals: true })))
-      .catch(err => res.status(422).json(err));
+      .catch(err => {
+        console.error(err);
+        res.json(err);
+      });
   },
 
   //   findByUser: function(req, res) {

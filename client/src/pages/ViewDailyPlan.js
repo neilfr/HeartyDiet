@@ -220,7 +220,7 @@ class DailyPlan extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6" className='ml-3'>
+          <Col size="md-6" className="ml-3">
             <Input
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
@@ -249,19 +249,43 @@ class DailyPlan extends Component {
         {this.state.currentDailyPlan ? (
           <div>
             <div className="d-flex flex-row justify-content-center mb-1">
-              <div className='p-3 pl-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/ftEWZYQ.png" /><span className="meal-selected"> {this.state.currentDailyPlan.dailyPlanName}</span></div>
-              <div className='p-3 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/iCAG80W.png" />{this.state.currentDailyPlan.totalEnergy}</div>
-              <div className='p-3 pr-5 dotted-div'><img style={thumbnail} alt="icon" src="https://i.imgur.com/rK4wz3p.jpg" />{this.state.currentDailyPlan.totalPotassium}</div>
+              <div className="p-3 pl-5 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/ftEWZYQ.png"
+                />
+                <span className="meal-selected">
+                  {" "}
+                  {this.state.currentDailyPlan.dailyPlanName}
+                </span>
+              </div>
+              <div className="p-3 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/iCAG80W.png"
+                />
+                {this.state.currentDailyPlan.totalEnergy}
+              </div>
+              <div className="p-3 pr-5 dotted-div">
+                <img
+                  style={thumbnail}
+                  alt="icon"
+                  src="https://i.imgur.com/rK4wz3p.jpg"
+                />
+                {this.state.currentDailyPlan.totalPotassium}
+              </div>
             </div>
           </div>
         ) : (
-            <div className="row ml-5">
-              <h6>
-                Select a Meal from the meal list to see what foods it contains
-                and to make changes
+          <div className="row ml-5">
+            <h6>
+              Select a Meal from the meal list to see what foods it contains and
+              to make changes
             </h6>
-            </div>
-          )}
+          </div>
+        )}
 
         <Row>
           <Col size="md-4 sm-4">
@@ -282,7 +306,7 @@ class DailyPlan extends Component {
                       </strong>
                       <Button
                         className="btn btn-primary"
-                        onClick={() => this.selectDailyPlan(dailyPlan)}
+                        onClick={() => this.selectDailyPlan(dailyPlan._id)}
                       >
                         Select
                       </Button>
@@ -296,8 +320,8 @@ class DailyPlan extends Component {
                   ))}
                 </>
               ) : (
-                  <h6>No DailyPlans, Add a dailyPlan first</h6>
-                )}
+                <h6>No DailyPlans, Add a dailyPlan first</h6>
+              )}
             </Row>
           </Col>
           <Col size="md-4 sm-4">
@@ -326,12 +350,12 @@ class DailyPlan extends Component {
                         >
                           Remove
                         </Button>
-                        </Card>
-                      ))}
+                      </Card>
+                    ))}
                   </List>
                 ) : (
-                    <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                  )}
+                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+                )}
               </div>
             </Row>
           </Col>
@@ -358,8 +382,8 @@ class DailyPlan extends Component {
                   </Card>
                 ))
               ) : (
-                  <h6>Click Add to add a meal to the dailyPlan</h6>
-                )}
+                <h6>Click Add to add a meal to the dailyPlan</h6>
+              )}
             </Row>
           </Col>
         </Row>
