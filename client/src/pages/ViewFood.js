@@ -161,10 +161,33 @@ class Food extends Component {
 
     return (
       <Container fluid>
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>View Foods / Select Favorite Foods</h2>
+                <br />
+                <h5>
+                  Use this screen to add items as favorite foods. You can search
+                  food items, or use the Food Group buttons below to see food
+                  under the specific food group. Click on the food item to add
+                  the food item to your favorite food list. <br />
+                  <br />
+                </h5>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
         <Row>
-          <div className="col-6 search-bar offset-6" >
+          <div className="col-6 search-bar offset-6">
+            Search by Food Name
             <div className="input-group mt-3 form-sm form-2 pl-0">
-              <input className="form-control my-0 py-1 red-border" type="text" placeholder="Enter Food Name" aria-label="Search"
+              <input
+                className="form-control my-0 py-1 red-border"
+                type="text"
+                placeholder="Enter Food Name"
+                aria-label="Search"
                 value={this.state.foodSearch}
                 onChange={this.handleInputChange}
                 name="foodSearch"
@@ -179,7 +202,6 @@ class Food extends Component {
                 </button>
               </div>
             </div>
-
             {/* <form>
               <Input
                 value={this.state.foodSearch}
@@ -198,7 +220,7 @@ class Food extends Component {
           /> */}
         </Row>
         <div className="container">
-          <h4>Browse Common Foods</h4>
+          <h4>Browse Common Foods By Food Group</h4>
           <hr />
           <Row>
             {this.state.foodGroupList.length ? (
@@ -248,8 +270,14 @@ class Food extends Component {
                 </Col>
               ))
             ) : (
-                <h3>No Results to Display1</h3>
-              )}
+              <Container>
+                <Row>
+                  <Col size="lg-12">
+                    <h3>No Food Groups to Display</h3>
+                  </Col>
+                </Row>
+              </Container>
+            )}
             {/* </Col> */}
           </Row>
         </div>
@@ -282,8 +310,14 @@ class Food extends Component {
               </Col>
             ))
           ) : (
-              <h3>No Results to Display</h3>
-            )}
+            <Container>
+              <Row>
+                <Col size="lg-12">
+                  <h3>No Foods To Display</h3>
+                </Col>
+              </Row>
+            </Container>
+          )}
         </Row>
       </Container>
     );

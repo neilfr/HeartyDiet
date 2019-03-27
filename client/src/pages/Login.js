@@ -125,6 +125,37 @@ class Login extends Component {
             </Jumbotron>
           </Col>
         </Row> */}
+
+        <Container fluid>
+          <Row>
+            <Col size="md-12 sm-12">
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>
+                  Welcome to Hearty Diet - Meal Management / Potassium Nutrient
+                  Tracker
+                </h2>
+                <br />
+                <h5>
+                  Please login or register to begin. <br />
+                  <br />
+                  <b> Registration is free!</b>
+                  <br />
+                </h5>
+
+                <h6>
+                  This Web application was developed as a part of the University
+                  of Toronto Full Stack Web Development Bootcamp program. <br />
+                  This Web application allows meal planning and specifically
+                  focused on potassium instake. Functionality to support other
+                  nutrients can be added in he future.
+                  <br />
+                  <br />
+                </h6>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
         <Row>
           <Col size="md-4" />
           <Col size="md-4">
