@@ -86,57 +86,9 @@ class FoodGroup extends Component {
     return (
       <Container fluid>
         <Row>
-
           <div className='col-lg-6 offset-6 '>
             <div className="input-group mt-3 form-sm form-2 p-5">
               <input
-
-          {this.state.foodGroupList.length ? (
-            <div>
-              {/* <ul class="list-group list-group-flush">
-                <ul className="list-group list-group-horizontal"> */}
-              {this.state.foodGroupList.map(foodGroupList => (
-                <div
-                  style={{ border: 2 }}
-                  key={foodGroupList.foodGroupName}
-                  className="flex-item"
-                >
-                  {/* <Link to={"/food/" + food._id}></Link> */}
-                  <div>
-                    {foodGroupList.image ? (
-                      <img
-                        className="card-img-left"
-                        style={{ width: 95, height: 95 }}
-                        alt="groupImg"
-                        src={foodGroupList.image}
-                      />
-                    ) : (
-                      <img
-                        className="card-img-left"
-                        style={{ width: 95, height: 95 }}
-                        alt="groupImg"
-                        src={this.state.pics}
-                      />
-                    )}
-                    <h4> {foodGroupList.foodGroupName}</h4>
-                    <br />
-                  </div>
-
-                  {/* <DeleteBtn  /> */}
-                </div>
-              ))}
-              {/* </ul>
-              </ul> */}
-            </div>
-          ) : (
-            <h3>No Results to Display</h3>
-          )}
-        </Row>
-
-        <Row>
-          <Col size="md-12">
-            <form>
-              <Input
                 value={this.state.foodGroupName}
                 onChange={this.handleInputChange}
                 name="foodGroupName"
@@ -144,7 +96,7 @@ class FoodGroup extends Component {
               />
               <div className='input-group-append'>
                 <button
-                  className="btn text-center blue-gradient p-0"
+                  className="btn text-center blue-gradient p-2"
                   disabled={!this.state.foodGroupName}
                   onClick={this.handleFormSubmit}>
                   <div style={{ textAlign: 'center' }}>Add Food Group</div>
@@ -156,7 +108,7 @@ class FoodGroup extends Component {
             this.state.foodGroupList.map(foodGroupList => (
               <Col size="lg-4">
                 <Container >
-                  <div className="container card mt-2"
+                  <div className="container card mt-2 mb-3"
                     onClick={() =>
                       this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
                     }>
@@ -174,7 +126,7 @@ class FoodGroup extends Component {
                       </div>
                       <div className="col-6 offset-1">
                         <button
-                          key={foodGroupList.foodGroupName}
+                          key={foodGroupList.foodGroupName} y
                           className="custom-btn text-center">
                           {/* <Link to={"/food/" + food._id}></Link> */}
                           <strong>
