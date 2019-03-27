@@ -14,20 +14,35 @@ module.exports = {
   },
   //! 2 new functions
   addMealById: function(req, res) {
+    console.log("inside AddMealById and");
+    console.log("DAILYPLAN ID IS:", req.params.dailyPlanId);
+    console.log("MEAL ID IS: ", req.params.mealId);
+
     db.DailyPlan.findByIdAndUpdate(
       req.params.dailyPlanId,
       {
-        $push: { mealList: req.params.mealId }
+        $push: {
+          mealList: {
+            meal: req.params.mealId
+          }
+        }
         // ,
         // totalEnergy: 50,
         // totalPotassium: 50
       },
       { new: true }
     )
-      .populate("mealList")
-      .exec(function(err, found1) {
-        console.log("found1 is:", found1);
-        res.json(found1);
+      .populate("mealList.meal")
+      .exec()
+      .then(dbModel => {
+        console.log(dbModel);
+        dbModel.mealList = dbModel.mealList.map(model =>
+          model.toJSON({ virtuals: true })
+        );
+        res.json(dbModel.toJSON({ virtuals: true }));
+      })
+      .catch(err => {
+        res.json(err);
       });
   },
   // removeMealById: function(req, res) {
@@ -57,10 +72,10 @@ module.exports = {
       },
       { new: true }
     )
-      .populate("mealList") 
+      .populate("mealList")
       .exec()
       .then(dbModel => {
-            res.json(dbModel.toJSON({ virtuals: true }));
+        res.json(dbModel.toJSON({ virtuals: true }));
       })
       .catch(err => console.log(err));
   },
@@ -71,7 +86,7 @@ module.exports = {
       { $set: req.body },
       { new: true }
     )
-      .populate("mealList") // changed from foodList to foodList.food
+      .populate("mealList.meal") // changed from foodList to foodList.food
       // .exec(function(err, found) {
       //   console.log(found, err);
       //   res.json(found);
@@ -80,7 +95,8 @@ module.exports = {
       .then(dbModel => {
         console.log("UPDATEKCALTOTALS DBMODEL IS:", dbModel);
         res.json(dbModel.toJSON({ virtuals: true }));
-      });
+      })
+      .catch(err => console.log(err));
   },
 
   findById: function(req, res) {

@@ -116,7 +116,7 @@ class Meal extends Component {
         // const totalPotassium = data.data.foodList.reduce((a, b) => ({
         //   potassium: a.potassium + b.potassium
         // }));
-        console.log("data.data is:", data.data);
+        console.log("FROM ADDFOODTOMEALBYID data.data is:", data.data);
         const tempFoodList = data.data.foodList;
         console.log("tempFoodList is:", tempFoodList);
         let totalPotassium = 0;
