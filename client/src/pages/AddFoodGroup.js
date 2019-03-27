@@ -71,21 +71,21 @@ class FoodGroup extends Component {
     return (
       <Container fluid>
         <Row>
-          <div className='col-6 offset-6 '>
+          <div className='col-lg-6 offset-6 '>
             <div className="input-group mt-3 form-sm form-2 p-5">
               <input
                 value={this.state.foodGroupName}
                 onChange={this.handleInputChange}
                 name="foodGroupName"
-                placeholder="Food Group Name (required)"
+                placeholder="Food Group Name"
               />
               <div className='input-group-append'>
                 <button
+                  className="btn text-center blue-gradient p-0"
                   disabled={!this.state.foodGroupName}
                   onClick={this.handleFormSubmit}>
-
-                  Add Group
-              </button>
+                  <div style={{ textAlign: 'center' }}>Add Food Group</div>
+                </button>
               </div>
             </div>
           </div>
@@ -129,25 +129,6 @@ class FoodGroup extends Component {
               <h3>No Results to Display1</h3>
             )}
           {/* </Col> */}
-        </Row>
-        <Row>
-          <Col size="md-12">
-            <form>
-              <Input
-                value={this.state.foodGroupName}
-                onChange={this.handleInputChange}
-                name="foodGroupName"
-                placeholder="Food Group Name (required)"
-              />
-
-              <FormBtn
-                disabled={!this.state.foodGroupName}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Food Group
-              </FormBtn>
-            </form>
-          </Col>
         </Row>
       </Container>
     );
