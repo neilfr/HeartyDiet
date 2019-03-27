@@ -83,3 +83,34 @@ class FoodItem extends Component {
 }
 
 export default FoodItem;
+
+
+{/* <Container fluid>
+        <Row>
+          <div className='col-6 offset-6 '>
+            <div className="input-group mt-3 form-sm form-2 p-5">
+              <input
+                value={this.state.foodGroupName}
+                onChange={this.handleInputChange}
+                name="foodGroupName"
+                placeholder="Food Group Name (required)"
+              />
+              <div className='input-group-append'>
+                <button
+                  disabled={!this.state.foodGroupName}
+                  onClick={this.handleFormSubmit}>
+
+                  Add Group
+              </button>
+              </div>
+            </div>
+          </div> */}
+
+        //   <div>
+        //   {foodGroupList.image ? (
+        //     <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+        //       src={foodGroupList.image} />) : (
+        //       <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+        //         src={this.state.pics} />)}
+        //   <h4> {foodGroupList.foodGroupName}</h4><br />
+        // </div>

@@ -162,6 +162,7 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
+
           <div className="col-6 search-bar offset-6">
             <div className="input-group mt-3 form-sm form-2 pl-0">
               <input
@@ -174,7 +175,6 @@ class Food extends Component {
                 name="foodSearch"
               />
               <div className="input-group-append">
-                {/* <span className="input-group-text red lighten-3" id="basic-text1"><i className="fa fa-search" aria-hidden="true"></i></span> */}
                 <button
                   className="input-group-text red lighten-3"
                   onClick={this.handleFormSubmit}

@@ -60,7 +60,7 @@ class FoodGroup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.foodGroupName) {
-      this.findPic(this.state.foodGroupName);
+      // this.findPic(this.state.foodGroupName);
       API.saveFoodGroup({
         foodGroupName: this.state.foodGroupName,
         userID: userID
@@ -86,66 +86,64 @@ class FoodGroup extends Component {
     return (
       <Container fluid>
         <Row>
-          {this.state.foodGroupList.length ? (
-            <div>
-              {/* <ul class="list-group list-group-flush">
-                <ul className="list-group list-group-horizontal"> */}
-              {this.state.foodGroupList.map(foodGroupList => (
-                <div
-                  style={{ border: 2 }}
-                  key={foodGroupList.foodGroupName}
-                  className="flex-item"
-                >
-                  {/* <Link to={"/food/" + food._id}></Link> */}
-                  <div>
-                    {foodGroupList.image ? (
-                      <img
-                        className="card-img-left"
-                        style={{ width: 95, height: 95 }}
-                        alt="groupImg"
-                        src={foodGroupList.image}
-                      />
-                    ) : (
-                      <img
-                        className="card-img-left"
-                        style={{ width: 95, height: 95 }}
-                        alt="groupImg"
-                        src={this.state.pics}
-                      />
-                    )}
-                    <h4> {foodGroupList.foodGroupName}</h4>
-                    <br />
-                  </div>
-
-                  {/* <DeleteBtn  /> */}
-                </div>
-              ))}
-              {/* </ul>
-              </ul> */}
-            </div>
-          ) : (
-            <h3>No Results to Display</h3>
-          )}
-        </Row>
-
-        <Row>
-          <Col size="md-12">
-            <form>
-              <Input
+          <div className='col-lg-6 offset-6 '>
+            <div className="input-group mt-3 form-sm form-2 p-5">
+              <input
                 value={this.state.foodGroupName}
                 onChange={this.handleInputChange}
                 name="foodGroupName"
-                placeholder="Food Group Name (required)"
+                placeholder="Food Group Name"
               />
+              <div className='input-group-append'>
+                <button
+                  className="btn text-center blue-gradient p-2"
+                  disabled={!this.state.foodGroupName}
+                  onClick={this.handleFormSubmit}>
+                  <div style={{ textAlign: 'center' }}>Add Food Group</div>
+                </button>
+              </div>
+            </div>
+          </div>
+          {this.state.foodGroupList.length ? (
+            this.state.foodGroupList.map(foodGroupList => (
+              <Col size="lg-4">
+                <Container >
+                  <div className="container card m-2"
+                    onClick={() =>
+                      this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
+                    }>
+                    {/* {console.log(foodGroupList.image)} */}
+                    {/* <div className="card" style={{ width: 35 }}> */}
+                    <div className="row p-2 pt-3">
+                      <div className="col-4 view overlay zoom">
+                        {foodGroupList.image ? (
+                          <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+                            src={foodGroupList.image} />) : (
+                            <img className="card-img-left" style={{ width: 95, height: 95 }} alt='groupImg'
+                              src='https://via.placeholder.com/95' />)}
 
-              <FormBtn
-                disabled={!this.state.foodGroupName}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Food Group
-              </FormBtn>
-            </form>
-          </Col>
+                        {/* <Col size="md-6" className="card-body"> */}
+                      </div>
+                      <div className="col-6 offset-1">
+                        <button
+                          key={foodGroupList.foodGroupName} y
+                          className="custom-btn text-center">
+                          {/* <Link to={"/food/" + food._id}></Link> */}
+                          <strong>
+                            <p className="card-title"> {foodGroupList.foodGroupName} </p>
+                          </strong>
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                </Container>
+              </Col>
+            ))
+          ) : (
+              <h3>No Results to Display1</h3>
+            )}
+          {/* </Col> */}
         </Row>
       </Container>
     );

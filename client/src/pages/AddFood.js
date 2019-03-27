@@ -89,64 +89,67 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
-            {/* <Jumbotron>
-              <h1>Add Custom Food</h1>
+          <Col size="md-12 sm-12">
+            <Container>
+              <div className="text-center wow fadeInUp mt-5">
+                <h2>Add a Food Item Here</h2>
+                <br />
+              </div>
+              <form style={{ marginTop: 25 }}>
+                <Input
+                  value={this.state.foodName}
+                  onChange={this.handleInputChange}
+                  name="foodName"
+                  placeholder="Food Name (required)"
+                />
 
-            </Jumbotron> */}
 
-            <form>
-              <Input
-                value={this.state.foodName}
-                onChange={this.handleInputChange}
-                name="foodName"
-                placeholder="Food Name (required)"
-              />
-
-              <Dropdown
-                name="foodGroupName"
-                onChange={this.handleInputChange}
-                label="Food Group"
-                value={this.state.foodGroupName}
-              >
-                {this.state.foodGroupList.map(foodGroupList => (
-                  <option value={foodGroupList.foodGroupName}>
-                    {foodGroupList.foodGroupName}
-                  </option>
-                ))}
-              </Dropdown>
-              <Input
-                value={this.state.energy}
-                onChange={this.handleInputChange}
-                name="energy"
-                placeholder="Energy (required)"
-              />
-              <Input
-                value={this.state.potassium}
-                onChange={this.handleInputChange}
-                name="potassium"
-                placeholder="Potassium (required)"
-              />
-              {/* <TextArea
+                <Dropdown
+                  name="foodGroupName"
+                  onChange={this.handleInputChange}
+                  label="Food Group"
+                  value={this.state.foodGroupName}
+                >
+                  {this.state.foodGroupList.map(foodGroupList => (
+                    <option value={foodGroupList.foodGroupName}>
+                      {foodGroupList.foodGroupName}
+                    </option>
+                  ))}
+                </Dropdown>
+                <Input
+                  value={this.state.energy}
+                  onChange={this.handleInputChange}
+                  name="energy"
+                  placeholder="Energy (required)"
+                />
+                <Input
+                  value={this.state.potassium}
+                  onChange={this.handleInputChange}
+                  name="potassium"
+                  placeholder="Potassium (required)"
+                />
+                {/* <TextArea
                 value={this.state.synopsis}
                 onChange={this.handleInputChange}
                 name="synopsis"
                 placeholder="Synopsis (Optional)"
               /> */}
-              <FormBtn
-                disabled={
-                  !(
-                    this.state.foodName &&
-                    this.state.foodGroupName &&
-                    this.state.energy &&
-                    this.state.potassium
-                  )
-                }
-                onClick={this.handleFormSubmit}
-              >
-                Submit Food
-              </FormBtn>
-            </form>
+                <FormBtn
+                  className="btn blue-gradient p-3"
+                  disabled={
+                    !(
+                      this.state.foodName &&
+                      this.state.foodGroupName &&
+                      this.state.energy &&
+                      this.state.potassium
+                    )
+                  }
+                  onClick={this.handleFormSubmit}
+                >
+                  <h6>Submit Food</h6>
+                </FormBtn>
+              </form>
+            </Container>
           </Col>
         </Row>
       </Container>
