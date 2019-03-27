@@ -274,8 +274,8 @@ class DailyPlan extends Component {
         </div>
 
         {this.state.currentDailyPlan ? (
-          <div className="col-lg-12">
-            <div className="d-flex flex-row justify-content-center mb-3 ">
+          <div className="row justify-content-center">
+            <div className="d-flex  justify-content-center mb-3 mr-5">
               <div className="p-3 flex-fill dotted-div">
                 <img
                   style={thumbnail}
@@ -291,32 +291,32 @@ class DailyPlan extends Component {
                 <img
                   style={thumbnail}
                   alt="icon"
-                  src="https://i.imgur.com/iCAG80W.png"
+                  src="https://i.imgur.com/yHfJLF8.png"
                 />
                 {this.state.currentDailyPlan.totalEnergy}
               </div>
-              <div className="p-3 flex-fill pr-5 dotted-div">
+              <div className="p-3 flex-fill pr-3 dotted-div">
                 <img
                   style={thumbnail}
                   alt="icon"
-                  src="https://i.imgur.com/rK4wz3p.jpg"
+                  src="https://i.imgur.com/hbX14ue.jpg"
                 />
                 {this.state.currentDailyPlan.totalPotassium}
               </div>
             </div>
           </div>
         ) : (
-          <div className="row">
-            <h6 className="col-4 offset-8 mb-3 text-justify">
-              Select a Meal from the meal list to see what foods it contains and
-              to make changes
+            <div className="row">
+              <h6 className="col-4 offset-8 mb-3 text-justify">
+                Select a Meal from the meal list to see what foods it contains and
+                to make changes
             </h6>
-          </div>
-        )}
+            </div>
+          )}
 
-        <Row>
+        <Row align="center">
           <Col size="md-4 sm-4">
-            <div className="container">
+            <div className="container justify-content-center">
               <Row>
                 <h3 align="center" className=" pl-4">
                   Daily Plan List
@@ -370,29 +370,72 @@ class DailyPlan extends Component {
                     </ul>
                   </ul>
                 ) : (
-                  <h6>No DailyPlans, Add a dailyPlan first</h6>
-                )}
+                    <h6>No DailyPlans, Add a dailyPlan first</h6>
+                  )}
               </Row>
             </div>
           </Col>
           <Col size="md-4 sm-4">
-            <Row>
-              <h3>Meals in your DailyPlan</h3>
-            </Row>
-            <Row>
-              <div>
-                {/* {this.state.dailyPlanMealList.length + " meals"} */}
-                {this.state.currentDailyPlan &&
-                this.state.currentDailyPlan.mealList.length > 0 ? (
+
+            <div className="container justify-content-middle offset-1 ml-5">
+              <Row>
+                <h3>Meals in your DailyPlan</h3>
+              </Row>
+              <Row>
+                <div>
+                  {/* this.state.currentDailyPlan && */}
+                  <p className="text-center">{this.state.dailyPlanMealList.length + " meals"}</p>
+                  {this.state.dailyPlanMealList.length > 0 ? (
+                    <ul className="list-group list-group-flush">
+                      <ul className="list-group">
+                        {this.state.dailyPlanMealList.map(meal => (
+                          <li
+                            className="list-group-item text-center"
+                            key={meal._id}
+                          >
+                            <strong>
+                              {meal.mealName} <br />
+                              Energy:{meal.totalEnergy} <br />
+                              Potassium:{meal.totalPotassium} <br />
+                              {/* <br /> ServingSize:{meal.servingSize}
+                          <br /> */}
+                              Efficiency: {meal.efficiency} <br />
+                            </strong>
+                            <button
+                              className="btn px-3 text-center peach-gradient"
+                              onClick={() => this.removeFromDailyPlan(meal._id)}
+                            >
+                              <div style={{ textAlign: "center" }}>
+                                <i className="fa fa-minus-circle fa-2x" />
+                              </div>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </ul>
+                  ) : (
+                      <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+                    )}
+                </div>
+              </Row>
+            </div>
+          </Col>
+          <Col size="md-4 sm-4">
+            <div className="container justify-content-right">
+              <Row>
+                <h3 className="pl-5">Meals</h3>
+              </Row>
+              <Row>
+                {this.state.mealList.length ? (
                   <ul className="list-group list-group-flush">
                     <ul className="list-group">
-                      {this.state.currentDailyPlan.mealList.map(meal => (
+                      {this.state.mealList.map(meal => (
                         <li
                           className="list-group-item text-center"
                           key={meal._id}
                         >
                           <strong>
-                            {meal.meal.mealName} <br />
+                 {meal.meal.mealName} <br />
                             Energy:{meal.meal.totalEnergy} kCal <br />
                             Potassium:{meal.meal.totalPotassium} mg
                             <br />
@@ -400,18 +443,22 @@ class DailyPlan extends Component {
                           <br /> */}
                             <br /> Efficiency: {meal.meal.efficiency} kCal/Kmg
                             <br />
+
                           </strong>
-                          <Button
-                            className="btn btn-danger"
-                            onClick={() => this.removeFromDailyPlan(meal._id)}
+                          <button
+                            className="btn px-3 text-center blue-gradient"
+                            onClick={() => this.addToDailyPlan(meal._id)}
                           >
-                            Remove
-                          </Button>
+                            <div style={{ textAlign: "center" }}>
+                              <i className="fa fa-plus-circle fa-2x" />
+                            </div>
+                          </button>
                         </li>
                       ))}
                     </ul>
                   </ul>
                 ) : (
+
                   <h6>Click Add on a meal card to add it to your dailyPlan</h6>
                 )}
               </div>
