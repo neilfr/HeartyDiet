@@ -162,19 +162,15 @@ class Food extends Component {
     return (
       <Container fluid>
         <Row>
-
-          <div className="col-6 search-bar offset-6">
+          <div className="col-6 search-bar offset-6" >
             <div className="input-group mt-3 form-sm form-2 pl-0">
-              <input
-                className="form-control my-0 py-1 red-border"
-                type="text"
-                placeholder="Enter Food Name"
-                aria-label="Search"
+              <input className="form-control my-0 py-1 red-border" type="text" placeholder="Enter Food Name" aria-label="Search"
                 value={this.state.foodSearch}
                 onChange={this.handleInputChange}
                 name="foodSearch"
               />
               <div className="input-group-append">
+                {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
                 <button
                   className="input-group-text red lighten-3"
                   onClick={this.handleFormSubmit}
@@ -252,8 +248,8 @@ class Food extends Component {
                 </Col>
               ))
             ) : (
-              <h3>No Results to Display1</h3>
-            )}
+                <h3>No Results to Display1</h3>
+              )}
             {/* </Col> */}
           </Row>
         </div>
@@ -286,8 +282,8 @@ class Food extends Component {
               </Col>
             ))
           ) : (
-            <h3>No Results to Display</h3>
-          )}
+              <h3>No Results to Display</h3>
+            )}
         </Row>
       </Container>
     );
