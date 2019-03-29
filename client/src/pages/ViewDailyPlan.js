@@ -43,37 +43,51 @@ class DailyPlan extends Component {
       .then(res => {
         console.log("getDailyPlanByUser returned: ", res.data);
         this.setState({
-          dailyPlanList: res.data
+          dailyPlanList: res.data,
+          currentDailyPlan: res.data[0]
         });
       })
       .catch(err => console.log(err));
   };
 
-  selectDailyPlan = dailyPlan => {
-    console.log("selectDailyPlan dailyplan is : " + dailyPlan);
-    console.log(dailyPlan);
-
-    this.setState({ currentDailyPlan: dailyPlan });
+  selectDailyPlan = dailyPlanId => {
     console.log(
-      "selected dailyPlan... now current dailyPlan state is:",
-      this.state.currentDailyPlan
+      "JUST GOT INTO SELECT DAILYPLAN AND DAILYPLANID IS:",
+      dailyPlanId
     );
-
-    var mealListArray = [];
-    dailyPlan.mealList.map(mealID =>
-      API.getMealByID(mealID)
-        .then(res => {
-          console.log("mealListArray element is: ", res.data);
-
-          mealListArray.push(res.data);
-
-          this.setState({
-            dailyPlanMealList: mealListArray
-          });
-        })
-        .catch(err => console.log(err))
-    );
+    API.getDailyPlanByID(dailyPlanId)
+      .then(res => {
+        console.log("GETDAILYBPLANBYID RETURNED: ", res.data);
+        this.setState({
+          currentDailyPlan: res.data
+        });
+      })
+      .catch(err => console.log(err));
   };
+
+  // console.log("selectDailyPlan dailyplan is : " + dailyPlan);
+  // console.log(dailyPlan);
+  //   this.setState({ currentDailyPlan: dailyPlan });
+  //   console.log(
+  //     "selected dailyPlan... now current dailyPlan state is:",
+  //     this.state.currentDailyPlan
+  //   );
+
+  //   var mealListArray = [];
+  //   dailyPlan.mealList.map(mealID =>
+  //     API.getMealByID(mealID)
+  //       .then(res => {
+  //         console.log("mealListArray element is: ", res.data);
+
+  //         mealListArray.push(res.data);
+
+  //         this.setState({
+  //           dailyPlanMealList: mealListArray
+  //         });
+  //       })
+  //       .catch(err => console.log(err))
+  //   );
+  // };
 
   removeFromDailyPlan = mealID => {
     console.log("remove meal:", mealID);
@@ -89,8 +103,8 @@ class DailyPlan extends Component {
 
         console.log("tempMealList", tempMealList);
         tempMealList.map(meal => {
-          totalPotassium += meal.totalPotassium;
-          totalEnergy += meal.totalEnergy;
+          totalPotassium += meal.meal.totalPotassium;
+          totalEnergy += meal.meal.totalEnergy;
         });
         console.log("total energy is:", totalEnergy);
         console.log("total potassium is:", totalPotassium);
@@ -104,8 +118,8 @@ class DailyPlan extends Component {
             data.data
           );
           this.setState({
-            currentDailyPlan: data.data,
-            dailyPlanMealList: data.data.mealList
+            currentDailyPlan: data.data
+            // dailyPlanMealList: data.data.mealList
           });
 
           console.log(this.state.dailyPlanMealList);
@@ -135,8 +149,8 @@ class DailyPlan extends Component {
         let totalPotassium = 0;
         let totalEnergy = 0;
         tempMealList.map(meal => {
-          totalPotassium += meal.totalPotassium;
-          totalEnergy += meal.totalEnergy;
+          totalPotassium += meal.meal.totalPotassium;
+          totalEnergy += meal.meal.totalEnergy;
         });
         console.log("total energy before update totals is:", totalEnergy);
         console.log("total potassium before update totals is:", totalPotassium);
@@ -155,20 +169,20 @@ class DailyPlan extends Component {
             currentDailyPlan: data.data
           });
 
-          var mealListArray = [];
-          data.data.mealList.map(mealID =>
-            API.getMealByID(mealID)
-              .then(res => {
-                console.log("mealListArray element is: ", res.data);
+          //     var mealListArray = [];
+          //     data.data.mealList.map(mealID =>
+          //       API.getMealByID(mealID)
+          //         .then(res => {
+          //           console.log("mealListArray element is: ", res.data);
 
-                mealListArray.push(res.data);
+          //           mealListArray.push(res.data);
 
-                this.setState({
-                  dailyPlanMealList: mealListArray
-                });
-              })
-              .catch(err => console.log(err))
-          );
+          //           this.setState({
+          //             dailyPlanMealList: mealListArray
+          //           });
+          //         })
+          //         .catch(err => console.log(err))
+          //     );
         });
       })
       .catch(err => console.log(err));
@@ -227,8 +241,8 @@ class DailyPlan extends Component {
           <Row>
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
-                <h2>View Daily Plan</h2>
-                <br />
+                {/* <h2>View Daily Plan</h2>
+                <br /> */}
                 <h5>
                   Use this screen to create and edit a custom daily plan made up
                   of meal(s). i.e. Meatloaf Monday, Taco Tuesday, etc. <br />
@@ -296,13 +310,13 @@ class DailyPlan extends Component {
             </div>
           </div>
         ) : (
-            <div className="row">
-              <h6 className="col-4 offset-8 mb-3 text-justify">
-                Select a Meal from the meal list to see what foods it contains and
-                to make changes
+          <div className="row">
+            <h6 className="col-4 offset-8 mb-3 text-justify">
+              Select a Meal from the meal list to see what foods it contains and
+              to make changes
             </h6>
-            </div>
-          )}
+          </div>
+        )}
 
         <Row>
           <Col size="md-4 sm-4">
@@ -336,7 +350,9 @@ class DailyPlan extends Component {
                             </strong>
                             <button
                               className="btn px-3 text-center blue-gradient "
-                              onClick={() => this.selectDailyPlan(dailyPlan)}
+                              onClick={() =>
+                                this.selectDailyPlan(dailyPlan._id)
+                              }
                             >
                               <div style={{ textAlign: "center" }}>
                                 <i className="fa fa-plus-circle fa-2x" />
@@ -358,8 +374,8 @@ class DailyPlan extends Component {
                     </ul>
                   </ul>
                 ) : (
-                    <h6>No DailyPlans, Add a dailyPlan first</h6>
-                  )}
+                  <h6>No DailyPlans, Add a dailyPlan first</h6>
+                )}
               </Row>
             </div>
           </Col>
@@ -370,39 +386,40 @@ class DailyPlan extends Component {
               </Row>
               <Row>
                 <div>
-                  {/* this.state.currentDailyPlan && */}
-                  <p className='text-center'>{this.state.dailyPlanMealList.length + " meals"}</p>
-                  {this.state.dailyPlanMealList.length > 0 ? (
+                  {this.state.currentDailyPlan &&
+                  this.state.dailyPlanMealList.length > 0 ? (
                     <ul className="list-group list-group-flush">
                       <ul className="list-group">
-                        {this.state.dailyPlanMealList.map(meal => (
+                        {this.state.currentDailyPlan.map(meal => (
                           <li
                             className="list-group-item text-center"
                             key={meal._id}
                           >
                             <strong>
-                              {meal.mealName} <br />
-                              Energy: {meal.totalEnergy} kCal
-                            <br />
-                              Potassium: {meal.totalPotassium} mg
-                            <br />
+                              {meal.meal.mealName} <br />
+                              Energy: {meal.meal.totalEnergy} kCal
+                              <br />
+                              Potassium: {meal.meal.totalPotassium} mg
+                              <br />
                               {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                              Efficiency: {meal.efficiency} <br />
+                              Efficiency: {meal.meal.efficiency} <br />
                             </strong>
                             <Button
                               className="btn btn-danger"
                               onClick={() => this.removeFromDailyPlan(meal._id)}
                             >
                               Remove
-                          </Button>
+                            </Button>
                           </li>
                         ))}
                       </ul>
                     </ul>
                   ) : (
-                      <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                    )}
+                    <h6>
+                      Click Add on a meal card to add it to your dailyPlan
+                    </h6>
+                  )}
                 </div>
               </Row>
             </div>
@@ -441,8 +458,8 @@ class DailyPlan extends Component {
                   </ul>
                 </ul>
               ) : (
-                  <h6>Click Add to add a meal to the dailyPlan</h6>
-                )}
+                <h6>Click Add to add a meal to the dailyPlan</h6>
+              )}
             </Row>
           </Col>
         </Row>
