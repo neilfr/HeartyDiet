@@ -4,16 +4,7 @@ import "./style.css"
 function CustomCard(props) {
     return (
         <div className="card pl-10">
-
-            <div class="view overlay">
-                <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2821%29.jpg" alt="Card image cap" />
-                <a>
-                    <div class="mask rgba-white-slight"></div>
-                </a>
-            </div>
-
-
-            <h4 className="card-title">{props.title}</h4>
+            <h4 className="card-title text-center mt-3">{props.title}</h4>
             <hr class="hr-light" />
             <div className="card-text">
                 <ul className="list-group">
