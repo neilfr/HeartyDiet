@@ -304,7 +304,6 @@ class Meal extends Component {
                               <strong>
                                 <h5 style={{ fontWeight: "bolder" }}>
                                   {" "}
-                                  Meal Name:{" "}
                                   <span className="meal-selected">
                                     {meal.mealName}
                                   </span>{" "}

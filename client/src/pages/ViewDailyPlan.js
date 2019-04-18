@@ -350,7 +350,6 @@ class DailyPlan extends Component {
                               <strong>
                                 <h5 style={{ fontWeight: "bolder" }}>
                                   {" "}
-                                  Daily Plan Name:{" "}
                                   <span className="meal-selected">
                                     {dailyPlan.dailyPlanName}
                                   </span>{" "}
@@ -428,8 +427,8 @@ class DailyPlan extends Component {
           </div>
 
           <div className="col-3 offset-1">
-            <div className="justify-content-center ml-5">
-              <h3>Add Meals</h3>
+            <div className="justify-content-center ml-3">
+              <h3 className="text-center">Add To Daily Plan</h3>
               <hr />
             </div>
             <Row>
@@ -438,28 +437,43 @@ class DailyPlan extends Component {
                   <ul className="list-group">
                     {this.state.mealList.map(meal => (
                       <li className="list-group-item" key={meal._id}>
-                        <strong>
-                          {meal.mealName} <br />
-                          Energy: {meal.totalEnergy} kCal
-                          <br />
-                          Potassium: {meal.totalPotassium} mg
-                          <br />
-                          Efficiency: {meal.efficiency} <br />
-                        </strong>
-                        <button
-                          className="btn px-3 text-center blue-gradient"
-                          onClick={() => this.addToDailyPlan(meal._id)}
-                        >
-                          <div style={{ textAlign: "center" }}>
-                            <i className="fa fa-plus-circle fa-2x" />
+                        <div className="row">
+                          <div className="col-2 mt-5">
+                            <button
+                              role="button"
+                              type="button"
+                              className="btn px-3 text-center blue-gradient"
+                              onClick={() => this.addToDailyPlan(meal._id)}
+                            >
+                              <div style={{ textAlign: "center" }}>
+                                <i className="fa fa-plus-circle fa-2x" />
+                              </div>
+                            </button>
                           </div>
-                        </button>
+                          <div className="col-8 offset-2">
+                            <strong>
+                              <h5 style={{ fontWeight: "bolder" }}>
+                                {meal.mealName}
+                              </h5>
+                              <span className="spanIt">Energy:</span>{" "}
+                              {meal.totalEnergy} kCal
+                              <br />
+                              <span className="spanIt">Potassium:</span>{" "}
+                              {meal.totalPotassium} mg
+                              <br />
+                              <span className="spanIt">Efficiency:</span>{" "}
+                              {meal.efficiency} <br />
+                            </strong>
+                          </div>
+                        </div>
                       </li>
                     ))}
                   </ul>
                 </ul>
               ) : (
-                <h6>Click Add to add a meal to the dailyPlan</h6>
+                <div className="justify-content-center ml-5">
+                  <h6>Click Add to add a meal to the dailyPlan</h6>
+                </div>
               )}
             </Row>
           </div>
