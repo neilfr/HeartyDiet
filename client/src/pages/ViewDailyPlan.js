@@ -235,26 +235,8 @@ class DailyPlan extends Component {
     };
     return (
       <Container fluid>
-        {/* end of add dailyPlan section */}
-
-        <Container fluid>
-          <Row>
-            <Col size="md-12 sm-12">
-              <div className="text-center wow fadeInUp mt-5">
-                {/* <h2>View Daily Plan</h2>
-                <br /> */}
-                <h5>
-                  Use this screen to create and edit a custom daily plan made up
-                  of meal(s). i.e. Meatloaf Monday, Taco Tuesday, etc. <br />
-                  <br />
-                </h5>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-
-        <div className="col-4 offset-8 mb-2">
-          <div className="input-group mt-3 form-sm form-2 pl-0">
+        <div className="col-6 offset-3 mb-5">
+          <div className="center-block input-group mt-3 form-sm form-2 pl-0">
             <input
               className="form-control my-0 py-1 blue-border"
               type="text"
@@ -262,10 +244,9 @@ class DailyPlan extends Component {
               value={this.state.dailyPlanName}
               onChange={this.handleInputChange}
               name="dailyPlanName"
-              placeholder="Enter a name for your daily plan"
+              placeholder="Enter a name to create a new daily plan"
             />
             <div className="input-group-append">
-              {/* <span class="input-group-text red lighten-3" id="basic-text1"><i class="fa fa-search" aria-hidden="true"></i></span> */}
               <button
                 className="input-group-text blue"
                 disabled={!this.state.dailyPlanName}
@@ -276,11 +257,14 @@ class DailyPlan extends Component {
             </div>
           </div>
         </div>
-
+        {/* done */}
         {this.state.currentDailyPlan ? (
-          <div className="col-lg-12">
-            <div className="d-flex flex-row justify-content-center mb-3 ">
-              <div className="p-3 flex-fill dotted-div">
+          <div>
+            <div className="d-flex flex-row justify-content-center mb-1">
+              <h3>Current Daily Plan</h3>
+            </div>
+            <div className="d-flex flex-row justify-content-center mb-5 ">
+              <div className="p-3 pl-5 dotted-div">
                 <img
                   style={thumbnail}
                   alt="icon"
@@ -291,7 +275,7 @@ class DailyPlan extends Component {
                   {this.state.currentDailyPlan.dailyPlanName}
                 </span>
               </div>
-              <div className="p-3 flex-fill dotted-div">
+              <div className="p-3 dotted-div">
                 <img
                   style={thumbnail}
                   alt="icon"
@@ -299,105 +283,124 @@ class DailyPlan extends Component {
                 />
                 {this.state.currentDailyPlan.totalEnergy}
               </div>
-              <div className="p-3 flex-fill pr-5 dotted-div">
+              <div className="p-3 pr-5 dotted-div">
                 <img
                   style={thumbnail}
                   alt="icon"
                   src="https://i.imgur.com/hbX14ue.jpg"
                 />
-                {this.state.currentDailyPlan.totalPotassium}
+                {this.state.currentDailyPlan.totalPotassium} mg
               </div>
             </div>
           </div>
         ) : (
-          <div className="row">
-            <h6 className="col-4 offset-8 mb-3 text-justify">
-              Select a Meal from the meal list to see what foods it contains and
-              to make changes
-            </h6>
-          </div>
+          // <div className="row">
+          //   <h6 className="col-4 offset-8 mb-3 text-justify" />
+          // </div>
+          <div className="row ml-5" />
         )}
-
-        <Row>
-          <Col size="md-4 sm-4">
-            <div className="container">
-              <Row>
-                <h3 align="center" className=" pl-4">
-                  Daily Plan List
-                </h3>
-              </Row>
-              <Row>
-                {this.state.dailyPlanList.length ? (
+        {/* done */}
+        {/* <Row>
+          <Col size="md-4 sm-4"> */}
+        <div className="row">
+          <div className="col-3 ml-5">
+            {/* <div className="container"> */}
+            <div className=" justify-content-center">
+              <h3 className="text-center">Select Daily Plan</h3>
+              <hr />
+            </div>
+            <Row>
+              {this.state.dailyPlanList.length ? (
+                <>
                   <ul className="list-group list-group-flush">
                     <ul className="list-group">
-                      <>
-                        {this.state.dailyPlanList.map(dailyPlan => (
-                          <li className="list-group-item" key={dailyPlan._id}>
-                            {/* <Link to={"/meal/" + meal._id}></Link> */}
-                            <strong>
-                              <h5 style={{ fontWeight: "bolder" }}>
-                                {" "}
-                                Daily Plan Name:{" "}
-                                <span className="meal-selected">
-                                  {dailyPlan.dailyPlanName}
-                                </span>{" "}
-                              </h5>
-                              <span className="spanIt">Energy:</span>{" "}
-                              {dailyPlan.totalEnergy} kCal <br />
-                              <span className="spanIt"> Potassium:</span>{" "}
-                              {dailyPlan.totalPotassium} mg
-                              <br /> <br />
-                            </strong>
-                            <button
-                              className="btn px-3 text-center blue-gradient "
-                              onClick={() =>
-                                this.selectDailyPlan(dailyPlan._id)
-                              }
-                            >
-                              <div style={{ textAlign: "center" }}>
-                                <i className="fa fa-plus-circle fa-2x" />
+                      {/* <> */}
+                      {this.state.dailyPlanList.map(dailyPlan => (
+                        <li className="list-group-item" key={dailyPlan._id}>
+                          <div className="row">
+                            <div className="col-2">
+                              <div className="col-12">
+                                <button
+                                  role="button"
+                                  className="btn px-3 text-center blue-gradient "
+                                  onClick={() =>
+                                    this.selectDailyPlan(dailyPlan._id)
+                                  }
+                                >
+                                  <div style={{ textAlign: "center" }}>
+                                    <i className="fa fa-check-circle fa-2x" />
+                                  </div>
+                                </button>
                               </div>
-                            </button>
+                              <div className="col-12">
+                                <button
+                                  role="button"
+                                  className="btn px-3 text-center peach-gradient "
+                                  onClick={() =>
+                                    this.deleteDailyPlan(dailyPlan._id)
+                                  }
+                                >
+                                  <div style={{ textAlign: "center" }}>
+                                    <i className="fa fa-minus-circle fa-2x" />
+                                  </div>
+                                </button>
+                              </div>
+                            </div>
+                            <div className="col-8 offset-2">
+                              <strong>
+                                <h5 style={{ fontWeight: "bolder" }}>
+                                  {" "}
+                                  Daily Plan Name:{" "}
+                                  <span className="meal-selected">
+                                    {dailyPlan.dailyPlanName}
+                                  </span>{" "}
+                                </h5>
+                                <span className="spanIt">Energy:</span>{" "}
+                                {dailyPlan.totalEnergy} kCal <br />
+                                <span className="spanIt"> Potassium:</span>{" "}
+                                {dailyPlan.totalPotassium} mg
+                                <br /> <br />
+                              </strong>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </ul>
+                </>
+              ) : (
+                <div className="justify-content-center">
+                  <h6>No DailyPlans, Add a dailyPlan first</h6>
+                </div>
+              )}
+            </Row>
+          </div>
+          {/* STOP HERE */}
+          <div className="col-3 offset-1">
+            <div className="justify-content-center ml-3">
+              <h3 className="text-center">Meals in your Daily Plan</h3>
+              <hr />
+            </div>
+
+            <Row>
+              {this.state.currentDailyPlan &&
+              this.state.currentDailyPlan.mealList.length > 0 ? (
+                <ul className="list-group list-group-flush">
+                  <ul className="list-group">
+                    {this.state.currentDailyPlan.mealList.map(meal => (
+                      <li className="list-group-item" key={meal._id}>
+                        <div className="row">
+                          <div className="col-2 mt-5">
                             <button
                               className="btn px-3 text-center peach-gradient "
-                              onClick={() =>
-                                this.deleteDailyPlan(dailyPlan._id)
-                              }
+                              onClick={() => this.removeFromDailyPlan(meal._id)}
                             >
                               <div style={{ textAlign: "center" }}>
                                 <i className="fa fa-minus-circle fa-2x" />
                               </div>
                             </button>
-                          </li>
-                        ))}
-                      </>
-                    </ul>
-                  </ul>
-                ) : (
-                  <h6>No DailyPlans, Add a dailyPlan first</h6>
-                )}
-              </Row>
-            </div>
-          </Col>
-          <Col size="md-4 sm-4">
-            <div className="ml-5">
-              <Row>
-                <h3>Meals in your DailyPlan</h3>
-              </Row>
-
-              <Row>
-                {/* <div> */}
-                {this.state.currentDailyPlan &&
-                // this.state.dailyPlanMealList.length > 0 ? (
-                this.state.currentDailyPlan.mealList.length > 0 ? (
-                  <ul className="list-group list-group-flush">
-                    <ul className="list-group">
-                      {this.state.currentDailyPlan.mealList.map(meal => (
-                        <li
-                          className="list-group-item text-center"
-                          key={meal._id}
-                        >
-                          <div>
+                          </div>
+                          <div className="col-8 offset-2">
                             <strong>
                               <h5 style={{ fontWeight: "bolder" }}>
                                 {meal.meal.mealName}
@@ -413,26 +416,18 @@ class DailyPlan extends Component {
                               {meal.meal.efficiency} <br />
                             </strong>
                           </div>
-                          <button
-                            className="btn px-3 text-center peach-gradient "
-                            onClick={() => this.removeFromDailyPlan(meal._id)}
-                          >
-                            <div style={{ textAlign: "center" }}>
-                              <i className="fa fa-minus-circle fa-2x" />
-                            </div>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
-                ) : (
-                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                )}
-              </Row>
-            </div>
-          </Col>
+                </ul>
+              ) : (
+                <h6>Click Add on a meal card to add it to your dailyPlan</h6>
+              )}
+            </Row>
+          </div>
 
-          <Col size="md-4 sm-4">
+          <div className="col-3 offset-1">
             <div className="justify-content-center ml-5">
               <h3>Add Meals</h3>
               <hr />
@@ -467,8 +462,9 @@ class DailyPlan extends Component {
                 <h6>Click Add to add a meal to the dailyPlan</h6>
               )}
             </Row>
-          </Col>
-        </Row>
+          </div>
+          {/* </div> */}
+        </div>
       </Container>
     );
   }
