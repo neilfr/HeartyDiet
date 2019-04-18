@@ -384,65 +384,59 @@ class DailyPlan extends Component {
               <Row>
                 <h3>Meals in your DailyPlan</h3>
               </Row>
-
               <Row>
-                {/* <div> */}
-                {this.state.currentDailyPlan &&
-                // this.state.dailyPlanMealList.length > 0 ? (
-                this.state.currentDailyPlan.mealList.length > 0 ? (
-                  <ul className="list-group list-group-flush">
-                    <ul className="list-group">
-                      {this.state.currentDailyPlan.mealList.map(meal => (
-                        <li
-                          className="list-group-item text-center"
-                          key={meal._id}
-                        >
-                          <div>
+                <div>
+                  {this.state.currentDailyPlan &&
+                  this.state.dailyPlanMealList.length > 0 ? (
+                    <ul className="list-group list-group-flush">
+                      <ul className="list-group">
+                        {this.state.currentDailyPlan.map(meal => (
+                          <li
+                            className="list-group-item text-center"
+                            key={meal._id}
+                          >
                             <strong>
-                              <h5 style={{ fontWeight: "bolder" }}>
-                                {meal.meal.mealName}
-                              </h5>
-                              <span className="spanIt">Energy:</span>{" "}
-                              {meal.meal.totalEnergy} kCal
+                              {meal.meal.mealName} <br />
+                              Energy: {meal.meal.totalEnergy} kCal
                               <br />
-                              <span className="spanIt">Potassium:</span>{" "}
-                              {meal.meal.totalPotassium} mg <br />
+                              Potassium: {meal.meal.totalPotassium} mg
+                              <br />
                               {/* <br /> ServingSize:{meal.servingSize}
                           <br /> */}
-                              <span className="spanIt"> Efficiency:</span>{" "}
-                              {meal.meal.efficiency} <br />
+                              Efficiency: {meal.meal.efficiency} <br />
                             </strong>
-                          </div>
-                          <button
-                            className="btn px-3 text-center peach-gradient "
-                            onClick={() => this.removeFromDailyPlan(meal._id)}
-                          >
-                            <div style={{ textAlign: "center" }}>
-                              <i className="fa fa-minus-circle fa-2x" />
-                            </div>
-                          </button>
-                        </li>
-                      ))}
+                            <Button
+                              className="btn btn-danger"
+                              onClick={() => this.removeFromDailyPlan(meal._id)}
+                            >
+                              Remove
+                            </Button>
+                          </li>
+                        ))}
+                      </ul>
                     </ul>
-                  </ul>
-                ) : (
-                  <h6>Click Add on a meal card to add it to your dailyPlan</h6>
-                )}
+                  ) : (
+                    <h6>
+                      Click Add on a meal card to add it to your dailyPlan
+                    </h6>
+                  )}
+                </div>
               </Row>
             </div>
           </Col>
-
           <Col size="md-4 sm-4">
-            <div className="justify-content-center ml-5">
-              <h3>Add Meals</h3>
-              <hr />
-            </div>
+            <Row>
+              <h3 className="pl-5">Meals</h3>
+            </Row>
             <Row>
               {this.state.mealList.length ? (
                 <ul className="list-group list-group-flush">
                   <ul className="list-group">
                     {this.state.mealList.map(meal => (
-                      <li className="list-group-item" key={meal._id}>
+                      <li
+                        className="list-group-item text-center"
+                        key={meal._id}
+                      >
                         <strong>
                           {meal.mealName} <br />
                           Energy: {meal.totalEnergy} kCal
