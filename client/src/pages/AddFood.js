@@ -98,8 +98,7 @@ class Food extends Component {
                       {/* <h2>Add a Food Item Here</h2>
                       <br /> */}
                       <h5>
-                        Create a food item that is not part of the original
-                        master list. <br />
+                        Create a new custom food item. <br />
                       </h5>
                     </div>
                   </Col>

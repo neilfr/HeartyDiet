@@ -166,9 +166,8 @@ class Food extends Component {
             <Col size="md-12 sm-12">
               <div className="text-center wow fadeInUp mt-5">
                 <h5>
-                  Use this screen to add items as favorite foods. You can search
-                  food items, or click the Food Group buttons below to see food
-                  under the clicked group and add them to your favourites. <br />
+                  Select your favorite foods
+                  <br />
                   <br />
                 </h5>
               </div>
@@ -177,13 +176,12 @@ class Food extends Component {
         </Container>
 
         <Row>
-          <div className="col-6 search-bar offset-6">
-            Search by Food Name
+          <div className="col-6 search-bar offset-3">
             <div className="input-group mt-3 form-sm form-2 pl-0">
               <input
                 className="form-control my-0 py-1 red-border"
                 type="text"
-                placeholder="Enter Food Name"
+                placeholder="Search for food by name"
                 aria-label="Search"
                 value={this.state.foodSearch}
                 onChange={this.handleInputChange}
@@ -267,14 +265,14 @@ class Food extends Component {
                 </Col>
               ))
             ) : (
-                <Container>
-                  <Row>
-                    <Col size="lg-12">
-                      <h3>No Food Groups to Display</h3>
-                    </Col>
-                  </Row>
-                </Container>
-              )}
+              <Container>
+                <Row>
+                  <Col size="lg-12">
+                    <h3>No Food Groups to Display</h3>
+                  </Col>
+                </Row>
+              </Container>
+            )}
             {/* </Col> */}
           </Row>
         </div>
@@ -307,14 +305,14 @@ class Food extends Component {
               </Col>
             ))
           ) : (
-              <Container>
-                <Row>
-                  <Col size="lg-12">
-                    <h3>No Foods To Display</h3>
-                  </Col>
-                </Row>
-              </Container>
-            )}
+            <Container>
+              <Row>
+                <Col size="lg-12">
+                  <h3>No Foods To Display</h3>
+                </Col>
+              </Row>
+            </Container>
+          )}
         </Row>
       </Container>
     );
