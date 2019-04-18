@@ -193,7 +193,7 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
-        <div className="col-6 offset-3 mb-3">
+        <div className="col-6 offset-3 mb-5">
           <div className="center-block input-group mt-3 form-sm form-2 pl-0">
             <input
               className="form-control my-0 py-1 blue-border"
@@ -221,7 +221,7 @@ class Meal extends Component {
             <div className="d-flex flex-row justify-content-center mb-1">
               <h3>Current Meal</h3>
             </div>
-            <div className="d-flex flex-row justify-content-center mb-3">
+            <div className="d-flex flex-row justify-content-center mb-5">
               <div className="p-3 pl-5 dotted-div">
                 <img
                   style={thumbnail}
@@ -260,13 +260,17 @@ class Meal extends Component {
             </div>
           </div>
         ) : (
-          <div className="row ml-5" />
+          <div className="row ml-5">
+            <h6>
+              Select a Meal from the meal list to see what foods it contains and
+              to make changes
+            </h6>
+          </div>
         )}
-
         <div className="row">
           <div className="col-3 ml-5">
             <div className=" justify-content-center">
-              <h3 className="text-center">Select Meal</h3>
+              <h3 className="text-center">Select a Meal</h3>
               <hr />
             </div>
             <Row>
@@ -277,6 +281,23 @@ class Meal extends Component {
                       {this.state.mealList.map(meal => (
                         <li className="list-group-item" key={meal._id}>
                           <div className="row">
+                            <div className="col-8">
+                              <strong>
+                                <h5 style={{ fontWeight: "bolder" }}>
+                                  {" "}
+                                  Meal Name:{" "}
+                                  <span className="meal-selected">
+                                    {meal.mealName}
+                                  </span>{" "}
+                                </h5>
+                                <span className="spanIt">Energy:</span>{" "}
+                                {meal.totalEnergy} kCal <br />
+                                <span className="spanIt"> Potassium:</span>{" "}
+                                {meal.totalPotassium} mg
+                                <br />
+                                <br />
+                              </strong>
+                            </div>
                             <div className="col-2">
                               <div className="col-12">
                                 <button
@@ -285,7 +306,7 @@ class Meal extends Component {
                                   onClick={() => this.selectMeal(meal._id)}
                                 >
                                   <div style={{ textAlign: "center" }}>
-                                    <i className="fa fa-check-circle fa-2x" />
+                                    <i className="fa fa-plus-circle fa-2x" />
                                   </div>
                                 </button>
                               </div>
@@ -300,22 +321,6 @@ class Meal extends Component {
                                   </div>
                                 </button>
                               </div>
-                            </div>
-                            <div className="col-8 offset-2">
-                              <strong>
-                                <h5 style={{ fontWeight: "bolder" }}>
-                                  {" "}
-                                  <span className="meal-selected">
-                                    {meal.mealName}
-                                  </span>{" "}
-                                </h5>
-                                <span className="spanIt">Energy:</span>{" "}
-                                {meal.totalEnergy} kCal <br />
-                                <span className="spanIt"> Potassium:</span>{" "}
-                                {meal.totalPotassium} mg
-                                <br />
-                                <br />
-                              </strong>
                             </div>
                           </div>
                         </li>
@@ -333,7 +338,7 @@ class Meal extends Component {
 
           <div className="col-3 offset-1">
             <div className="justify-content-center ml-3">
-              <h3 className="text-center">Meal Contains</h3>
+              <h3>Meal Contains:</h3>
               <hr />
             </div>
 
@@ -343,36 +348,35 @@ class Meal extends Component {
                 <ul className="list-group list-group-flush">
                   <ul className="list-group">
                     {this.state.currentMeal.foodList.map(food => (
-                      <li className="list-group-item" key={food._id}>
-                        <div className="row">
-                          <div className="col-2 mt-5">
-                            <button
-                              className="btn px-3 text-center peach-gradient "
-                              onClick={() => this.removeFromMeal(food._id)}
-                            >
-                              <div style={{ textAlign: "center" }}>
-                                <i className="fa fa-minus-circle fa-2x" />
-                              </div>
-                            </button>
-                          </div>
-                          <div className="col-8 offset-2">
-                            <strong>
-                              <h5 style={{ fontWeight: "bolder" }}>
-                                {food.food.foodName}
-                              </h5>
-                              <span className="spanIt">Energy:</span>{" "}
-                              {food.food.energy} kCal
-                              <br />
-                              <span className="spanIt">Potassium:</span>{" "}
-                              {food.food.potassium} mg <br />
-                              <span className="spanIt"> ServingSize:</span>{" "}
-                              {food.servingSize} g
-                              <br />
-                              <span className="spanIt"> Efficiency:</span>{" "}
-                              {food.food.efficiency} <br />
-                            </strong>
-                          </div>
+                      <li
+                        className="list-group-item text-center"
+                        key={food._id}
+                      >
+                        <div>
+                          <strong>
+                            <h5 style={{ fontWeight: "bolder" }}>
+                              {food.food.foodName}
+                            </h5>
+                            <span className="spanIt">Energy:</span>{" "}
+                            {food.food.energy} kCal
+                            <br />
+                            <span className="spanIt">Potassium:</span>{" "}
+                            {food.food.potassium} mg <br />
+                            <span className="spanIt"> ServingSize:</span>{" "}
+                            {food.servingSize} g
+                            <br />
+                            <span className="spanIt"> Efficiency:</span>{" "}
+                            {food.food.efficiency} <br />
+                          </strong>
                         </div>
+                        <button
+                          className="btn px-3 text-center peach-gradient "
+                          onClick={() => this.removeFromMeal(food._id)}
+                        >
+                          <div style={{ textAlign: "center" }}>
+                            <i className="fa fa-minus-circle fa-2x" />
+                          </div>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -384,8 +388,8 @@ class Meal extends Component {
           </div>
 
           <div className="col-3 offset-1">
-            <div className="justify-content-center ml-3">
-              <h3 className="text-center">Add To Meal</h3>
+            <div className="justify-content-center ml-5">
+              <h3>Add To Meal</h3>
               <hr />
             </div>
 

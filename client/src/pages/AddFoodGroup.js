@@ -85,31 +85,15 @@ class FoodGroup extends Component {
   render() {
     return (
       <Container fluid>
-        <Container fluid>
-          <Row>
-            <Col size="md-12 sm-12">
-              <div className="text-center wow fadeInUp mt-5">
-                {/* <h2>Add Food Group</h2>
-                <br /> */}
-                <h5>
-                  Create a custom food group that is not part of the original
-                  master list. <br />
-                  <br />
-                </h5>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-
         <Row>
-          <div className="col-lg-6 offset-6 ">
+          <div className="col-lg-6 offset-3 ">
             <div className="input-group mt-3 form-sm form-2 p-5">
               <input
                 className="form-control my-0 py-1 red-border"
                 value={this.state.foodGroupName}
                 onChange={this.handleInputChange}
                 name="foodGroupName"
-                placeholder="Enter Food Group Name"
+                placeholder="Enter food group name to create a new custom food group"
               />
               <div className="input-group-append">
                 <button
@@ -126,14 +110,7 @@ class FoodGroup extends Component {
             this.state.foodGroupList.map(foodGroupList => (
               <Col size="lg-4">
                 <Container>
-                  <div
-                    className="container card mt-2 mb-3"
-                    // onClick={() =>
-                    //   this.loadFoodByFoodGroupName(foodGroupList.foodGroupName)
-                    // }
-                  >
-                    {/* {console.log(foodGroupList.image)} */}
-                    {/* <div className="card" style={{ width: 35 }}> */}
+                  <div className="container card mt-2 mb-3">
                     <div className="row p-2 pt-3">
                       <div className="col-4 view overlay zoom">
                         {foodGroupList.image ? (
@@ -144,15 +121,13 @@ class FoodGroup extends Component {
                             src={foodGroupList.image}
                           />
                         ) : (
-                            <img
-                              className="card-img-left"
-                              style={{ width: 95, height: 95 }}
-                              alt="groupImg"
-                              src="https://via.placeholder.com/95"
-                            />
-                          )}
-
-                        {/* <Col size="md-6" className="card-body"> */}
+                          <img
+                            className="card-img-left"
+                            style={{ width: 95, height: 95 }}
+                            alt="groupImg"
+                            src="https://via.placeholder.com/95"
+                          />
+                        )}
                       </div>
                       <div className="col-6 offset-1">
                         <button
@@ -160,7 +135,6 @@ class FoodGroup extends Component {
                           y
                           className="custom-btn text-center"
                         >
-                          {/* <Link to={"/food/" + food._id}></Link> */}
                           <strong>
                             <p className="card-title">
                               {" "}
@@ -175,8 +149,8 @@ class FoodGroup extends Component {
               </Col>
             ))
           ) : (
-              <h3>No Results to Display1</h3>
-            )}
+            <h3>No Food Groups to Display!</h3>
+          )}
           {/* </Col> */}
         </Row>
       </Container>

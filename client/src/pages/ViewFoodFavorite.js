@@ -105,30 +105,6 @@ class FoodFavorite extends Component {
     };
     return (
       <Container fluid>
-        <Row>
-          <Col size="md-12">
-            {/* <Jumbotron>
-              <h1>View Food</h1>
-            </Jumbotron> */}
-          </Col>
-        </Row>
-
-        <Container fluid>
-          <Row>
-            <Col size="md-12 sm-12">
-              <div className="text-center wow fadeInUp mt-5">
-                {/* <h2>View Favorite Foods</h2>
-                <br /> */}
-                <h5>
-                  View your favorite foods. Favorite foods wil be used to create
-                  meals, etc. <br />
-                  <br />
-                </h5>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-
         {this.state.foodFavoriteList.length ? (
           this.state.foodFavoriteList.map(foodFavoriteList => (
             <Row>
@@ -140,9 +116,7 @@ class FoodFavorite extends Component {
                     foodGroup={foodFavoriteList.foodGroupName}
                     energy={foodFavoriteList.energy}
                     potassium={foodFavoriteList.potassium}
-                
                     username={foodFavoriteList.use}
-
                   />
                 </div>
               </Col>
