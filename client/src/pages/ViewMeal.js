@@ -193,7 +193,7 @@ class Meal extends Component {
     // console.log(this.state.currentMeal);
     return (
       <Container fluid>
-        <div className="col-6 offset-3 mb-5">
+        <div className="col-6 offset-3 mb-3">
           <div className="center-block input-group mt-3 form-sm form-2 pl-0">
             <input
               className="form-control my-0 py-1 blue-border"
@@ -221,7 +221,7 @@ class Meal extends Component {
             <div className="d-flex flex-row justify-content-center mb-1">
               <h3>Current Meal</h3>
             </div>
-            <div className="d-flex flex-row justify-content-center mb-5">
+            <div className="d-flex flex-row justify-content-center mb-3">
               <div className="p-3 pl-5 dotted-div">
                 <img
                   style={thumbnail}
@@ -262,6 +262,7 @@ class Meal extends Component {
         ) : (
           <div className="row ml-5" />
         )}
+
         <div className="row">
           <div className="col-3 ml-5">
             <div className=" justify-content-center">

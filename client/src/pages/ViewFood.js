@@ -163,7 +163,7 @@ class Food extends Component {
       <div className="container fluid">
         <div className="row">
           <div className="col-md-12">
-            <div className="text-center wow fadeInUp mt-5">
+            <div className="text-center wow fadeInUp mt-4">
               <h5>
                 Select your favorite foods
                 <br />
@@ -173,7 +173,7 @@ class Food extends Component {
         </div>
 
         <div className="row">
-          <div className="col-6 search-bar offset-3">
+          <div className="col-6 search-bar offset-3 mb-3">
             <div className="input-group mt-3 form-sm form-2 pl-0">
               <input
                 className="form-control my-0 py-1 red-border"
@@ -200,7 +200,7 @@ class Food extends Component {
           <h4>Browse Common Foods By Food Group</h4>
           <hr /> */}
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-4">
             {this.state.foodGroupList.length ? (
               this.state.foodGroupList.map(foodGroupList => (
                 <div className="col-lg-12">
@@ -222,7 +222,7 @@ class Food extends Component {
                             src={foodGroupList.image}
                           />
                         </div>
-                        <div className="col-6 offset-1">
+                        <div className="col-8">
                           <button
                             key={foodGroupList.foodGroupName}
                             className="custom-btn text-center"
@@ -236,9 +236,9 @@ class Food extends Component {
                           </button>
                         </div>
                       </div>
-                      <div style={iconClass} className="moreIcon">
+                      {/* <div style={iconClass} className="moreIcon">
                         <p style={{ color: "blue" }}>more</p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -252,31 +252,30 @@ class Food extends Component {
             )}
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-8">
             {this.state.foodList.length ? (
               this.state.foodList.map(foodList => (
                 <div className="col-md-12">
                   <button
                     key={foodList._id}
                     onClick={() => this.saveFoodByUser(foodList._id, "")}
-                    className="btn btn-light btn-lg text-left designed p-5"
+                    className="btn btn-light btn-lg text-left p-1 mb-1 mt-1 btn-block"
                   >
-                    <div className="card-content">
+                    <div className="card-content p-1 m-1">
                       <strong>
                         <h5 style={foodDisplay}>{foodList.foodName}</h5>
-                        <br />
                         Food Group: {foodList.foodGroupName} <br />
                         Energy: {foodList.energy} kCal <br />
                         Potassium: {foodList.potassium} mg <br />
                         Efficiency: {foodList.efficiency} <br />
-                        Username: {foodList.userID} <br />
+                        {/* Username: {foodList.userID} <br /> */}
                       </strong>
                     </div>
-                    <div className="text-right">
+                    {/* <div className="text-right">
                       <i className="fa fa-gratipay" />
                       <br />
                       <p className="add-fav">Add to favorites</p>
-                    </div>
+                    </div> */}
                   </button>
                 </div>
               ))
@@ -284,7 +283,10 @@ class Food extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
-                    <h3>No Foods To Display</h3>
+                    <br />
+                    <br />
+
+                    <h3>Select a food group</h3>
                   </div>
                 </div>
               </div>
