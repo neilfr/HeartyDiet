@@ -125,7 +125,7 @@ class Login extends Component {
     };
 
     return (
-      <Container fluid>
+      <div className="container fluid">
         {/* <Row>
           <Col size="md-12">
             <Jumbotron>
@@ -142,7 +142,7 @@ class Login extends Component {
                     <h2 className="landing-head">
                       Hearty Diet
                       <hr />
-                      <h3>Meal Management and Potassium Nutrient Tracker</h3>
+                      <h3>Meal and Potassium Consumption Planner</h3>
                     </h2>
                     <br />
                     <h5>
@@ -206,7 +206,7 @@ class Login extends Component {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     );
   }
 }
