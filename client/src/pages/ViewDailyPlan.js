@@ -257,7 +257,6 @@ class DailyPlan extends Component {
             </div>
           </div>
         </div>
-        {/* done */}
         {this.state.currentDailyPlan ? (
           <div>
             <div className="d-flex flex-row justify-content-center mb-1">

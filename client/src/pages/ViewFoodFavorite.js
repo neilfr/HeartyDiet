@@ -120,8 +120,7 @@ class FoodFavorite extends Component {
                 {/* <h2>View Favorite Foods</h2>
                 <br /> */}
                 <h5>
-                  View your favorite foods. Favorite foods wil be used to create
-                  meals, etc. <br />
+                  View your favorite foods. <br />
                   <br />
                 </h5>
               </div>
@@ -140,9 +139,7 @@ class FoodFavorite extends Component {
                     foodGroup={foodFavoriteList.foodGroupName}
                     energy={foodFavoriteList.energy}
                     potassium={foodFavoriteList.potassium}
-                
                     username={foodFavoriteList.use}
-
                   />
                 </div>
               </Col>
