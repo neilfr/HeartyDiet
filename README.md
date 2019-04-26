@@ -4,7 +4,11 @@
 
 ## Link
 
-https://serene-plains-95860.herokuapp.com/
+- https://serene-plains-95860.herokuapp.com/
+
+## Contributors
+
+- https://github.com/neilfr/HeartyDiet/graphs/contributors
 
 ## Problem
 
